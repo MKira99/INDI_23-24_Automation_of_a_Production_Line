@@ -1,0 +1,15 @@
+Function Void Toggle_OFF_Mode()
+    SetNumGateValue("1",0,0);
+END
+
+Function Void Toggle_AUTO_Mode()
+    SetNumGateValue("1",0,1);
+END
+
+Function Void Toggle_MANUAL_Mode()
+    SetNumGateValue("1",0,2);
+END
+
+Function Void Toggle_MAINTENACE_Mode()
+    SetNumGateValue("1",0,3);
+END
