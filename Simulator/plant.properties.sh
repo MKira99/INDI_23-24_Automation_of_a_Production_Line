@@ -220,44 +220,67 @@ echo "
 # Loading Docks         #
 #########################
 "
+# a 'virtual' warehouse, representing the suppliers that will supply the raw materials
+WID=$((WID+1))
+echo "
+warehouse.$(( WID )).show = false
+warehouse.$(( WID )).length = 1
+warehouse.$(( WID )).width = 1
+warehouse.$(( WID )).orientation = horizontal
+warehouse.$(( WID )).center.x = $(( $Xoff + 1 ))
+warehouse.$(( WID )).center.y = $(( $Yoff + 1 ))
+warehouse.$(( WID )).block.1.stock = 10000
+warehouse.$(( WID )).block.2.stock = 10000
+warehouse.$(( WID )).block.3.stock = 0
+warehouse.$(( WID )).block.4.stock = 0
+warehouse.$(( WID )).block.5.stock = 0
+warehouse.$(( WID )).block.6.stock = 0
+warehouse.$(( WID )).mintime = 0
+warehouse.$(( WID )).maxtime = 0
+"
+
 ID=$((ID+1))
 echo "
-facility.$(( ID )).type = conveyor
+facility.$(( ID )).type = warehouseout
 facility.$(( ID )).length = 4
 facility.$(( ID )).width = 2
 facility.$(( ID )).orientation = vertical
 facility.$(( ID )).center.x = $(( $Xoff + 6 ))
 facility.$(( ID )).center.y = $(( $Yoff + 2 ))
+facility.$(( ID )).warehouse = $(( WID ))
 facility.$(( ID )).alias = Cin1
 "
 ID=$((ID+1))
 echo "
-facility.$(( ID )).type = conveyor
+facility.$(( ID )).type = warehouseout
 facility.$(( ID )).length = 4
 facility.$(( ID )).width = 2
 facility.$(( ID )).orientation = vertical
 facility.$(( ID )).center.x = $(( $Xoff + 10 ))
 facility.$(( ID )).center.y = $(( $Yoff +  2 ))
+facility.$(( ID )).warehouse = $(( WID ))
 facility.$(( ID )).alias = Cin2
 "
 ID=$((ID+1))
 echo "
-facility.$(( ID )).type = conveyor
+facility.$(( ID )).type = warehouseout
 facility.$(( ID )).length = 4
 facility.$(( ID )).width = 2
 facility.$(( ID )).orientation = vertical
 facility.$(( ID )).center.x = $(( $Xoff + 14 ))
 facility.$(( ID )).center.y = $(( $Yoff +  2 ))
+facility.$(( ID )).warehouse = $(( WID ))
 facility.$(( ID )).alias = Cin3
 "
 ID=$((ID+1))
 echo "
-facility.$(( ID )).type = conveyor
+facility.$(( ID )).type = warehouseout
 facility.$(( ID )).length = 4
 facility.$(( ID )).width = 2
 facility.$(( ID )).orientation = vertical
 facility.$(( ID )).center.x = $(( $Xoff + 18 ))
 facility.$(( ID )).center.y = $(( $Yoff +  2 ))
+facility.$(( ID )).warehouse = $(( WID ))
 facility.$(( ID )).alias = Cin4
 "
 
@@ -273,6 +296,7 @@ echo "
 "
 WID=$((WID+1))
 echo "
+warehouse.$(( WID )).show = true
 warehouse.$(( WID )).length = 26
 warehouse.$(( WID )).width = 2
 warehouse.$(( WID )).orientation = horizontal
@@ -420,6 +444,7 @@ echo "
 "
 WID=$((WID+1))
 echo "
+warehouse.$(( WID )).show = true
 warehouse.$(( WID )).length = 26
 warehouse.$(( WID )).width = 2
 warehouse.$(( WID )).orientation = horizontal
