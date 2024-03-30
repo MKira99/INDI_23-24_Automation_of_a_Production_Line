@@ -1,197 +1,197 @@
-Cin1;Conveyor;Sensor 0;0;Application.MAIN_SM.;sens_cin1;" : BOOL;";;Cin1;Conveyor;Motor_plus;Application.MAIN_SM.;act_cin1_m_plus;;" : BOOL;"
-Cin2;Conveyor;Sensor 0;1;Application.MAIN_SM.;sens_cin2;" : BOOL;";;Cin1;Conveyor;Motor _minus;Application.MAIN_SM.;act_cin1_m_minus;;" : BOOL;"
-Cin3;Conveyor;Sensor 0;2;Application.MAIN_SM.;sens_cin3;" : BOOL;";;Cin2;Conveyor;Motor _plus;Application.MAIN_SM.;act_cin2_m_plus;;" : BOOL;"
-Cin4;Conveyor;Sensor 0;3;Application.MAIN_SM.;sens_cin4;" : BOOL;";;Cin2;Conveyor;Motor _minus;Application.MAIN_SM.;act_cin2_m_minus;;" : BOOL;"
-AT1_in0;Warehouse In;Sensor 0;4;Application.MAIN_SM.;sens_wh1_in0;" : BOOL;";;Cin3;Conveyor;Motor _plus;Application.MAIN_SM.;act_cin3_m_plus;;" : BOOL;"
-AT1_in1;Warehouse In;Sensor 0;5;Application.MAIN_SM.;sens_wh1_in1;" : BOOL;";;Cin3;Conveyor;Motor _minus;Application.MAIN_SM.;act_cin3_m_minus;;" : BOOL;"
-AT1_in2;Warehouse In;Sensor 0;6;Application.MAIN_SM.;sens_wh1_in2;" : BOOL;";;Cin4;Conveyor;Motor _plus;Application.MAIN_SM.;act_cin4_m_plus;;" : BOOL;"
-AT1_in3;Warehouse In;Sensor 0;7;Application.MAIN_SM.;sens_wh1_in3;" : BOOL;";;Cin4;Conveyor;Motor _minus;Application.MAIN_SM.;act_cin4_m_minus;;" : BOOL;"
-AT1_in4;Warehouse In;Sensor 0;8;Application.MAIN_SM.;sens_wh1_in4;" : BOOL;";;AT1_in0;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh1_in0_m_plus;;" : BOOL;"
-AT1_out1;Warehouse Out;Sensor 0;9;Application.MAIN_SM.;sens_wh1_out1;" : BOOL;";;AT1_in0;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh1_in0_m_minus;;" : BOOL;"
-AT1_out2;Warehouse Out;Sensor 0;10;Application.MAIN_SM.;sens_wh1_out2;" : BOOL;";;AT1_in0;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh1_in0_whin;;" : BOOL;"
-AT1_out3;Warehouse Out;Sensor 0;11;Application.MAIN_SM.;sens_wh1_out3;" : BOOL;";;AT1_in1;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh1_in1_m_plus;;" : BOOL;"
-AT1_out4;Warehouse Out;Sensor 0;12;Application.MAIN_SM.;sens_wh1_out4;" : BOOL;";;AT1_in1;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh1_in1_m_minus;;" : BOOL;"
-AT1_out5;Warehouse Out;Sensor 0;13;Application.MAIN_SM.;sens_wh1_out5;" : BOOL;";;AT1_in1;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh1_in1_whin;;" : BOOL;"
-AT1_out6;Warehouse Out;Sensor 0;14;Application.MAIN_SM.;sens_wh1_out6;" : BOOL;";;AT1_in2;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh1_in2_m_plus;;" : BOOL;"
-AT2_out0;Warehouse Out;Sensor 0;15;Application.MAIN_SM.;sens_wh2_out0;" : BOOL;";;AT1_in2;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh1_in2_m_minus;;" : BOOL;"
-AT2_out1;Warehouse Out;Sensor 0;16;Application.MAIN_SM.;sens_wh2_out1;" : BOOL;";;AT1_in2;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh1_in2_whin;;" : BOOL;"
-AT2_out2;Warehouse Out;Sensor 0;17;Application.MAIN_SM.;sens_wh2_out2;" : BOOL;";;AT1_in3;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh1_in3_m_plus;;" : BOOL;"
-AT2_out3;Warehouse Out;Sensor 0;18;Application.MAIN_SM.;sens_wh2_out3;" : BOOL;";;AT1_in3;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh1_in3_m_minus;;" : BOOL;"
-AT2_out4;Warehouse Out;Sensor 0;19;Application.MAIN_SM.;sens_wh2_out4;" : BOOL;";;AT1_in3;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh1_in3_whin;;" : BOOL;"
-AT2_in1;Warehouse In;Sensor 0;20;Application.MAIN_SM.;sens_wh2_in1;" : BOOL;";;AT1_in4;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh1_in4_m_plus;;" : BOOL;"
-AT2_in2;Warehouse In;Sensor 0;21;Application.MAIN_SM.;sens_wh2_in2;" : BOOL;";;AT1_in4;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh1_in4_m_minus;;" : BOOL;"
-AT2_in3;Warehouse In;Sensor 0;22;Application.MAIN_SM.;sens_wh2_in3;" : BOOL;";;AT1_in4;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh1_in4_whin;;" : BOOL;"
-AT2_in4;Warehouse In;Sensor 0;23;Application.MAIN_SM.;sens_wh2_in4;" : BOOL;";;AT1_out1;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh1_out1_m_plus;;" : BOOL;"
-AT2_in5;Warehouse In;Sensor 0;24;Application.MAIN_SM.;sens_wh2_in5;" : BOOL;";;AT1_out1;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh1_out1_m_minus;;" : BOOL;"
-AT2_in6;Warehouse In;Sensor 0;25;Application.MAIN_SM.;sens_wh2_in6;" : BOOL;";;AT1_out2;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh1_out2_m_plus;;" : BOOL;"
-Cell0_Ctop;Conveyor;Sensor 0;26;Application.MAIN_SM.;sens_c0_top_conv;" : BOOL;";;AT1_out2;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh1_out2_m_minus;;" : BOOL;"
-Cell0_Cmid;Conveyor;Sensor 0;27;Application.MAIN_SM.;sens_c0_mid_conv;" : BOOL;";;AT1_out3;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh1_out3_m_plus;;" : BOOL;"
-Cell0_Cbot;Conveyor;Sensor 0;28;Application.MAIN_SM.;sens_c0_bot_conv;" : BOOL;";;AT1_out3;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh1_out3_m_minus;;" : BOOL;"
-Cell1_Mtop;Machine;Sensor 0;29;Application.MAIN_SM.;sens_c1_top_conv;" : BOOL;";;AT1_out4;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh1_out4_m_plus;;" : BOOL;"
-Cell1_Mtop;Machine;Tool Sensor;30;Application.MAIN_SM.;sens_c1_top_tool;" : BOOL;";;AT1_out4;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh1_out4_m_minus;;" : BOOL;"
-Cell1_Mtop;Machine;Y _minus Sensor;31;Application.MAIN_SM.;sens_c1_top_y_minus;" : BOOL;";;AT1_out5;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh1_out5_m_plus;;" : BOOL;"
-Cell1_Mtop;Machine;Y _plus Sensor;32;Application.MAIN_SM.;sens_c1_top_y_plus;" : BOOL;";;AT1_out5;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh1_out5_m_minus;;" : BOOL;"
-Cell1_Mtop;Machine;Z _minus Sensor;33;Application.MAIN_SM.;sens_c1_top_z_minus;" : BOOL;";;AT1_out6;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh1_out6_m_plus;;" : BOOL;"
-Cell1_Mtop;Machine;Z _plus Sensor;34;Application.MAIN_SM.;sens_c1_top_z_plus;" : BOOL;";;AT1_out6;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh1_out6_m_minus;;" : BOOL;"
-Cell1_Cmid;Conveyor;Sensor 0;35;Application.MAIN_SM.;sens_c1_mid_conv;" : BOOL;";;AT2_out0;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh2_out0_m_plus;;" : BOOL;"
-Cell1_Mbot;Machine;Sensor 0;36;Application.MAIN_SM.;sens_c1_bot_conv;" : BOOL;";;AT2_out0;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh2_out0_m_minus;;" : BOOL;"
-Cell1_Mbot;Machine;Tool Sensor;37;Application.MAIN_SM.;sens_c1_bot_tool;" : BOOL;";;AT2_out1;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh2_out1_m_plus;;" : BOOL;"
-Cell1_Mbot;Machine;Y _minus Sensor;38;Application.MAIN_SM.;sens_c1_bot_y_minus;" : BOOL;";;AT2_out1;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh2_out1_m_minus;;" : BOOL;"
-Cell1_Mbot;Machine;Y _plus Sensor;39;Application.MAIN_SM.;sens_c1_bot_y_plus;" : BOOL;";;AT2_out2;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh2_out2_m_plus;;" : BOOL;"
-Cell1_Mbot;Machine;Z _minus Sensor;40;Application.MAIN_SM.;sens_c1_bot_z_minus;" : BOOL;";;AT2_out2;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh2_out2_m_minus;;" : BOOL;"
-Cell1_Mbot;Machine;Z _plus Sensor;41;Application.MAIN_SM.;sens_c1_bot_z_plus;" : BOOL;";;AT2_out3;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh2_out3_m_plus;;" : BOOL;"
-Cell2_Mtop;Machine;Sensor 0;42;Application.MAIN_SM.;sens_c2_top_conv;" : BOOL;";;AT2_out3;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh2_out3_m_minus;;" : BOOL;"
-Cell2_Mtop;Machine;Tool Sensor;43;Application.MAIN_SM.;sens_c2_top_tool;" : BOOL;";;AT2_out4;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh2_out4_m_plus;;" : BOOL;"
-Cell2_Mtop;Machine;Y _minus Sensor;44;Application.MAIN_SM.;sens_c2_top_y_minus;" : BOOL;";;AT2_out4;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh2_out4_m_minus;;" : BOOL;"
-Cell2_Mtop;Machine;Y _plus Sensor;45;Application.MAIN_SM.;sens_c2_top_y_plus;" : BOOL;";;AT2_in1;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh2_in1_m_plus;;" : BOOL;"
-Cell2_Mtop;Machine;Z _minus Sensor;46;Application.MAIN_SM.;sens_c2_top_z_minus;" : BOOL;";;AT2_in1;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh2_in1_m_minus;;" : BOOL;"
-Cell2_Mtop;Machine;Z _plus Sensor;47;Application.MAIN_SM.;sens_c2_top_z_plus;" : BOOL;";;AT2_in1;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh2_in1_whin;;" : BOOL;"
-Cell2_Cmid;Conveyor;Sensor 0;48;Application.MAIN_SM.;sens_c2_mid_conv;" : BOOL;";;AT2_in2;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh2_in2_m_plus;;" : BOOL;"
-Cell2_Mbot;Machine;Sensor 0;49;Application.MAIN_SM.;sens_c2_bot_conv;" : BOOL;";;AT2_in2;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh2_in2_m_minus;;" : BOOL;"
-Cell2_Mbot;Machine;Tool Sensor;50;Application.MAIN_SM.;sens_c2_bot_tool;" : BOOL;";;AT2_in2;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh2_in2_whin;;" : BOOL;"
-Cell2_Mbot;Machine;Y _minus Sensor;51;Application.MAIN_SM.;sens_c2_bot_y_minus;" : BOOL;";;AT2_in3;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh2_in3_m_plus;;" : BOOL;"
-Cell2_Mbot;Machine;Y _plus Sensor;52;Application.MAIN_SM.;sens_c2_bot_y_plus;" : BOOL;";;AT2_in3;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh2_in3_m_minus;;" : BOOL;"
-Cell2_Mbot;Machine;Z _minus Sensor;53;Application.MAIN_SM.;sens_c2_bot_z_minus;" : BOOL;";;AT2_in3;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh2_in3_whin;;" : BOOL;"
-Cell2_Mbot;Machine;Z _plus Sensor;54;Application.MAIN_SM.;sens_c2_bot_z_plus;" : BOOL;";;AT2_in4;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh2_in4_m_plus;;" : BOOL;"
-Cell3_Mtop;Machine;Sensor 0;55;Application.MAIN_SM.;sens_c3_top_conv;" : BOOL;";;AT2_in4;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh2_in4_m_minus;;" : BOOL;"
-Cell3_Mtop;Machine;Tool Sensor;56;Application.MAIN_SM.;sens_c3_top_tool;" : BOOL;";;AT2_in4;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh2_in4_whin;;" : BOOL;"
-Cell3_Mtop;Machine;Y _minus Sensor;57;Application.MAIN_SM.;sens_c3_top_y_minus;" : BOOL;";;AT2_in5;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh2_in5_m_plus;;" : BOOL;"
-Cell3_Mtop;Machine;Y _plus Sensor;58;Application.MAIN_SM.;sens_c3_top_y_plus;" : BOOL;";;AT2_in5;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh2_in5_m_minus;;" : BOOL;"
-Cell3_Mtop;Machine;Z _minus Sensor;59;Application.MAIN_SM.;sens_c3_top_z_minus;" : BOOL;";;AT2_in5;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh2_in5_whin;;" : BOOL;"
-Cell3_Mtop;Machine;Z _plus Sensor;60;Application.MAIN_SM.;sens_c3_top_z_plus;" : BOOL;";;AT2_in6;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh2_in6_m_plus;;" : BOOL;"
-Cell3_Cmid;Conveyor;Sensor 0;61;Application.MAIN_SM.;sens_c3_mid_conv;" : BOOL;";;AT2_in6;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh2_in6_m_minus;;" : BOOL;"
-Cell3_Mbot;Machine;Sensor 0;62;Application.MAIN_SM.;sens_c3_bot_conv;" : BOOL;";;AT2_in6;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh2_in6_whin;;" : BOOL;"
-Cell3_Mbot;Machine;Tool Sensor;63;Application.MAIN_SM.;sens_c3_bot_tool;" : BOOL;";;Cell0_Ctop;Conveyor;Motor _plus;Application.MAIN_SM.;act_c0_top_m_plus;;" : BOOL;"
-Cell3_Mbot;Machine;Y _minus Sensor;64;Application.MAIN_SM.;sens_c3_bot_y_minus;" : BOOL;";;Cell0_Ctop;Conveyor;Motor _minus;Application.MAIN_SM.;act_c0_top_m_minus;;" : BOOL;"
-Cell3_Mbot;Machine;Y _plus Sensor;65;Application.MAIN_SM.;sens_c3_bot_y_plus;" : BOOL;";;Cell0_Cmid;Conveyor;Motor _plus;Application.MAIN_SM.;act_c0_mid_m_plus;;" : BOOL;"
-Cell3_Mbot;Machine;Z _minus Sensor;66;Application.MAIN_SM.;sens_c3_bot_z_minus;" : BOOL;";;Cell0_Cmid;Conveyor;Motor _minus;Application.MAIN_SM.;act_c0_mid_m_minus;;" : BOOL;"
-Cell3_Mbot;Machine;Z _plus Sensor;67;Application.MAIN_SM.;sens_c3_bot_z_plus;" : BOOL;";;Cell0_Cbot;Conveyor;Motor _plus;Application.MAIN_SM.;act_c0_bot_m_plus;;" : BOOL;"
-Cell4_Mtop;Machine;Sensor 0;68;Application.MAIN_SM.;sens_c4_top_conv;" : BOOL;";;Cell0_Cbot;Conveyor;Motor _minus;Application.MAIN_SM.;act_c0_bot_m_minus;;" : BOOL;"
-Cell4_Mtop;Machine;Tool Sensor;69;Application.MAIN_SM.;sens_c4_top_tool;" : BOOL;";;Cell1_Mtop;Machine;Motor _plus;Application.MAIN_SM.;act_c1_top_m_plus;;" : BOOL;"
-Cell4_Mtop;Machine;Y _minus Sensor;70;Application.MAIN_SM.;sens_c4_top_y_minus;" : BOOL;";;Cell1_Mtop;Machine;Motor _minus;Application.MAIN_SM.;act_c1_top_m_minus;;" : BOOL;"
-Cell4_Mtop;Machine;Y _plus Sensor;71;Application.MAIN_SM.;sens_c4_top_y_plus;" : BOOL;";;Cell1_Mtop;Machine;Rotate _minus;Application.MAIN_SM.;act_c1_top_r_minus;;" : BOOL;"
-Cell4_Mtop;Machine;Z _minus Sensor;72;Application.MAIN_SM.;sens_c4_top_z_minus;" : BOOL;";;Cell1_Mtop;Machine;Rotate _plus;Application.MAIN_SM.;act_c1_top_r_plus;;" : BOOL;"
-Cell4_Mtop;Machine;Z _plus Sensor;73;Application.MAIN_SM.;sens_c4_top_z_plus;" : BOOL;";;Cell1_Mtop;Machine;Tool;Application.MAIN_SM.;act_c1_top_tool;;" : BOOL;"
-Cell4_Cmid;Conveyor;Sensor 0;74;Application.MAIN_SM.;sens_c4_mid_conv;" : BOOL;";;Cell1_Mtop;Machine;Y _minus;Application.MAIN_SM.;act_c1_top_y_minus;;" : BOOL;"
-Cell4_Mbot;Machine;Sensor 0;75;Application.MAIN_SM.;sens_c4_bot_conv;" : BOOL;";;Cell1_Mtop;Machine;Y _plus;Application.MAIN_SM.;act_c1_top_y_plus;;" : BOOL;"
-Cell4_Mbot;Machine;Tool Sensor;76;Application.MAIN_SM.;sens_c4_bot_tool;" : BOOL;";;Cell1_Mtop;Machine;Z _minus;Application.MAIN_SM.;act_c1_top_z_minus;;" : BOOL;"
-Cell4_Mbot;Machine;Y _minus Sensor;77;Application.MAIN_SM.;sens_c4_bot_y_minus;" : BOOL;";;Cell1_Mtop;Machine;Z _plus;Application.MAIN_SM.;act_c1_top_z_plus;;" : BOOL;"
-Cell4_Mbot;Machine;Y _plus Sensor;78;Application.MAIN_SM.;sens_c4_bot_y_plus;" : BOOL;";;Cell1_Cmid;Conveyor;Motor _plus;Application.MAIN_SM.;act_c1_mid_m_plus;;" : BOOL;"
-Cell4_Mbot;Machine;Z _minus Sensor;79;Application.MAIN_SM.;sens_c4_bot_z_minus;" : BOOL;";;Cell1_Cmid;Conveyor;Motor _minus;Application.MAIN_SM.;act_c1_mid_m_minus;;" : BOOL;"
-Cell4_Mbot;Machine;Z _plus Sensor;80;Application.MAIN_SM.;sens_c4_bot_z_plus;" : BOOL;";;Cell1_Mbot;Machine;Motor _plus;Application.MAIN_SM.;act_c1_bot_m_plus;;" : BOOL;"
-Cell5_Mtop;Machine;Sensor 0;81;Application.MAIN_SM.;sens_c5_top_conv;" : BOOL;";;Cell1_Mbot;Machine;Motor _minus;Application.MAIN_SM.;act_c1_bot_m_minus;;" : BOOL;"
-Cell5_Mtop;Machine;Tool Sensor;82;Application.MAIN_SM.;sens_c5_top_tool;" : BOOL;";;Cell1_Mbot;Machine;Rotate _minus;Application.MAIN_SM.;act_c1_bot_r_minus;;" : BOOL;"
-Cell5_Mtop;Machine;Y _minus Sensor;83;Application.MAIN_SM.;sens_c5_top_y_minus;" : BOOL;";;Cell1_Mbot;Machine;Rotate _plus;Application.MAIN_SM.;act_c1_bot_r_plus;;" : BOOL;"
-Cell5_Mtop;Machine;Y _plus Sensor;84;Application.MAIN_SM.;sens_c5_top_y_plus;" : BOOL;";;Cell1_Mbot;Machine;Tool;Application.MAIN_SM.;act_c1_bot_tool;;" : BOOL;"
-Cell5_Mtop;Machine;Z _minus Sensor;85;Application.MAIN_SM.;sens_c5_top_z_minus;" : BOOL;";;Cell1_Mbot;Machine;Y _minus;Application.MAIN_SM.;act_c1_bot_y_minus;;" : BOOL;"
-Cell5_Mtop;Machine;Z _plus Sensor;86;Application.MAIN_SM.;sens_c5_top_z_plus;" : BOOL;";;Cell1_Mbot;Machine;Y _plus;Application.MAIN_SM.;act_c1_bot_y_plus;;" : BOOL;"
-Cell5_Cmid;Conveyor;Sensor 0;87;Application.MAIN_SM.;sens_c5_mid_conv;" : BOOL;";;Cell1_Mbot;Machine;Z _minus;Application.MAIN_SM.;act_c1_bot_z_minus;;" : BOOL;"
-Cell5_Mbot;Machine;Sensor 0;88;Application.MAIN_SM.;sens_c5_bot_conv;" : BOOL;";;Cell1_Mbot;Machine;Z _plus;Application.MAIN_SM.;act_c1_bot_z_plus;;" : BOOL;"
-Cell5_Mbot;Machine;Tool Sensor;89;Application.MAIN_SM.;sens_c5_bot_tool;" : BOOL;";;Cell2_Mtop;Machine;Motor _plus;Application.MAIN_SM.;act_c2_top_m_plus;;" : BOOL;"
-Cell5_Mbot;Machine;Y _minus Sensor;90;Application.MAIN_SM.;sens_c5_bot_y_minus;" : BOOL;";;Cell2_Mtop;Machine;Motor _minus;Application.MAIN_SM.;act_c2_top_m_minus;;" : BOOL;"
-Cell5_Mbot;Machine;Y _plus Sensor;91;Application.MAIN_SM.;sens_c5_bot_y_plus;" : BOOL;";;Cell2_Mtop;Machine;Rotate _minus;Application.MAIN_SM.;act_c2_top_r_minus;;" : BOOL;"
-Cell5_Mbot;Machine;Z _minus Sensor;92;Application.MAIN_SM.;sens_c5_bot_z_minus;" : BOOL;";;Cell2_Mtop;Machine;Rotate _plus;Application.MAIN_SM.;act_c2_top_r_plus;;" : BOOL;"
-Cell5_Mbot;Machine;Z _plus Sensor;93;Application.MAIN_SM.;sens_c5_bot_z_plus;" : BOOL;";;Cell2_Mtop;Machine;Tool;Application.MAIN_SM.;act_c2_top_tool;;" : BOOL;"
-Cell6_Mtop;Machine;Sensor 0;94;Application.MAIN_SM.;sens_c6_top_conv;" : BOOL;";;Cell2_Mtop;Machine;Y _minus;Application.MAIN_SM.;act_c2_top_y_minus;;" : BOOL;"
-Cell6_Mtop;Machine;Tool Sensor;95;Application.MAIN_SM.;sens_c6_top_tool;" : BOOL;";;Cell2_Mtop;Machine;Y _plus;Application.MAIN_SM.;act_c2_top_y_plus;;" : BOOL;"
-Cell6_Mtop;Machine;Y _minus Sensor;96;Application.MAIN_SM.;sens_c6_top_y_minus;" : BOOL;";;Cell2_Mtop;Machine;Z _minus;Application.MAIN_SM.;act_c2_top_z_minus;;" : BOOL;"
-Cell6_Mtop;Machine;Y _plus Sensor;97;Application.MAIN_SM.;sens_c6_top_y_plus;" : BOOL;";;Cell2_Mtop;Machine;Z _plus;Application.MAIN_SM.;act_c2_top_z_plus;;" : BOOL;"
-Cell6_Mtop;Machine;Z _minus Sensor;98;Application.MAIN_SM.;sens_c6_top_z_minus;" : BOOL;";;Cell2_Cmid;Conveyor;Motor _plus;Application.MAIN_SM.;act_c2_mid_m_plus;;" : BOOL;"
-Cell6_Mtop;Machine;Z _plus Sensor;99;Application.MAIN_SM.;sens_c6_top_z_plus;" : BOOL;";;Cell2_Cmid;Conveyor;Motor _minus;Application.MAIN_SM.;act_c2_mid_m_minus;;" : BOOL;"
-Cell6_Cmid;Conveyor;Sensor 0;100;Application.MAIN_SM.;sens_c6_mid_conv;" : BOOL;";;Cell2_Mbot;Machine;Motor _plus;Application.MAIN_SM.;act_c2_bot_m_plus;;" : BOOL;"
-Cell6_Mbot;Machine;Sensor 0;101;Application.MAIN_SM.;sens_c6_bot_conv;" : BOOL;";;Cell2_Mbot;Machine;Motor _minus;Application.MAIN_SM.;act_c2_bot_m_minus;;" : BOOL;"
-Cell6_Mbot;Machine;Tool Sensor;102;Application.MAIN_SM.;sens_c6_bot_tool;" : BOOL;";;Cell2_Mbot;Machine;Rotate _minus;Application.MAIN_SM.;act_c2_bot_r_minus;;" : BOOL;"
-Cell6_Mbot;Machine;Y _minus Sensor;103;Application.MAIN_SM.;sens_c6_bot_y_minus;" : BOOL;";;Cell2_Mbot;Machine;Rotate _plus;Application.MAIN_SM.;act_c2_bot_r_plus;;" : BOOL;"
-Cell6_Mbot;Machine;Y _plus Sensor;104;Application.MAIN_SM.;sens_c6_bot_y_plus;" : BOOL;";;Cell2_Mbot;Machine;Tool;Application.MAIN_SM.;act_c2_bot_tool;;" : BOOL;"
-Cell6_Mbot;Machine;Z _minus Sensor;105;Application.MAIN_SM.;sens_c6_bot_z_minus;" : BOOL;";;Cell2_Mbot;Machine;Y _minus;Application.MAIN_SM.;act_c2_bot_y_minus;;" : BOOL;"
-Cell6_Mbot;Machine;Z _plus Sensor;106;Application.MAIN_SM.;sens_c6_bot_z_plus;" : BOOL;";;Cell2_Mbot;Machine;Y _plus;Application.MAIN_SM.;act_c2_bot_y_plus;;" : BOOL;"
-Roll1a;Roller;Sensor 0;107;Application.MAIN_SM.;sens_roll1a;" : BOOL;";;Cell2_Mbot;Machine;Z _minus;Application.MAIN_SM.;act_c2_bot_z_minus;;" : BOOL;"
-Roll1b;Roller;Sensor 0;108;Application.MAIN_SM.;sens_roll1b;" : BOOL;";;Cell2_Mbot;Machine;Z _plus;Application.MAIN_SM.;act_c2_bot_z_plus;;" : BOOL;"
-Roll1c;Roller;Sensor 0;109;Application.MAIN_SM.;sens_roll1c;" : BOOL;";;Cell3_Mtop;Machine;Motor _plus;Application.MAIN_SM.;act_c3_top_m_plus;;" : BOOL;"
-Roll1d;Roller;Sensor 0;110;Application.MAIN_SM.;sens_roll1d;" : BOOL;";;Cell3_Mtop;Machine;Motor _minus;Application.MAIN_SM.;act_c3_top_m_minus;;" : BOOL;"
-Roll1e;Roller;Sensor 0;111;Application.MAIN_SM.;sens_roll1e;" : BOOL;";;Cell3_Mtop;Machine;Rotate _minus;Application.MAIN_SM.;act_c3_top_r_minus;;" : BOOL;"
-Roll1f;Conveyor;Sensor 0;112;Application.MAIN_SM.;sens_roll1f;" : BOOL;";;Cell3_Mtop;Machine;Rotate _plus;Application.MAIN_SM.;act_c3_top_r_plus;;" : BOOL;"
-Roll2a;Roller;Sensor 0;113;Application.MAIN_SM.;sens_roll2a;" : BOOL;";;Cell3_Mtop;Machine;Tool;Application.MAIN_SM.;act_c3_top_tool;;" : BOOL;"
-Roll2b;Roller;Sensor 0;114;Application.MAIN_SM.;sens_roll2b;" : BOOL;";;Cell3_Mtop;Machine;Y _minus;Application.MAIN_SM.;act_c3_top_y_minus;;" : BOOL;"
-Roll2c;Roller;Sensor 0;115;Application.MAIN_SM.;sens_roll2c;" : BOOL;";;Cell3_Mtop;Machine;Y _plus;Application.MAIN_SM.;act_c3_top_y_plus;;" : BOOL;"
-Roll2d;Roller;Sensor 0;116;Application.MAIN_SM.;sens_roll2d;" : BOOL;";;Cell3_Mtop;Machine;Z _minus;Application.MAIN_SM.;act_c3_top_z_minus;;" : BOOL;"
-Roll2e;Roller;Sensor 0;117;Application.MAIN_SM.;sens_roll2e;" : BOOL;";;Cell3_Mtop;Machine;Z _plus;Application.MAIN_SM.;act_c3_top_z_plus;;" : BOOL;"
-Roll2f;Conveyor;Sensor 0;118;Application.MAIN_SM.;sens_roll2f;" : BOOL;";;Cell3_Cmid;Conveyor;Motor _plus;Application.MAIN_SM.;act_c3_mid_m_plus;;" : BOOL;"
-Roll3a;Roller;Sensor 0;119;Application.MAIN_SM.;sens_roll3a;" : BOOL;";;Cell3_Cmid;Conveyor;Motor _minus;Application.MAIN_SM.;act_c3_mid_m_minus;;" : BOOL;"
-Roll3b;Roller;Sensor 0;120;Application.MAIN_SM.;sens_roll3b;" : BOOL;";;Cell3_Mbot;Machine;Motor _plus;Application.MAIN_SM.;act_c3_bot_m_plus;;" : BOOL;"
-Roll3c;Roller;Sensor 0;121;Application.MAIN_SM.;sens_roll3c;" : BOOL;";;Cell3_Mbot;Machine;Motor _minus;Application.MAIN_SM.;act_c3_bot_m_minus;;" : BOOL;"
-Roll3d;Roller;Sensor 0;122;Application.MAIN_SM.;sens_roll3d;" : BOOL;";;Cell3_Mbot;Machine;Rotate _minus;Application.MAIN_SM.;act_c3_bot_r_minus;;" : BOOL;"
-Roll3e;Roller;Sensor 0;123;Application.MAIN_SM.;sens_roll3e;" : BOOL;";;Cell3_Mbot;Machine;Rotate _plus;Application.MAIN_SM.;act_c3_bot_r_plus;;" : BOOL;"
-Roll3f;Conveyor;Sensor 0;124;Application.MAIN_SM.;sens_roll3f;" : BOOL;";;Cell3_Mbot;Machine;Tool;Application.MAIN_SM.;act_c3_bot_tool;;" : BOOL;"
-Roll4a;Roller;Sensor 0;125;Application.MAIN_SM.;sens_roll4a;" : BOOL;";;Cell3_Mbot;Machine;Y _minus;Application.MAIN_SM.;act_c3_bot_y_minus;;" : BOOL;"
-Roll4b;Roller;Sensor 0;126;Application.MAIN_SM.;sens_roll4b;" : BOOL;";;Cell3_Mbot;Machine;Y _plus;Application.MAIN_SM.;act_c3_bot_y_plus;;" : BOOL;"
-Roll4c;Roller;Sensor 0;127;Application.MAIN_SM.;sens_roll4c;" : BOOL;";;Cell3_Mbot;Machine;Z _minus;Application.MAIN_SM.;act_c3_bot_z_minus;;" : BOOL;"
-Roll4d;Roller;Sensor 0;128;Application.MAIN_SM.;sens_roll4d;" : BOOL;";;Cell3_Mbot;Machine;Z _plus;Application.MAIN_SM.;act_c3_bot_z_plus;;" : BOOL;"
-Roll4e;Roller;Sensor 0;129;Application.MAIN_SM.;sens_roll4e;" : BOOL;";;Cell4_Mtop;Machine;Motor _plus;Application.MAIN_SM.;act_c4_top_m_plus;;" : BOOL;"
-Roll4f;Conveyor;Sensor 0;130;Application.MAIN_SM.;sens_roll4f;sens_roll4f;;Cell4_Mtop;Machine;Motor _minus;Application.MAIN_SM.;act_c4_top_m_minus;;" : BOOL;"
-;;;;;;;;Cell4_Mtop;Machine;Rotate _minus;Application.MAIN_SM.;act_c4_top_r_minus;;" : BOOL;"
-;;;;;;;;Cell4_Mtop;Machine;Rotate _plus;Application.MAIN_SM.;act_c4_top_r_plus;;" : BOOL;"
-;;;;;;;;Cell4_Mtop;Machine;Tool;Application.MAIN_SM.;act_c4_top_tool;;" : BOOL;"
-;;;;;;;;Cell4_Mtop;Machine;Y _minus;Application.MAIN_SM.;act_c4_top_y_minus;;" : BOOL;"
-;;;;;;;;Cell4_Mtop;Machine;Y _plus;Application.MAIN_SM.;act_c4_top_y_plus;;" : BOOL;"
-;;;;;;;;Cell4_Mtop;Machine;Z _minus;Application.MAIN_SM.;act_c4_top_z_minus;;" : BOOL;"
-;;;;;;;;Cell4_Mtop;Machine;Z _plus;Application.MAIN_SM.;act_c4_top_z_plus;;" : BOOL;"
-;;;;;;;;Cell4_Cmid;Conveyor;Motor _plus;Application.MAIN_SM.;act_c4_mid_m_plus;;" : BOOL;"
-;;;;;;;;Cell4_Cmid;Conveyor;Motor _minus;Application.MAIN_SM.;act_c4_mid_m_minus;;" : BOOL;"
-;;;;;;;;Cell4_Mbot;Machine;Motor _plus;Application.MAIN_SM.;act_c4_bot_m_plus;;" : BOOL;"
-;;;;;;;;Cell4_Mbot;Machine;Motor _minus;Application.MAIN_SM.;act_c4_bot_m_minus;;" : BOOL;"
-;;;;;;;;Cell4_Mbot;Machine;Rotate _minus;Application.MAIN_SM.;act_c4_bot_r_minus;;" : BOOL;"
-;;;;;;;;Cell4_Mbot;Machine;Rotate _plus;Application.MAIN_SM.;act_c4_bot_r_plus;;" : BOOL;"
-;;;;;;;;Cell4_Mbot;Machine;Tool;Application.MAIN_SM.;act_c4_bot_tool;;" : BOOL;"
-;;;;;;;;Cell4_Mbot;Machine;Y _minus;Application.MAIN_SM.;act_c4_bot_y_minus;;" : BOOL;"
-;;;;;;;;Cell4_Mbot;Machine;Y _plus;Application.MAIN_SM.;act_c4_bot_y_plus;;" : BOOL;"
-;;;;;;;;Cell4_Mbot;Machine;Z _minus;Application.MAIN_SM.;act_c4_bot_z_minus;;" : BOOL;"
-;;;;;;;;Cell4_Mbot;Machine;Z _plus;Application.MAIN_SM.;act_c4_bot_z_plus;;" : BOOL;"
-;;;;;;;;Cell5_Mtop;Machine;Motor _plus;Application.MAIN_SM.;act_c5_top_m_plus;;" : BOOL;"
-;;;;;;;;Cell5_Mtop;Machine;Motor _minus;Application.MAIN_SM.;act_c5_top_m_minus;;" : BOOL;"
-;;;;;;;;Cell5_Mtop;Machine;Rotate _minus;Application.MAIN_SM.;act_c5_top_r_minus;;" : BOOL;"
-;;;;;;;;Cell5_Mtop;Machine;Rotate _plus;Application.MAIN_SM.;act_c5_top_r_plus;;" : BOOL;"
-;;;;;;;;Cell5_Mtop;Machine;Tool;Application.MAIN_SM.;act_c5_top_tool;;" : BOOL;"
-;;;;;;;;Cell5_Mtop;Machine;Y _minus;Application.MAIN_SM.;act_c5_top_y_minus;;" : BOOL;"
-;;;;;;;;Cell5_Mtop;Machine;Y _plus;Application.MAIN_SM.;act_c5_top_y_plus;;" : BOOL;"
-;;;;;;;;Cell5_Mtop;Machine;Z _minus;Application.MAIN_SM.;act_c5_top_z_minus;;" : BOOL;"
-;;;;;;;;Cell5_Mtop;Machine;Z _plus;Application.MAIN_SM.;act_c5_top_z_plus;;" : BOOL;"
-;;;;;;;;Cell5_Cmid;Conveyor;Motor _plus;Application.MAIN_SM.;act_c5_mid_m_plus;;" : BOOL;"
-;;;;;;;;Cell5_Cmid;Conveyor;Motor _minus;Application.MAIN_SM.;act_c5_mid_m_minus;;" : BOOL;"
-;;;;;;;;Cell5_Mbot;Machine;Motor _plus;Application.MAIN_SM.;act_c5_bot_m_plus;;" : BOOL;"
-;;;;;;;;Cell5_Mbot;Machine;Motor _minus;Application.MAIN_SM.;act_c5_bot_m_minus;;" : BOOL;"
-;;;;;;;;Cell5_Mbot;Machine;Rotate _minus;Application.MAIN_SM.;act_c5_bot_r_minus;;" : BOOL;"
-;;;;;;;;Cell5_Mbot;Machine;Rotate _plus;Application.MAIN_SM.;act_c5_bot_r_plus;;" : BOOL;"
-;;;;;;;;Cell5_Mbot;Machine;Tool;Application.MAIN_SM.;act_c5_bot_tool;;" : BOOL;"
-;;;;;;;;Cell5_Mbot;Machine;Y _minus;Application.MAIN_SM.;act_c5_bot_y_minus;;" : BOOL;"
-;;;;;;;;Cell5_Mbot;Machine;Y _plus;Application.MAIN_SM.;act_c5_bot_y_plus;;" : BOOL;"
-;;;;;;;;Cell5_Mbot;Machine;Z _minus;Application.MAIN_SM.;act_c5_bot_z_minus;;" : BOOL;"
-;;;;;;;;Cell5_Mbot;Machine;Z _plus;Application.MAIN_SM.;act_c5_bot_z_plus;;" : BOOL;"
-;;;;;;;;Cell6_Mtop;Machine;Motor _plus;Application.MAIN_SM.;act_c6_top_m_plus;;" : BOOL;"
-;;;;;;;;Cell6_Mtop;Machine;Motor _minus;Application.MAIN_SM.;act_c6_top_m_minus;;" : BOOL;"
-;;;;;;;;Cell6_Mtop;Machine;Rotate _minus;Application.MAIN_SM.;act_c6_top_r_minus;;" : BOOL;"
-;;;;;;;;Cell6_Mtop;Machine;Rotate _plus;Application.MAIN_SM.;act_c6_top_r_plus;;" : BOOL;"
-;;;;;;;;Cell6_Mtop;Machine;Tool;Application.MAIN_SM.;act_c6_top_tool;;" : BOOL;"
-;;;;;;;;Cell6_Mtop;Machine;Y _minus;Application.MAIN_SM.;act_c6_top_y_minus;;" : BOOL;"
-;;;;;;;;Cell6_Mtop;Machine;Y _plus;Application.MAIN_SM.;act_c6_top_y_plus;;" : BOOL;"
-;;;;;;;;Cell6_Mtop;Machine;Z _minus;Application.MAIN_SM.;act_c6_top_z_minus;;" : BOOL;"
-;;;;;;;;Cell6_Mtop;Machine;Z _plus;Application.MAIN_SM.;act_c6_top_z_plus;;" : BOOL;"
-;;;;;;;;Cell6_Cmid;Conveyor;Motor _plus;Application.MAIN_SM.;act_c6_mid_m_plus;;" : BOOL;"
-;;;;;;;;Cell6_Cmid;Conveyor;Motor _minus;Application.MAIN_SM.;act_c6_mid_m_minus;;" : BOOL;"
-;;;;;;;;Cell6_Mbot;Machine;Motor _plus;Application.MAIN_SM.;act_c6_bot_m_plus;;" : BOOL;"
-;;;;;;;;Cell6_Mbot;Machine;Motor _minus;Application.MAIN_SM.;act_c6_bot_m_minus;;" : BOOL;"
-;;;;;;;;Cell6_Mbot;Machine;Rotate _minus;Application.MAIN_SM.;act_c6_bot_r_minus;;" : BOOL;"
-;;;;;;;;Cell6_Mbot;Machine;Rotate _plus;Application.MAIN_SM.;act_c6_bot_r_plus;;" : BOOL;"
-;;;;;;;;Cell6_Mbot;Machine;Tool;Application.MAIN_SM.;act_c6_bot_tool;;" : BOOL;"
-;;;;;;;;Cell6_Mbot;Machine;Y _minus;Application.MAIN_SM.;act_c6_bot_y_minus;;" : BOOL;"
-;;;;;;;;Cell6_Mbot;Machine;Y _plus;Application.MAIN_SM.;act_c6_bot_y_plus;;" : BOOL;"
-;;;;;;;;Cell6_Mbot;Machine;Z _minus;Application.MAIN_SM.;act_c6_bot_z_minus;;" : BOOL;"
-;;;;;;;;Cell6_Mbot;Machine;Z _plus;Application.MAIN_SM.;act_c6_bot_z_plus;;" : BOOL;"
-;;;;;;;;Roll1f;Conveyor;Motor _plus;Application.MAIN_SM.;act_roll1_m_plus;;" : BOOL;"
-;;;;;;;;Roll1f;Conveyor;Motor _minus;Application.MAIN_SM.;act_roll1_m_minus;;" : BOOL;"
-;;;;;;;;Roll2f;Conveyor;Motor _plus;Application.MAIN_SM.;act_roll2_m_plus;;" : BOOL;"
-;;;;;;;;Roll2f;Conveyor;Motor _minus;Application.MAIN_SM.;act_roll2_m_minus;;" : BOOL;"
-;;;;;;;;Roll3f;Conveyor;Motor _plus;Application.MAIN_SM.;act_roll3_m_plus;;" : BOOL;"
-;;;;;;;;Roll3f;Conveyor;Motor _minus;Application.MAIN_SM.;act_roll3_m_minus;;" : BOOL;"
-;;;;;;;;Roll4f;Conveyor;Motor _plus;Application.MAIN_SM.;act_roll4_m_plus;;" : BOOL;"
-;;;;;;;;Roll4f;Conveyor;Motor _minus;Application.MAIN_SM.;act_roll4_m_minus;;" : BOOL;"
+Cin1;Conveyor;Sensor 0;0;Application.MAIN_SM.;sens_cin1;" : BOOL;";;Cin1;Conveyor;Motor_plus;Application.MAIN_SM.;act_cin1_m_plus;;" : BOOL;";;1;Cin1;Warehouse Out;R;Warehouse Out;0;;Application.MAIN_SM.act_int_cin1
+Cin2;Conveyor;Sensor 0;1;Application.MAIN_SM.;sens_cin2;" : BOOL;";;Cin1;Conveyor;Motor _minus;Application.MAIN_SM.;act_cin1_m_minus;;" : BOOL;";;2;Cin2;Warehouse Out;R;Warehouse Out;1;;Application.MAIN_SM.act_int_cin2
+Cin3;Conveyor;Sensor 0;2;Application.MAIN_SM.;sens_cin3;" : BOOL;";;Cin2;Conveyor;Motor _plus;Application.MAIN_SM.;act_cin2_m_plus;;" : BOOL;";;3;Cin3;Warehouse Out;R;Warehouse Out;2;;Application.MAIN_SM.act_int_cin3
+Cin4;Conveyor;Sensor 0;3;Application.MAIN_SM.;sens_cin4;" : BOOL;";;Cin2;Conveyor;Motor _minus;Application.MAIN_SM.;act_cin2_m_minus;;" : BOOL;";;4;Cin4;Warehouse Out;R;Warehouse Out;3;;Application.MAIN_SM.act_int_cin4
+AT1_in0;Warehouse In;Sensor 0;4;Application.MAIN_SM.;sens_wh1_in0;" : BOOL;";;Cin3;Conveyor;Motor _plus;Application.MAIN_SM.;act_cin3_m_plus;;" : BOOL;";;10;AT1_out1;Warehouse Out;R;Warehouse Out;4;;
+AT1_in1;Warehouse In;Sensor 0;5;Application.MAIN_SM.;sens_wh1_in1;" : BOOL;";;Cin3;Conveyor;Motor _minus;Application.MAIN_SM.;act_cin3_m_minus;;" : BOOL;";;11;AT1_out2;Warehouse Out;R;Warehouse Out;5;;
+AT1_in2;Warehouse In;Sensor 0;6;Application.MAIN_SM.;sens_wh1_in2;" : BOOL;";;Cin4;Conveyor;Motor _plus;Application.MAIN_SM.;act_cin4_m_plus;;" : BOOL;";;12;AT1_out3;Warehouse Out;R;Warehouse Out;6;;
+AT1_in3;Warehouse In;Sensor 0;7;Application.MAIN_SM.;sens_wh1_in3;" : BOOL;";;Cin4;Conveyor;Motor _minus;Application.MAIN_SM.;act_cin4_m_minus;;" : BOOL;";;13;AT1_out4;Warehouse Out;R;Warehouse Out;7;;
+AT1_in4;Warehouse In;Sensor 0;8;Application.MAIN_SM.;sens_wh1_in4;" : BOOL;";;AT1_in0;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh1_in0_m_plus;;" : BOOL;";;14;AT1_out5;Warehouse Out;R;Warehouse Out;8;;
+AT1_out1;Warehouse Out;Sensor 0;9;Application.MAIN_SM.;sens_wh1_out1;" : BOOL;";;AT1_in0;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh1_in0_m_minus;;" : BOOL;";;15;AT1_out6;Warehouse Out;R;Warehouse Out;9;;
+AT1_out2;Warehouse Out;Sensor 0;10;Application.MAIN_SM.;sens_wh1_out2;" : BOOL;";;AT1_in0;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh1_in0_whin;;" : BOOL;";;16;AT2_out0;Warehouse Out;R;Warehouse Out;10;;
+AT1_out3;Warehouse Out;Sensor 0;11;Application.MAIN_SM.;sens_wh1_out3;" : BOOL;";;AT1_in1;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh1_in1_m_plus;;" : BOOL;";;17;AT2_out1;Warehouse Out;R;Warehouse Out;11;;
+AT1_out4;Warehouse Out;Sensor 0;12;Application.MAIN_SM.;sens_wh1_out4;" : BOOL;";;AT1_in1;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh1_in1_m_minus;;" : BOOL;";;18;AT2_out2;Warehouse Out;R;Warehouse Out;12;;
+AT1_out5;Warehouse Out;Sensor 0;13;Application.MAIN_SM.;sens_wh1_out5;" : BOOL;";;AT1_in1;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh1_in1_whin;;" : BOOL;";;19;AT2_out3;Warehouse Out;R;Warehouse Out;13;;
+AT1_out6;Warehouse Out;Sensor 0;14;Application.MAIN_SM.;sens_wh1_out6;" : BOOL;";;AT1_in2;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh1_in2_m_plus;;" : BOOL;";;20;AT2_out4;Warehouse Out;R;Warehouse Out;14;;
+AT2_out0;Warehouse Out;Sensor 0;15;Application.MAIN_SM.;sens_wh2_out0;" : BOOL;";;AT1_in2;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh1_in2_m_minus;;" : BOOL;";;;;;;;;;
+AT2_out1;Warehouse Out;Sensor 0;16;Application.MAIN_SM.;sens_wh2_out1;" : BOOL;";;AT1_in2;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh1_in2_whin;;" : BOOL;";;;;;;;;;
+AT2_out2;Warehouse Out;Sensor 0;17;Application.MAIN_SM.;sens_wh2_out2;" : BOOL;";;AT1_in3;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh1_in3_m_plus;;" : BOOL;";;;;;;;;;
+AT2_out3;Warehouse Out;Sensor 0;18;Application.MAIN_SM.;sens_wh2_out3;" : BOOL;";;AT1_in3;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh1_in3_m_minus;;" : BOOL;";;;;;;;;;
+AT2_out4;Warehouse Out;Sensor 0;19;Application.MAIN_SM.;sens_wh2_out4;" : BOOL;";;AT1_in3;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh1_in3_whin;;" : BOOL;";;;;;;;;;
+AT2_in1;Warehouse In;Sensor 0;20;Application.MAIN_SM.;sens_wh2_in1;" : BOOL;";;AT1_in4;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh1_in4_m_plus;;" : BOOL;";;;;;;;;;
+AT2_in2;Warehouse In;Sensor 0;21;Application.MAIN_SM.;sens_wh2_in2;" : BOOL;";;AT1_in4;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh1_in4_m_minus;;" : BOOL;";;;;;;;;;
+AT2_in3;Warehouse In;Sensor 0;22;Application.MAIN_SM.;sens_wh2_in3;" : BOOL;";;AT1_in4;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh1_in4_whin;;" : BOOL;";;;;;;;;;
+AT2_in4;Warehouse In;Sensor 0;23;Application.MAIN_SM.;sens_wh2_in4;" : BOOL;";;AT1_out1;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh1_out1_m_plus;;" : BOOL;";;;;;;;;;
+AT2_in5;Warehouse In;Sensor 0;24;Application.MAIN_SM.;sens_wh2_in5;" : BOOL;";;AT1_out1;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh1_out1_m_minus;;" : BOOL;";;;;;;;;;
+AT2_in6;Warehouse In;Sensor 0;25;Application.MAIN_SM.;sens_wh2_in6;" : BOOL;";;AT1_out2;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh1_out2_m_plus;;" : BOOL;";;;;;;;;;
+Cell0_Ctop;Conveyor;Sensor 0;26;Application.MAIN_SM.;sens_c0_top_conv;" : BOOL;";;AT1_out2;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh1_out2_m_minus;;" : BOOL;";;;;;;;;;
+Cell0_Cmid;Conveyor;Sensor 0;27;Application.MAIN_SM.;sens_c0_mid_conv;" : BOOL;";;AT1_out3;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh1_out3_m_plus;;" : BOOL;";;;;;;;;;
+Cell0_Cbot;Conveyor;Sensor 0;28;Application.MAIN_SM.;sens_c0_bot_conv;" : BOOL;";;AT1_out3;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh1_out3_m_minus;;" : BOOL;";;;;;;;;;
+Cell1_Mtop;Machine;Sensor 0;29;Application.MAIN_SM.;sens_c1_top_conv;" : BOOL;";;AT1_out4;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh1_out4_m_plus;;" : BOOL;";;;;;;;;;
+Cell1_Mtop;Machine;Tool Sensor;30;Application.MAIN_SM.;sens_c1_top_tool;" : BOOL;";;AT1_out4;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh1_out4_m_minus;;" : BOOL;";;;;;;;;;
+Cell1_Mtop;Machine;Y _minus Sensor;31;Application.MAIN_SM.;sens_c1_top_y_minus;" : BOOL;";;AT1_out5;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh1_out5_m_plus;;" : BOOL;";;;;;;;;;
+Cell1_Mtop;Machine;Y _plus Sensor;32;Application.MAIN_SM.;sens_c1_top_y_plus;" : BOOL;";;AT1_out5;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh1_out5_m_minus;;" : BOOL;";;;;;;;;;
+Cell1_Mtop;Machine;Z _minus Sensor;33;Application.MAIN_SM.;sens_c1_top_z_minus;" : BOOL;";;AT1_out6;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh1_out6_m_plus;;" : BOOL;";;;;;;;;;
+Cell1_Mtop;Machine;Z _plus Sensor;34;Application.MAIN_SM.;sens_c1_top_z_plus;" : BOOL;";;AT1_out6;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh1_out6_m_minus;;" : BOOL;";;;;;;;;;
+Cell1_Cmid;Conveyor;Sensor 0;35;Application.MAIN_SM.;sens_c1_mid_conv;" : BOOL;";;AT2_out0;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh2_out0_m_plus;;" : BOOL;";;;;;;;;;
+Cell1_Mbot;Machine;Sensor 0;36;Application.MAIN_SM.;sens_c1_bot_conv;" : BOOL;";;AT2_out0;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh2_out0_m_minus;;" : BOOL;";;;;;;;;;
+Cell1_Mbot;Machine;Tool Sensor;37;Application.MAIN_SM.;sens_c1_bot_tool;" : BOOL;";;AT2_out1;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh2_out1_m_plus;;" : BOOL;";;;;;;;;;
+Cell1_Mbot;Machine;Y _minus Sensor;38;Application.MAIN_SM.;sens_c1_bot_y_minus;" : BOOL;";;AT2_out1;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh2_out1_m_minus;;" : BOOL;";;;;;;;;;
+Cell1_Mbot;Machine;Y _plus Sensor;39;Application.MAIN_SM.;sens_c1_bot_y_plus;" : BOOL;";;AT2_out2;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh2_out2_m_plus;;" : BOOL;";;;;;;;;;
+Cell1_Mbot;Machine;Z _minus Sensor;40;Application.MAIN_SM.;sens_c1_bot_z_minus;" : BOOL;";;AT2_out2;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh2_out2_m_minus;;" : BOOL;";;;;;;;;;
+Cell1_Mbot;Machine;Z _plus Sensor;41;Application.MAIN_SM.;sens_c1_bot_z_plus;" : BOOL;";;AT2_out3;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh2_out3_m_plus;;" : BOOL;";;;;;;;;;
+Cell2_Mtop;Machine;Sensor 0;42;Application.MAIN_SM.;sens_c2_top_conv;" : BOOL;";;AT2_out3;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh2_out3_m_minus;;" : BOOL;";;;;;;;;;
+Cell2_Mtop;Machine;Tool Sensor;43;Application.MAIN_SM.;sens_c2_top_tool;" : BOOL;";;AT2_out4;Warehouse Out;Motor _plus;Application.MAIN_SM.;act_wh2_out4_m_plus;;" : BOOL;";;;;;;;;;
+Cell2_Mtop;Machine;Y _minus Sensor;44;Application.MAIN_SM.;sens_c2_top_y_minus;" : BOOL;";;AT2_out4;Warehouse Out;Motor _minus;Application.MAIN_SM.;act_wh2_out4_m_minus;;" : BOOL;";;;;;;;;;
+Cell2_Mtop;Machine;Y _plus Sensor;45;Application.MAIN_SM.;sens_c2_top_y_plus;" : BOOL;";;AT2_in1;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh2_in1_m_plus;;" : BOOL;";;;;;;;;;
+Cell2_Mtop;Machine;Z _minus Sensor;46;Application.MAIN_SM.;sens_c2_top_z_minus;" : BOOL;";;AT2_in1;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh2_in1_m_minus;;" : BOOL;";;;;;;;;;
+Cell2_Mtop;Machine;Z _plus Sensor;47;Application.MAIN_SM.;sens_c2_top_z_plus;" : BOOL;";;AT2_in1;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh2_in1_whin;;" : BOOL;";;;;;;;;;
+Cell2_Cmid;Conveyor;Sensor 0;48;Application.MAIN_SM.;sens_c2_mid_conv;" : BOOL;";;AT2_in2;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh2_in2_m_plus;;" : BOOL;";;;;;;;;;
+Cell2_Mbot;Machine;Sensor 0;49;Application.MAIN_SM.;sens_c2_bot_conv;" : BOOL;";;AT2_in2;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh2_in2_m_minus;;" : BOOL;";;;;;;;;;
+Cell2_Mbot;Machine;Tool Sensor;50;Application.MAIN_SM.;sens_c2_bot_tool;" : BOOL;";;AT2_in2;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh2_in2_whin;;" : BOOL;";;;;;;;;;
+Cell2_Mbot;Machine;Y _minus Sensor;51;Application.MAIN_SM.;sens_c2_bot_y_minus;" : BOOL;";;AT2_in3;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh2_in3_m_plus;;" : BOOL;";;;;;;;;;
+Cell2_Mbot;Machine;Y _plus Sensor;52;Application.MAIN_SM.;sens_c2_bot_y_plus;" : BOOL;";;AT2_in3;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh2_in3_m_minus;;" : BOOL;";;;;;;;;;
+Cell2_Mbot;Machine;Z _minus Sensor;53;Application.MAIN_SM.;sens_c2_bot_z_minus;" : BOOL;";;AT2_in3;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh2_in3_whin;;" : BOOL;";;;;;;;;;
+Cell2_Mbot;Machine;Z _plus Sensor;54;Application.MAIN_SM.;sens_c2_bot_z_plus;" : BOOL;";;AT2_in4;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh2_in4_m_plus;;" : BOOL;";;;;;;;;;
+Cell3_Mtop;Machine;Sensor 0;55;Application.MAIN_SM.;sens_c3_top_conv;" : BOOL;";;AT2_in4;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh2_in4_m_minus;;" : BOOL;";;;;;;;;;
+Cell3_Mtop;Machine;Tool Sensor;56;Application.MAIN_SM.;sens_c3_top_tool;" : BOOL;";;AT2_in4;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh2_in4_whin;;" : BOOL;";;;;;;;;;
+Cell3_Mtop;Machine;Y _minus Sensor;57;Application.MAIN_SM.;sens_c3_top_y_minus;" : BOOL;";;AT2_in5;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh2_in5_m_plus;;" : BOOL;";;;;;;;;;
+Cell3_Mtop;Machine;Y _plus Sensor;58;Application.MAIN_SM.;sens_c3_top_y_plus;" : BOOL;";;AT2_in5;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh2_in5_m_minus;;" : BOOL;";;;;;;;;;
+Cell3_Mtop;Machine;Z _minus Sensor;59;Application.MAIN_SM.;sens_c3_top_z_minus;" : BOOL;";;AT2_in5;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh2_in5_whin;;" : BOOL;";;;;;;;;;
+Cell3_Mtop;Machine;Z _plus Sensor;60;Application.MAIN_SM.;sens_c3_top_z_plus;" : BOOL;";;AT2_in6;Warehouse In;Motor _plus;Application.MAIN_SM.;act_wh2_in6_m_plus;;" : BOOL;";;;;;;;;;
+Cell3_Cmid;Conveyor;Sensor 0;61;Application.MAIN_SM.;sens_c3_mid_conv;" : BOOL;";;AT2_in6;Warehouse In;Motor _minus;Application.MAIN_SM.;act_wh2_in6_m_minus;;" : BOOL;";;;;;;;;;
+Cell3_Mbot;Machine;Sensor 0;62;Application.MAIN_SM.;sens_c3_bot_conv;" : BOOL;";;AT2_in6;Warehouse In;Warehouse In;Application.MAIN_SM.;act_wh2_in6_whin;;" : BOOL;";;;;;;;;;
+Cell3_Mbot;Machine;Tool Sensor;63;Application.MAIN_SM.;sens_c3_bot_tool;" : BOOL;";;Cell0_Ctop;Conveyor;Motor _plus;Application.MAIN_SM.;act_c0_top_m_plus;;" : BOOL;";;;;;;;;;
+Cell3_Mbot;Machine;Y _minus Sensor;64;Application.MAIN_SM.;sens_c3_bot_y_minus;" : BOOL;";;Cell0_Ctop;Conveyor;Motor _minus;Application.MAIN_SM.;act_c0_top_m_minus;;" : BOOL;";;;;;;;;;
+Cell3_Mbot;Machine;Y _plus Sensor;65;Application.MAIN_SM.;sens_c3_bot_y_plus;" : BOOL;";;Cell0_Cmid;Conveyor;Motor _plus;Application.MAIN_SM.;act_c0_mid_m_plus;;" : BOOL;";;;;;;;;;
+Cell3_Mbot;Machine;Z _minus Sensor;66;Application.MAIN_SM.;sens_c3_bot_z_minus;" : BOOL;";;Cell0_Cmid;Conveyor;Motor _minus;Application.MAIN_SM.;act_c0_mid_m_minus;;" : BOOL;";;;;;;;;;
+Cell3_Mbot;Machine;Z _plus Sensor;67;Application.MAIN_SM.;sens_c3_bot_z_plus;" : BOOL;";;Cell0_Cbot;Conveyor;Motor _plus;Application.MAIN_SM.;act_c0_bot_m_plus;;" : BOOL;";;;;;;;;;
+Cell4_Mtop;Machine;Sensor 0;68;Application.MAIN_SM.;sens_c4_top_conv;" : BOOL;";;Cell0_Cbot;Conveyor;Motor _minus;Application.MAIN_SM.;act_c0_bot_m_minus;;" : BOOL;";;;;;;;;;
+Cell4_Mtop;Machine;Tool Sensor;69;Application.MAIN_SM.;sens_c4_top_tool;" : BOOL;";;Cell1_Mtop;Machine;Motor _plus;Application.MAIN_SM.;act_c1_top_m_plus;;" : BOOL;";;;;;;;;;
+Cell4_Mtop;Machine;Y _minus Sensor;70;Application.MAIN_SM.;sens_c4_top_y_minus;" : BOOL;";;Cell1_Mtop;Machine;Motor _minus;Application.MAIN_SM.;act_c1_top_m_minus;;" : BOOL;";;;;;;;;;
+Cell4_Mtop;Machine;Y _plus Sensor;71;Application.MAIN_SM.;sens_c4_top_y_plus;" : BOOL;";;Cell1_Mtop;Machine;Rotate _minus;Application.MAIN_SM.;act_c1_top_r_minus;;" : BOOL;";;;;;;;;;
+Cell4_Mtop;Machine;Z _minus Sensor;72;Application.MAIN_SM.;sens_c4_top_z_minus;" : BOOL;";;Cell1_Mtop;Machine;Rotate _plus;Application.MAIN_SM.;act_c1_top_r_plus;;" : BOOL;";;;;;;;;;
+Cell4_Mtop;Machine;Z _plus Sensor;73;Application.MAIN_SM.;sens_c4_top_z_plus;" : BOOL;";;Cell1_Mtop;Machine;Tool;Application.MAIN_SM.;act_c1_top_tool;;" : BOOL;";;;;;;;;;
+Cell4_Cmid;Conveyor;Sensor 0;74;Application.MAIN_SM.;sens_c4_mid_conv;" : BOOL;";;Cell1_Mtop;Machine;Y _minus;Application.MAIN_SM.;act_c1_top_y_minus;;" : BOOL;";;;;;;;;;
+Cell4_Mbot;Machine;Sensor 0;75;Application.MAIN_SM.;sens_c4_bot_conv;" : BOOL;";;Cell1_Mtop;Machine;Y _plus;Application.MAIN_SM.;act_c1_top_y_plus;;" : BOOL;";;;;;;;;;
+Cell4_Mbot;Machine;Tool Sensor;76;Application.MAIN_SM.;sens_c4_bot_tool;" : BOOL;";;Cell1_Mtop;Machine;Z _minus;Application.MAIN_SM.;act_c1_top_z_minus;;" : BOOL;";;;;;;;;;
+Cell4_Mbot;Machine;Y _minus Sensor;77;Application.MAIN_SM.;sens_c4_bot_y_minus;" : BOOL;";;Cell1_Mtop;Machine;Z _plus;Application.MAIN_SM.;act_c1_top_z_plus;;" : BOOL;";;;;;;;;;
+Cell4_Mbot;Machine;Y _plus Sensor;78;Application.MAIN_SM.;sens_c4_bot_y_plus;" : BOOL;";;Cell1_Cmid;Conveyor;Motor _plus;Application.MAIN_SM.;act_c1_mid_m_plus;;" : BOOL;";;;;;;;;;
+Cell4_Mbot;Machine;Z _minus Sensor;79;Application.MAIN_SM.;sens_c4_bot_z_minus;" : BOOL;";;Cell1_Cmid;Conveyor;Motor _minus;Application.MAIN_SM.;act_c1_mid_m_minus;;" : BOOL;";;;;;;;;;
+Cell4_Mbot;Machine;Z _plus Sensor;80;Application.MAIN_SM.;sens_c4_bot_z_plus;" : BOOL;";;Cell1_Mbot;Machine;Motor _plus;Application.MAIN_SM.;act_c1_bot_m_plus;;" : BOOL;";;;;;;;;;
+Cell5_Mtop;Machine;Sensor 0;81;Application.MAIN_SM.;sens_c5_top_conv;" : BOOL;";;Cell1_Mbot;Machine;Motor _minus;Application.MAIN_SM.;act_c1_bot_m_minus;;" : BOOL;";;;;;;;;;
+Cell5_Mtop;Machine;Tool Sensor;82;Application.MAIN_SM.;sens_c5_top_tool;" : BOOL;";;Cell1_Mbot;Machine;Rotate _minus;Application.MAIN_SM.;act_c1_bot_r_minus;;" : BOOL;";;;;;;;;;
+Cell5_Mtop;Machine;Y _minus Sensor;83;Application.MAIN_SM.;sens_c5_top_y_minus;" : BOOL;";;Cell1_Mbot;Machine;Rotate _plus;Application.MAIN_SM.;act_c1_bot_r_plus;;" : BOOL;";;;;;;;;;
+Cell5_Mtop;Machine;Y _plus Sensor;84;Application.MAIN_SM.;sens_c5_top_y_plus;" : BOOL;";;Cell1_Mbot;Machine;Tool;Application.MAIN_SM.;act_c1_bot_tool;;" : BOOL;";;;;;;;;;
+Cell5_Mtop;Machine;Z _minus Sensor;85;Application.MAIN_SM.;sens_c5_top_z_minus;" : BOOL;";;Cell1_Mbot;Machine;Y _minus;Application.MAIN_SM.;act_c1_bot_y_minus;;" : BOOL;";;;;;;;;;
+Cell5_Mtop;Machine;Z _plus Sensor;86;Application.MAIN_SM.;sens_c5_top_z_plus;" : BOOL;";;Cell1_Mbot;Machine;Y _plus;Application.MAIN_SM.;act_c1_bot_y_plus;;" : BOOL;";;;;;;;;;
+Cell5_Cmid;Conveyor;Sensor 0;87;Application.MAIN_SM.;sens_c5_mid_conv;" : BOOL;";;Cell1_Mbot;Machine;Z _minus;Application.MAIN_SM.;act_c1_bot_z_minus;;" : BOOL;";;;;;;;;;
+Cell5_Mbot;Machine;Sensor 0;88;Application.MAIN_SM.;sens_c5_bot_conv;" : BOOL;";;Cell1_Mbot;Machine;Z _plus;Application.MAIN_SM.;act_c1_bot_z_plus;;" : BOOL;";;;;;;;;;
+Cell5_Mbot;Machine;Tool Sensor;89;Application.MAIN_SM.;sens_c5_bot_tool;" : BOOL;";;Cell2_Mtop;Machine;Motor _plus;Application.MAIN_SM.;act_c2_top_m_plus;;" : BOOL;";;;;;;;;;
+Cell5_Mbot;Machine;Y _minus Sensor;90;Application.MAIN_SM.;sens_c5_bot_y_minus;" : BOOL;";;Cell2_Mtop;Machine;Motor _minus;Application.MAIN_SM.;act_c2_top_m_minus;;" : BOOL;";;;;;;;;;
+Cell5_Mbot;Machine;Y _plus Sensor;91;Application.MAIN_SM.;sens_c5_bot_y_plus;" : BOOL;";;Cell2_Mtop;Machine;Rotate _minus;Application.MAIN_SM.;act_c2_top_r_minus;;" : BOOL;";;;;;;;;;
+Cell5_Mbot;Machine;Z _minus Sensor;92;Application.MAIN_SM.;sens_c5_bot_z_minus;" : BOOL;";;Cell2_Mtop;Machine;Rotate _plus;Application.MAIN_SM.;act_c2_top_r_plus;;" : BOOL;";;;;;;;;;
+Cell5_Mbot;Machine;Z _plus Sensor;93;Application.MAIN_SM.;sens_c5_bot_z_plus;" : BOOL;";;Cell2_Mtop;Machine;Tool;Application.MAIN_SM.;act_c2_top_tool;;" : BOOL;";;;;;;;;;
+Cell6_Mtop;Machine;Sensor 0;94;Application.MAIN_SM.;sens_c6_top_conv;" : BOOL;";;Cell2_Mtop;Machine;Y _minus;Application.MAIN_SM.;act_c2_top_y_minus;;" : BOOL;";;;;;;;;;
+Cell6_Mtop;Machine;Tool Sensor;95;Application.MAIN_SM.;sens_c6_top_tool;" : BOOL;";;Cell2_Mtop;Machine;Y _plus;Application.MAIN_SM.;act_c2_top_y_plus;;" : BOOL;";;;;;;;;;
+Cell6_Mtop;Machine;Y _minus Sensor;96;Application.MAIN_SM.;sens_c6_top_y_minus;" : BOOL;";;Cell2_Mtop;Machine;Z _minus;Application.MAIN_SM.;act_c2_top_z_minus;;" : BOOL;";;;;;;;;;
+Cell6_Mtop;Machine;Y _plus Sensor;97;Application.MAIN_SM.;sens_c6_top_y_plus;" : BOOL;";;Cell2_Mtop;Machine;Z _plus;Application.MAIN_SM.;act_c2_top_z_plus;;" : BOOL;";;;;;;;;;
+Cell6_Mtop;Machine;Z _minus Sensor;98;Application.MAIN_SM.;sens_c6_top_z_minus;" : BOOL;";;Cell2_Cmid;Conveyor;Motor _plus;Application.MAIN_SM.;act_c2_mid_m_plus;;" : BOOL;";;;;;;;;;
+Cell6_Mtop;Machine;Z _plus Sensor;99;Application.MAIN_SM.;sens_c6_top_z_plus;" : BOOL;";;Cell2_Cmid;Conveyor;Motor _minus;Application.MAIN_SM.;act_c2_mid_m_minus;;" : BOOL;";;;;;;;;;
+Cell6_Cmid;Conveyor;Sensor 0;100;Application.MAIN_SM.;sens_c6_mid_conv;" : BOOL;";;Cell2_Mbot;Machine;Motor _plus;Application.MAIN_SM.;act_c2_bot_m_plus;;" : BOOL;";;;;;;;;;
+Cell6_Mbot;Machine;Sensor 0;101;Application.MAIN_SM.;sens_c6_bot_conv;" : BOOL;";;Cell2_Mbot;Machine;Motor _minus;Application.MAIN_SM.;act_c2_bot_m_minus;;" : BOOL;";;;;;;;;;
+Cell6_Mbot;Machine;Tool Sensor;102;Application.MAIN_SM.;sens_c6_bot_tool;" : BOOL;";;Cell2_Mbot;Machine;Rotate _minus;Application.MAIN_SM.;act_c2_bot_r_minus;;" : BOOL;";;;;;;;;;
+Cell6_Mbot;Machine;Y _minus Sensor;103;Application.MAIN_SM.;sens_c6_bot_y_minus;" : BOOL;";;Cell2_Mbot;Machine;Rotate _plus;Application.MAIN_SM.;act_c2_bot_r_plus;;" : BOOL;";;;;;;;;;
+Cell6_Mbot;Machine;Y _plus Sensor;104;Application.MAIN_SM.;sens_c6_bot_y_plus;" : BOOL;";;Cell2_Mbot;Machine;Tool;Application.MAIN_SM.;act_c2_bot_tool;;" : BOOL;";;;;;;;;;
+Cell6_Mbot;Machine;Z _minus Sensor;105;Application.MAIN_SM.;sens_c6_bot_z_minus;" : BOOL;";;Cell2_Mbot;Machine;Y _minus;Application.MAIN_SM.;act_c2_bot_y_minus;;" : BOOL;";;;;;;;;;
+Cell6_Mbot;Machine;Z _plus Sensor;106;Application.MAIN_SM.;sens_c6_bot_z_plus;" : BOOL;";;Cell2_Mbot;Machine;Y _plus;Application.MAIN_SM.;act_c2_bot_y_plus;;" : BOOL;";;;;;;;;;
+Roll1a;Roller;Sensor 0;107;Application.MAIN_SM.;sens_roll1a;" : BOOL;";;Cell2_Mbot;Machine;Z _minus;Application.MAIN_SM.;act_c2_bot_z_minus;;" : BOOL;";;;;;;;;;
+Roll1b;Roller;Sensor 0;108;Application.MAIN_SM.;sens_roll1b;" : BOOL;";;Cell2_Mbot;Machine;Z _plus;Application.MAIN_SM.;act_c2_bot_z_plus;;" : BOOL;";;;;;;;;;
+Roll1c;Roller;Sensor 0;109;Application.MAIN_SM.;sens_roll1c;" : BOOL;";;Cell3_Mtop;Machine;Motor _plus;Application.MAIN_SM.;act_c3_top_m_plus;;" : BOOL;";;;;;;;;;
+Roll1d;Roller;Sensor 0;110;Application.MAIN_SM.;sens_roll1d;" : BOOL;";;Cell3_Mtop;Machine;Motor _minus;Application.MAIN_SM.;act_c3_top_m_minus;;" : BOOL;";;;;;;;;;
+Roll1e;Roller;Sensor 0;111;Application.MAIN_SM.;sens_roll1e;" : BOOL;";;Cell3_Mtop;Machine;Rotate _minus;Application.MAIN_SM.;act_c3_top_r_minus;;" : BOOL;";;;;;;;;;
+Roll1f;Conveyor;Sensor 0;112;Application.MAIN_SM.;sens_roll1f;" : BOOL;";;Cell3_Mtop;Machine;Rotate _plus;Application.MAIN_SM.;act_c3_top_r_plus;;" : BOOL;";;;;;;;;;
+Roll2a;Roller;Sensor 0;113;Application.MAIN_SM.;sens_roll2a;" : BOOL;";;Cell3_Mtop;Machine;Tool;Application.MAIN_SM.;act_c3_top_tool;;" : BOOL;";;;;;;;;;
+Roll2b;Roller;Sensor 0;114;Application.MAIN_SM.;sens_roll2b;" : BOOL;";;Cell3_Mtop;Machine;Y _minus;Application.MAIN_SM.;act_c3_top_y_minus;;" : BOOL;";;;;;;;;;
+Roll2c;Roller;Sensor 0;115;Application.MAIN_SM.;sens_roll2c;" : BOOL;";;Cell3_Mtop;Machine;Y _plus;Application.MAIN_SM.;act_c3_top_y_plus;;" : BOOL;";;;;;;;;;
+Roll2d;Roller;Sensor 0;116;Application.MAIN_SM.;sens_roll2d;" : BOOL;";;Cell3_Mtop;Machine;Z _minus;Application.MAIN_SM.;act_c3_top_z_minus;;" : BOOL;";;;;;;;;;
+Roll2e;Roller;Sensor 0;117;Application.MAIN_SM.;sens_roll2e;" : BOOL;";;Cell3_Mtop;Machine;Z _plus;Application.MAIN_SM.;act_c3_top_z_plus;;" : BOOL;";;;;;;;;;
+Roll2f;Conveyor;Sensor 0;118;Application.MAIN_SM.;sens_roll2f;" : BOOL;";;Cell3_Cmid;Conveyor;Motor _plus;Application.MAIN_SM.;act_c3_mid_m_plus;;" : BOOL;";;;;;;;;;
+Roll3a;Roller;Sensor 0;119;Application.MAIN_SM.;sens_roll3a;" : BOOL;";;Cell3_Cmid;Conveyor;Motor _minus;Application.MAIN_SM.;act_c3_mid_m_minus;;" : BOOL;";;;;;;;;;
+Roll3b;Roller;Sensor 0;120;Application.MAIN_SM.;sens_roll3b;" : BOOL;";;Cell3_Mbot;Machine;Motor _plus;Application.MAIN_SM.;act_c3_bot_m_plus;;" : BOOL;";;;;;;;;;
+Roll3c;Roller;Sensor 0;121;Application.MAIN_SM.;sens_roll3c;" : BOOL;";;Cell3_Mbot;Machine;Motor _minus;Application.MAIN_SM.;act_c3_bot_m_minus;;" : BOOL;";;;;;;;;;
+Roll3d;Roller;Sensor 0;122;Application.MAIN_SM.;sens_roll3d;" : BOOL;";;Cell3_Mbot;Machine;Rotate _minus;Application.MAIN_SM.;act_c3_bot_r_minus;;" : BOOL;";;;;;;;;;
+Roll3e;Roller;Sensor 0;123;Application.MAIN_SM.;sens_roll3e;" : BOOL;";;Cell3_Mbot;Machine;Rotate _plus;Application.MAIN_SM.;act_c3_bot_r_plus;;" : BOOL;";;;;;;;;;
+Roll3f;Conveyor;Sensor 0;124;Application.MAIN_SM.;sens_roll3f;" : BOOL;";;Cell3_Mbot;Machine;Tool;Application.MAIN_SM.;act_c3_bot_tool;;" : BOOL;";;;;;;;;;
+Roll4a;Roller;Sensor 0;125;Application.MAIN_SM.;sens_roll4a;" : BOOL;";;Cell3_Mbot;Machine;Y _minus;Application.MAIN_SM.;act_c3_bot_y_minus;;" : BOOL;";;;;;;;;;
+Roll4b;Roller;Sensor 0;126;Application.MAIN_SM.;sens_roll4b;" : BOOL;";;Cell3_Mbot;Machine;Y _plus;Application.MAIN_SM.;act_c3_bot_y_plus;;" : BOOL;";;;;;;;;;
+Roll4c;Roller;Sensor 0;127;Application.MAIN_SM.;sens_roll4c;" : BOOL;";;Cell3_Mbot;Machine;Z _minus;Application.MAIN_SM.;act_c3_bot_z_minus;;" : BOOL;";;;;;;;;;
+Roll4d;Roller;Sensor 0;128;Application.MAIN_SM.;sens_roll4d;" : BOOL;";;Cell3_Mbot;Machine;Z _plus;Application.MAIN_SM.;act_c3_bot_z_plus;;" : BOOL;";;;;;;;;;
+Roll4e;Roller;Sensor 0;129;Application.MAIN_SM.;sens_roll4e;" : BOOL;";;Cell4_Mtop;Machine;Motor _plus;Application.MAIN_SM.;act_c4_top_m_plus;;" : BOOL;";;;;;;;;;
+Roll4f;Conveyor;Sensor 0;130;Application.MAIN_SM.;sens_roll4f;sens_roll4f;;Cell4_Mtop;Machine;Motor _minus;Application.MAIN_SM.;act_c4_top_m_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mtop;Machine;Rotate _minus;Application.MAIN_SM.;act_c4_top_r_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mtop;Machine;Rotate _plus;Application.MAIN_SM.;act_c4_top_r_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mtop;Machine;Tool;Application.MAIN_SM.;act_c4_top_tool;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mtop;Machine;Y _minus;Application.MAIN_SM.;act_c4_top_y_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mtop;Machine;Y _plus;Application.MAIN_SM.;act_c4_top_y_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mtop;Machine;Z _minus;Application.MAIN_SM.;act_c4_top_z_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mtop;Machine;Z _plus;Application.MAIN_SM.;act_c4_top_z_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Cmid;Conveyor;Motor _plus;Application.MAIN_SM.;act_c4_mid_m_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Cmid;Conveyor;Motor _minus;Application.MAIN_SM.;act_c4_mid_m_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mbot;Machine;Motor _plus;Application.MAIN_SM.;act_c4_bot_m_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mbot;Machine;Motor _minus;Application.MAIN_SM.;act_c4_bot_m_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mbot;Machine;Rotate _minus;Application.MAIN_SM.;act_c4_bot_r_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mbot;Machine;Rotate _plus;Application.MAIN_SM.;act_c4_bot_r_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mbot;Machine;Tool;Application.MAIN_SM.;act_c4_bot_tool;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mbot;Machine;Y _minus;Application.MAIN_SM.;act_c4_bot_y_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mbot;Machine;Y _plus;Application.MAIN_SM.;act_c4_bot_y_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mbot;Machine;Z _minus;Application.MAIN_SM.;act_c4_bot_z_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell4_Mbot;Machine;Z _plus;Application.MAIN_SM.;act_c4_bot_z_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mtop;Machine;Motor _plus;Application.MAIN_SM.;act_c5_top_m_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mtop;Machine;Motor _minus;Application.MAIN_SM.;act_c5_top_m_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mtop;Machine;Rotate _minus;Application.MAIN_SM.;act_c5_top_r_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mtop;Machine;Rotate _plus;Application.MAIN_SM.;act_c5_top_r_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mtop;Machine;Tool;Application.MAIN_SM.;act_c5_top_tool;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mtop;Machine;Y _minus;Application.MAIN_SM.;act_c5_top_y_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mtop;Machine;Y _plus;Application.MAIN_SM.;act_c5_top_y_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mtop;Machine;Z _minus;Application.MAIN_SM.;act_c5_top_z_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mtop;Machine;Z _plus;Application.MAIN_SM.;act_c5_top_z_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Cmid;Conveyor;Motor _plus;Application.MAIN_SM.;act_c5_mid_m_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Cmid;Conveyor;Motor _minus;Application.MAIN_SM.;act_c5_mid_m_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mbot;Machine;Motor _plus;Application.MAIN_SM.;act_c5_bot_m_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mbot;Machine;Motor _minus;Application.MAIN_SM.;act_c5_bot_m_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mbot;Machine;Rotate _minus;Application.MAIN_SM.;act_c5_bot_r_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mbot;Machine;Rotate _plus;Application.MAIN_SM.;act_c5_bot_r_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mbot;Machine;Tool;Application.MAIN_SM.;act_c5_bot_tool;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mbot;Machine;Y _minus;Application.MAIN_SM.;act_c5_bot_y_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mbot;Machine;Y _plus;Application.MAIN_SM.;act_c5_bot_y_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mbot;Machine;Z _minus;Application.MAIN_SM.;act_c5_bot_z_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell5_Mbot;Machine;Z _plus;Application.MAIN_SM.;act_c5_bot_z_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mtop;Machine;Motor _plus;Application.MAIN_SM.;act_c6_top_m_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mtop;Machine;Motor _minus;Application.MAIN_SM.;act_c6_top_m_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mtop;Machine;Rotate _minus;Application.MAIN_SM.;act_c6_top_r_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mtop;Machine;Rotate _plus;Application.MAIN_SM.;act_c6_top_r_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mtop;Machine;Tool;Application.MAIN_SM.;act_c6_top_tool;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mtop;Machine;Y _minus;Application.MAIN_SM.;act_c6_top_y_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mtop;Machine;Y _plus;Application.MAIN_SM.;act_c6_top_y_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mtop;Machine;Z _minus;Application.MAIN_SM.;act_c6_top_z_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mtop;Machine;Z _plus;Application.MAIN_SM.;act_c6_top_z_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Cmid;Conveyor;Motor _plus;Application.MAIN_SM.;act_c6_mid_m_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Cmid;Conveyor;Motor _minus;Application.MAIN_SM.;act_c6_mid_m_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mbot;Machine;Motor _plus;Application.MAIN_SM.;act_c6_bot_m_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mbot;Machine;Motor _minus;Application.MAIN_SM.;act_c6_bot_m_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mbot;Machine;Rotate _minus;Application.MAIN_SM.;act_c6_bot_r_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mbot;Machine;Rotate _plus;Application.MAIN_SM.;act_c6_bot_r_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mbot;Machine;Tool;Application.MAIN_SM.;act_c6_bot_tool;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mbot;Machine;Y _minus;Application.MAIN_SM.;act_c6_bot_y_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mbot;Machine;Y _plus;Application.MAIN_SM.;act_c6_bot_y_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mbot;Machine;Z _minus;Application.MAIN_SM.;act_c6_bot_z_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Cell6_Mbot;Machine;Z _plus;Application.MAIN_SM.;act_c6_bot_z_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Roll1f;Conveyor;Motor _plus;Application.MAIN_SM.;act_roll1_m_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Roll1f;Conveyor;Motor _minus;Application.MAIN_SM.;act_roll1_m_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Roll2f;Conveyor;Motor _plus;Application.MAIN_SM.;act_roll2_m_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Roll2f;Conveyor;Motor _minus;Application.MAIN_SM.;act_roll2_m_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Roll3f;Conveyor;Motor _plus;Application.MAIN_SM.;act_roll3_m_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Roll3f;Conveyor;Motor _minus;Application.MAIN_SM.;act_roll3_m_minus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Roll4f;Conveyor;Motor _plus;Application.MAIN_SM.;act_roll4_m_plus;;" : BOOL;";;;;;;;;;
+;;;;;;;;Roll4f;Conveyor;Motor _minus;Application.MAIN_SM.;act_roll4_m_minus;;" : BOOL;";;;;;;;;;
