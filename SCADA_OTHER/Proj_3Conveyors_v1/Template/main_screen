@@ -1,0 +1,650 @@
+#Version: 0x040017
+#Access: 0
+#Pos: 0,0
+#Size: 1258,888
+#BkColor: clBtnFace
+#Gates: 40
+  #DIG: sensor1,0
+  #DIG: conv1_plus,13
+  #DIG: conv1_minus,14
+  #DIG: sensor2,1
+  #DIG: conv2_plus,15
+  #DIG: conv2_minus,16
+  #DIG: sensor3,2
+  #DIG: conv3_plus,17
+  #DIG: conv3_minus,18
+  #DIG: sensor4,3
+  #DIG: conv4_plus,19
+  #DIG: conv4_minus,20
+  #DIG: sensor5,4
+  #DIG: conv5_plus,21
+  #DIG: conv5_minus,22
+  #DIG: sensor6,5
+  #DIG: conv6_plus,23
+  #DIG: conv6_minus,24
+  #DIG: sensor7,6
+  #DIG: conv7_plus,25
+  #DIG: conv7_minus,26
+  #DIG: sensor8,7
+  #DIG: conv8_plus,27
+  #DIG: conv8_minus,28
+  #DIG: sensor9,8
+  #DIG: conv9_plus,29
+  #DIG: conv9_minus,30
+  #DIG: sensor10,9
+  #DIG: conv10_plus,31
+  #DIG: conv10_minus,32
+  #DIG: sensor11,10
+  #DIG: conv11_plus,33
+  #DIG: conv11_minus,34
+  #DIG: sensor12,11
+  #DIG: conv12_plus,35
+  #DIG: conv12_minus,36
+  #DIG: sensor13,12
+  #DIG: conv13_plus,37
+  #DIG: conv13_minus,38
+  #NUM: 1,0
+#Style: Maximized
+#StayOnTop: 0
+#Object: Led
+  #ID: 0
+  #Pos: 370,55
+  #Size: 17,17
+  #Cursor: 0
+  #OnBmpRes: 11
+  #OffBmpRes: 31
+  #BmpBkC: 0,128,128
+  #On: 0,6,1
+  #Flashing: 0
+  #Access: 0
+#EndObj
+#Object: Led
+  #ID: 0
+  #Pos: 370,140
+  #Size: 17,17
+  #Cursor: 0
+  #OnBmpRes: 11
+  #OffBmpRes: 31
+  #BmpBkC: 0,128,128
+  #On: 3,6,1
+  #Flashing: 0
+  #Access: 0
+#EndObj
+#Object: Led
+  #ID: 0
+  #Pos: 370,280
+  #Size: 17,17
+  #Cursor: 0
+  #OnBmpRes: 11
+  #OffBmpRes: 31
+  #BmpBkC: 0,128,128
+  #On: 6,6,1
+  #Flashing: 0
+  #Access: 0
+#EndObj
+#Object: Led
+  #ID: 0
+  #Pos: 370,360
+  #Size: 17,17
+  #Cursor: 0
+  #OnBmpRes: 11
+  #OffBmpRes: 31
+  #BmpBkC: 0,128,128
+  #On: 9,6,1
+  #Flashing: 0
+  #Access: 0
+#EndObj
+#Object: Led
+  #ID: 0
+  #Pos: 370,440
+  #Size: 17,17
+  #Cursor: 0
+  #OnBmpRes: 11
+  #OffBmpRes: 31
+  #BmpBkC: 0,128,128
+  #On: 12,6,1
+  #Flashing: 0
+  #Access: 0
+#EndObj
+#Object: Led
+  #ID: 0
+  #Pos: 370,520
+  #Size: 17,17
+  #Cursor: 0
+  #OnBmpRes: 11
+  #OffBmpRes: 31
+  #BmpBkC: 0,128,128
+  #On: 15,6,1
+  #Flashing: 0
+  #Access: 0
+#EndObj
+#Object: Led
+  #ID: 0
+  #Pos: 370,595
+  #Size: 17,17
+  #Cursor: 0
+  #OnBmpRes: 11
+  #OffBmpRes: 31
+  #BmpBkC: 0,128,128
+  #On: 18,6,1
+  #Flashing: 0
+  #Access: 0
+#EndObj
+#Object: Led
+  #ID: 0
+  #Pos: 370,740
+  #Size: 17,17
+  #Cursor: 0
+  #OnBmpRes: 11
+  #OffBmpRes: 31
+  #BmpBkC: 0,128,128
+  #On: 21,6,1
+  #Flashing: 0
+  #Access: 0
+#EndObj
+#Object: Led
+  #ID: 0
+  #Pos: 205,285
+  #Size: 17,17
+  #Cursor: 0
+  #OnBmpRes: 11
+  #OffBmpRes: 31
+  #BmpBkC: 0,128,128
+  #On: 24,6,1
+  #Flashing: 0
+  #Access: 0
+#EndObj
+#Object: Led
+  #ID: 0
+  #Pos: 205,360
+  #Size: 17,17
+  #Cursor: 0
+  #OnBmpRes: 11
+  #OffBmpRes: 31
+  #BmpBkC: 0,128,128
+  #On: 30,6,1
+  #Flashing: 0
+  #Access: 0
+#EndObj
+#Object: Led
+  #ID: 0
+  #Pos: 205,440
+  #Size: 17,17
+  #Cursor: 0
+  #OnBmpRes: 11
+  #OffBmpRes: 31
+  #BmpBkC: 0,128,128
+  #On: 30,6,1
+  #Flashing: 0
+  #Access: 0
+#EndObj
+#Object: Led
+  #ID: 0
+  #Pos: 205,520
+  #Size: 17,17
+  #Cursor: 0
+  #OnBmpRes: 11
+  #OffBmpRes: 31
+  #BmpBkC: 0,128,128
+  #On: 33,6,1
+  #Flashing: 0
+  #Access: 0
+#EndObj
+#Object: Led
+  #ID: 0
+  #Pos: 205,600
+  #Size: 17,17
+  #Cursor: 0
+  #OnBmpRes: 11
+  #OffBmpRes: 31
+  #BmpBkC: 0,128,128
+  #On: 36,6,1
+  #Flashing: 0
+  #Access: 0
+#EndObj
+#Object: Label
+  #ID: 0
+  #Pos: 385,55
+  #Size: 35,17
+  #BkColor: clBtnFace
+  #Cursor: 0
+  #TxtColor: clWindowText
+  #Font: Segoe UI,9,0000
+  #Label: Conv1
+  #Align: 32
+  #Frame: 1
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 320,25
+  #Size: 41,82
+  #Descr: conveyor1
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey (2).bmp
+  #TabOrder: 0
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 330,55
+  #Size: 21,21
+  #Descr: sensor1
+  #Cursor: 0
+  #PBmpFile: 1,workpiece_blue.png
+  #TabOrder: 1
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 155,186
+  #Size: 960,60
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey_warehouse (2).bmp
+  #TabOrder: 2
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 155,325
+  #Size: 41,82
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey (2).bmp
+  #TabOrder: 3
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 320,325
+  #Size: 41,82
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey (2).bmp
+  #TabOrder: 4
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 155,405
+  #Size: 41,82
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey (2).bmp
+  #TabOrder: 5
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 320,405
+  #Size: 41,82
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey (2).bmp
+  #TabOrder: 6
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 155,485
+  #Size: 41,82
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey (2).bmp
+  #TabOrder: 7
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 320,485
+  #Size: 41,82
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey (2).bmp
+  #TabOrder: 8
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 155,646
+  #Size: 960,60
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey_warehouse (2).bmp
+  #TabOrder: 9
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 320,705
+  #Size: 41,47
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey (2).bmp
+  #TabOrder: 10
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 320,750
+  #Size: 41,22
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey_small.bmp
+  #TabOrder: 11
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 320,770
+  #Size: 41,22
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey_small.bmp
+  #TabOrder: 12
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 320,790
+  #Size: 41,22
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey_small.bmp
+  #TabOrder: 13
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 320,810
+  #Size: 41,22
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey_small.bmp
+  #TabOrder: 14
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 320,830
+  #Size: 41,22
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey_small.bmp
+  #TabOrder: 15
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 320,850
+  #Size: 41,22
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey_small.bmp
+  #TabOrder: 16
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Label
+  #ID: 0
+  #Pos: 385,280
+  #Size: 35,17
+  #BkColor: clBtnFace
+  #Cursor: 0
+  #TxtColor: clWindowText
+  #Font: Segoe UI,9,0000
+  #Label: Conv3
+  #Align: 32
+  #Frame: 1
+  #Access: 0
+#EndObj
+#Object: Label
+  #ID: 0
+  #Pos: 385,360
+  #Size: 35,17
+  #BkColor: clBtnFace
+  #Cursor: 0
+  #TxtColor: clWindowText
+  #Font: Segoe UI,9,0000
+  #Label: Conv4
+  #Align: 32
+  #Frame: 1
+  #Access: 0
+#EndObj
+#Object: Label
+  #ID: 0
+  #Pos: 385,440
+  #Size: 35,17
+  #BkColor: clBtnFace
+  #Cursor: 0
+  #TxtColor: clWindowText
+  #Font: Segoe UI,9,0000
+  #Label: Conv5
+  #Align: 32
+  #Frame: 1
+  #Access: 0
+#EndObj
+#Object: Label
+  #ID: 0
+  #Pos: 385,520
+  #Size: 40,17
+  #BkColor: clBtnFace
+  #Cursor: 0
+  #TxtColor: clWindowText
+  #Font: Segoe UI,9,0000
+  #Label: Conv6
+  #Align: 32
+  #Frame: 1
+  #Access: 0
+#EndObj
+#Object: Label
+  #ID: 0
+  #Pos: 385,595
+  #Size: 35,17
+  #BkColor: clBtnFace
+  #Cursor: 0
+  #TxtColor: clWindowText
+  #Font: Segoe UI,9,0000
+  #Label: Conv7
+  #Align: 32
+  #Frame: 1
+  #Access: 0
+#EndObj
+#Object: Label
+  #ID: 0
+  #Pos: 385,140
+  #Size: 35,17
+  #BkColor: clBtnFace
+  #Cursor: 0
+  #TxtColor: clWindowText
+  #Font: Segoe UI,9,0000
+  #Label: Conv2
+  #Align: 32
+  #Frame: 1
+  #Access: 0
+#EndObj
+#Object: Label
+  #ID: 0
+  #Pos: 385,740
+  #Size: 35,17
+  #BkColor: clBtnFace
+  #Cursor: 0
+  #TxtColor: clWindowText
+  #Font: Segoe UI,9,0000
+  #Label: Conv8
+  #Align: 32
+  #Frame: 1
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 320,105
+  #Size: 41,82
+  #Descr: conveyor1
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey (2).bmp
+  #TabOrder: 17
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 155,245
+  #Size: 41,82
+  #Descr: conveyor1
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey (2).bmp
+  #TabOrder: 18
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 320,245
+  #Size: 41,82
+  #Descr: conveyor1
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey (2).bmp
+  #TabOrder: 19
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 155,565
+  #Size: 41,82
+  #Descr: conveyor1
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey (2).bmp
+  #TabOrder: 20
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 320,565
+  #Size: 41,82
+  #Descr: conveyor1
+  #Cursor: 0
+  #PBmpFile: 1,conveyor_grey (2).bmp
+  #TabOrder: 21
+  #Status: 1,,100
+  #CycleTime: 1,0
+  #Access: 0
+#EndObj
+#Object: Label
+  #ID: 0
+  #Pos: 220,285
+  #Size: 35,17
+  #BkColor: clBtnFace
+  #Cursor: 0
+  #TxtColor: clWindowText
+  #Font: Segoe UI,9,0000
+  #Label: Conv9
+  #Align: 32
+  #Frame: 1
+  #Access: 0
+#EndObj
+#Object: Label
+  #ID: 0
+  #Pos: 220,360
+  #Size: 40,17
+  #BkColor: clBtnFace
+  #Cursor: 0
+  #TxtColor: clWindowText
+  #Font: Segoe UI,9,0000
+  #Label: Conv10
+  #Align: 32
+  #Frame: 1
+  #Access: 0
+#EndObj
+#Object: Label
+  #ID: 0
+  #Pos: 220,440
+  #Size: 40,17
+  #BkColor: clBtnFace
+  #Cursor: 0
+  #TxtColor: clWindowText
+  #Font: Segoe UI,9,0000
+  #Label: Conv11
+  #Align: 32
+  #Frame: 1
+  #Access: 0
+#EndObj
+#Object: Label
+  #ID: 0
+  #Pos: 220,520
+  #Size: 40,17
+  #BkColor: clBtnFace
+  #Cursor: 0
+  #TxtColor: clWindowText
+  #Font: Segoe UI,9,0000
+  #Label: Conv12
+  #Align: 32
+  #Frame: 1
+  #Access: 0
+#EndObj
+#Object: Label
+  #ID: 0
+  #Pos: 220,600
+  #Size: 40,17
+  #BkColor: clBtnFace
+  #Cursor: 0
+  #TxtColor: clWindowText
+  #Font: Segoe UI,9,0000
+  #Label: Conv13
+  #Align: 32
+  #Frame: 1
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 300,28
+  #Size: 15,20
+  #Cursor: 0
+  #PBmpFile: 1,red_arrow_up.png
+  #PBmpFile: 2,green-arrow-up.png
+  #TabOrder: 22
+  #Status: 1,1,6,0
+  #Status: 2,1,6,1
+  #CycleTime: 1,0
+  #CycleTime: 2,0
+  #Access: 0
+#EndObj
+#Object: Bitmap
+  #ID: 0
+  #Pos: 300,79
+  #Size: 15,20
+  #Cursor: 0
+  #PBmpFile: 1,red_arrow_down.png
+  #PBmpFile: 2,green-arrow-down.png
+  #TabOrder: 23
+  #Status: 1,2,6,0
+  #Status: 2,2,6,1
+  #CycleTime: 1,0
+  #CycleTime: 2,0
+  #Access: 0
+#EndObj
