@@ -55,3 +55,32 @@ Conv10低onv10
 Conv11低onv11
 Conv12低onv12
 Conv13低onv13
+Sensor 1刨ensor 1
+Sensor 3刨ensor 3
+Sensor 4刨ensor 4
+Sensor 5刨ensor 5
+Sensor 6刨ensor 6
+Sensor 7刨ensor 7
+Sensor 2刨ensor 2
+Sensor 8刨ensor 8
+Sensor 9刨ensor 9
+Sensor 10刨ensor 10
+Sensor 11刨ensor 11
+Sensor 12刨ensor 12
+Sensor 13刨ensor 13
+Conveyor 1低onveyor 1
+Conveyor 2低onveyor 2
+Conveyor 3低onveyor 3
+Conveyor 4低onveyor 4
+Conveyor 5低onveyor 5
+Conveyor 6低onveyor 6
+Conveyor 7低onveyor 7
+Conveyor 8低onveyor 8
+Conveyor 9低onveyor 9
+Conveyor 10低onveyor 10
+Conveyor 11低onveyor 11
+Conveyor 12低onveyor 12
+Conveyor 13低onveyor 13
+Auto你uto
+Motor-冶otor-
+Motor+冶otor+

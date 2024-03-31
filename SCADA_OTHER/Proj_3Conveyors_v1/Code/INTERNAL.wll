@@ -1,0 +1,264 @@
+function void SetAuto()
+    int temp;
+    temp = GetNumGateValue("SELECTED_CONV",999);
+    if(temp == 1)then
+        SetNumGateValue("op_mode_conv1",0,1);
+    end
+    if(temp == 2)then
+        SetNumGateValue("op_mode_conv2",2,1);
+    end
+    if(temp == 3)then
+        SetNumGateValue("op_mode_conv3",4,1);
+    end
+    if(temp == 4)then
+        SetNumGateValue("op_mode_conv4",6,1);
+    end
+    if(temp == 5)then
+        SetNumGateValue("op_mode_conv5",8,1);
+    end
+    if(temp == 6)then
+        SetNumGateValue("op_mode_conv6",10,1);
+    end
+    if(temp == 7)then
+        SetNumGateValue("op_mode_conv7",12,1);
+    end
+    if(temp == 8)then
+        SetNumGateValue("op_mode_conv8",14,1);
+    end
+    if(temp == 9)then
+        SetNumGateValue("op_mode_conv9",16,1);
+    end
+    if(temp == 10)then
+        SetNumGateValue("op_mode_conv10",18,1);
+    end
+    if(temp == 11)then
+        SetNumGateValue("op_mode_conv11",20,1);
+    end
+    if(temp == 12)then
+        SetNumGateValue("op_mode_conv12",22,1);
+    end
+    if(temp == 12)then
+        SetNumGateValue("op_mode_conv13",24,1);
+    end
+end
+
+function void SetManual()
+    int temp;
+    temp = GetNumGateValue("SELECTED_CONV",999);
+    if(temp == 1)then
+        SetNumGateValue("op_mode_conv1",0,2);
+    end
+    if(temp == 2)then
+        SetNumGateValue("op_mode_conv2",2,2);
+    end
+    if(temp == 3)then
+        SetNumGateValue("op_mode_conv3",4,2);
+    end
+    if(temp == 4)then
+        SetNumGateValue("op_mode_conv4",6,2);
+    end
+    if(temp == 5)then
+        SetNumGateValue("op_mode_conv5",8,2);
+    end
+    if(temp == 6)then
+        SetNumGateValue("op_mode_conv6",10,2);
+    end
+    if(temp == 7)then
+        SetNumGateValue("op_mode_conv7",12,2);
+    end
+    if(temp == 8)then
+        SetNumGateValue("op_mode_conv8",14,2);
+    end
+    if(temp == 9)then
+        SetNumGateValue("op_mode_conv9",16,2);
+    end
+    if(temp == 10)then
+        SetNumGateValue("op_mode_conv10",18,2);
+    end
+    if(temp == 11)then
+        SetNumGateValue("op_mode_conv11",20,2);
+    end
+    if(temp == 12)then
+        SetNumGateValue("op_mode_conv12",22,2);
+    end
+    if(temp == 12)then
+        SetNumGateValue("op_mode_conv13",24,2);
+    end
+end
+
+function void SetMaintenance()
+    int temp;
+    temp = GetNumGateValue("SELECTED_CONV",999);
+    if(temp == 1)then
+        SetNumGateValue("op_mode_conv1",0,3);
+    end
+    if(temp == 2)then
+        SetNumGateValue("op_mode_conv2",2,3);
+    end
+    if(temp == 3)then
+        SetNumGateValue("op_mode_conv3",4,3);
+    end
+    if(temp == 4)then
+        SetNumGateValue("op_mode_conv4",6,3);
+    end
+    if(temp == 5)then
+        SetNumGateValue("op_mode_conv5",8,3);
+    end
+    if(temp == 6)then
+        SetNumGateValue("op_mode_conv6",10,3);
+    end
+    if(temp == 7)then
+        SetNumGateValue("op_mode_conv7",12,3);
+    end
+    if(temp == 8)then
+        SetNumGateValue("op_mode_conv8",14,3);
+    end
+    if(temp == 9)then
+        SetNumGateValue("op_mode_conv9",16,3);
+    end
+    if(temp == 10)then
+        SetNumGateValue("op_mode_conv10",18,3);
+    end
+    if(temp == 11)then
+        SetNumGateValue("op_mode_conv11",20,3);
+    end
+    if(temp == 12)then
+        SetNumGateValue("op_mode_conv12",22,3);
+    end
+    if(temp == 12)then
+        SetNumGateValue("op_mode_conv13",24,3);
+    end
+end
+
+function void SetStop()
+    int temp;
+    temp = GetNumGateValue("SELECTED_CONV",999);
+    if(temp == 1)then
+        SetNumGateValue("manual_cm_conv1",1,0);
+    end
+    if(temp == 2)then
+        SetNumGateValue("manual_cm_conv2",3,0);
+    end
+    if(temp == 3)then
+        SetNumGateValue("manual_cm_conv3",5,0);
+    end
+    if(temp == 4)then
+        SetNumGateValue("manual_cm_conv4",7,0);
+    end
+    if(temp == 5)then
+        SetNumGateValue("manual_cm_conv5",9,0);
+    end
+    if(temp == 6)then
+        SetNumGateValue("manual_cm_conv6",11,0);
+    end
+    if(temp == 7)then
+        SetNumGateValue("manual_cm_conv7",13,0);
+    end
+    if(temp == 8)then
+        SetNumGateValue("manual_cm_conv8",15,0);
+    end
+    if(temp == 9)then
+        SetNumGateValue("manual_cm_conv9",17,0);
+    end
+    if(temp == 10)then
+        SetNumGateValue("manual_cm_conv10",19,0);
+    end
+    if(temp == 11)then
+        SetNumGateValue("manual_cm_conv11",21,0);
+    end
+    if(temp == 12)then
+        SetNumGateValue("manual_cm_conv12",23,0);
+    end
+    if(temp == 12)then
+        SetNumGateValue("manual_cm_conv13",25,0);
+    end
+end
+
+function void SetPlus()
+    int temp;
+    temp = GetNumGateValue("SELECTED_CONV",999);
+    if(temp == 1)then
+        SetNumGateValue("manual_cm_conv1",1,1);
+    end
+    if(temp == 2)then
+        SetNumGateValue("manual_cm_conv2",3,1);
+    end
+    if(temp == 3)then
+        SetNumGateValue("manual_cm_conv3",5,1);
+    end
+    if(temp == 4)then
+        SetNumGateValue("manual_cm_conv4",7,1);
+    end
+    if(temp == 5)then
+        SetNumGateValue("manual_cm_conv5",9,1);
+    end
+    if(temp == 6)then
+        SetNumGateValue("manual_cm_conv6",11,1);
+    end
+    if(temp == 7)then
+        SetNumGateValue("manual_cm_conv7",13,1);
+    end
+    if(temp == 8)then
+        SetNumGateValue("manual_cm_conv8",15,1);
+    end
+    if(temp == 9)then
+        SetNumGateValue("manual_cm_conv9",17,1);
+    end
+    if(temp == 10)then
+        SetNumGateValue("manual_cm_conv10",19,1);
+    end
+    if(temp == 11)then
+        SetNumGateValue("manual_cm_conv11",21,1);
+    end
+    if(temp == 12)then
+        SetNumGateValue("manual_cm_conv12",23,1);
+    end
+    if(temp == 12)then
+        SetNumGateValue("manual_cm_conv13",25,1);
+    end
+end
+
+
+function void SetMinus()
+    int temp;
+    temp = GetNumGateValue("SELECTED_CONV",999);
+    if(temp == 1)then
+        SetNumGateValue("manual_cm_conv1",1,2);
+    end
+    if(temp == 2)then
+        SetNumGateValue("manual_cm_conv2",3,2);
+    end
+    if(temp == 3)then
+        SetNumGateValue("manual_cm_conv3",5,2);
+    end
+    if(temp == 4)then
+        SetNumGateValue("manual_cm_conv4",7,2);
+    end
+    if(temp == 5)then
+        SetNumGateValue("manual_cm_conv5",9,2);
+    end
+    if(temp == 6)then
+        SetNumGateValue("manual_cm_conv6",11,2);
+    end
+    if(temp == 7)then
+        SetNumGateValue("manual_cm_conv7",13,2);
+    end
+    if(temp == 8)then
+        SetNumGateValue("manual_cm_conv8",15,2);
+    end
+    if(temp == 9)then
+        SetNumGateValue("manual_cm_conv9",17,2);
+    end
+    if(temp == 10)then
+        SetNumGateValue("manual_cm_conv10",19,2);
+    end
+    if(temp == 11)then
+        SetNumGateValue("manual_cm_conv11",21,2);
+    end
+    if(temp == 12)then
+        SetNumGateValue("manual_cm_conv12",23,2);
+    end
+    if(temp == 12)then
+        SetNumGateValue("manual_cm_conv13",25,2);
+    end
+end
