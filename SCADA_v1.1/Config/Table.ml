@@ -84,3 +84,20 @@ Conveyor 13§Conveyor 13
 Auto§Auto
 Motor-§Motor-
 Motor+§Motor+
+Tool 1§Tool 1
+Tool 3§Tool 3
+Tool 2§Tool 2
+Machine 1§Machine 1
+Machine 1 Interface§Machine 1 Interface
+Machine 2 Interface§Machine 2 Interface
+Machine 2§Machine 2
+Date and Time§Date and Time
+/§/
+:§:
+Manual Mode§Manual Mode
+Previous Tool§Previous Tool
+Next Tool§Next Tool
+.2x%§.2x%
+%2.1f§%2.1f
+%4.i§%4.i
+%4.0f§%4.0f

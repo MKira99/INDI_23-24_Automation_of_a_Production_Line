@@ -3,7 +3,7 @@
 #Pos: 0,0
 #Size: 1257,888
 #BkColor: clBtnFace
-#Gates: 40
+#Gates: 52
   #DIG: sensor1,0
   #DIG: conv1_plus,13
   #DIG: conv1_minus,14
@@ -44,6 +44,18 @@
   #DIG: conv13_plus,37
   #DIG: conv13_minus,38
   #NUM: SELECTED_CONV,999
+  #NUM: year,30
+  #NUM: month,31
+  #NUM: day,32
+  #NUM: hour,33
+  #NUM: minute,34
+  #NUM: second,35
+  #NUM: desired_tool_mach1,28
+  #NUM: desired_tool_mach2,31
+  #NUM: tool_enabled_mach1,38
+  #NUM: tool_enabled_mach2,39
+  #DIG: mach1_tool,39
+  #DIG: mach2_tool,40
 #Style: Maximized
 #StayOnTop: 0
 #Object: Led
@@ -638,7 +650,7 @@
 #EndObj
 #Object: ComboBox
   #ID: 0
-  #Pos: 720,350
+  #Pos: 670,80
   #Size: 144,23
   #ListH: 120
   #Cursor: 0
@@ -662,7 +674,7 @@
 #EndObj
 #Object: Button
   #ID: 0
-  #Pos: 900,305
+  #Pos: 850,35
   #Size: 75,25
   #Cursor: 0
   #Label: Auto
@@ -674,7 +686,7 @@
 #EndObj
 #Object: Button
   #ID: 0
-  #Pos: 900,350
+  #Pos: 850,80
   #Size: 75,25
   #Cursor: 0
   #Label: Manual
@@ -686,7 +698,7 @@
 #EndObj
 #Object: Button
   #ID: 0
-  #Pos: 900,395
+  #Pos: 850,125
   #Size: 75,25
   #Cursor: 0
   #Label: Maintenance
@@ -698,7 +710,7 @@
 #EndObj
 #Object: Button
   #ID: 0
-  #Pos: 610,395
+  #Pos: 560,135
   #Size: 75,25
   #Cursor: 0
   #Label: Motor-
@@ -710,7 +722,7 @@
 #EndObj
 #Object: Button
   #ID: 0
-  #Pos: 610,350
+  #Pos: 560,80
   #Size: 75,25
   #Cursor: 0
   #Label: Stop
@@ -722,7 +734,7 @@
 #EndObj
 #Object: Button
   #ID: 0
-  #Pos: 610,305
+  #Pos: 560,35
   #Size: 75,25
   #Cursor: 0
   #Label: Motor+
@@ -1070,8 +1082,8 @@
 #EndObj
 #Object: GroupBox
   #ID: 0
-  #Pos: 435,435
-  #Size: 270,209
+  #Pos: 450,453
+  #Size: 255,191
   #BkColor: clBtnHighlight
   #TxtColor: clWindowText
   #Font: Segoe UI,9,0000
@@ -1085,7 +1097,7 @@
     #OnBmpRes: 11
     #OffBmpRes: 31
     #BmpBkC: 0,128,128
-    #On: 18,6,1
+    #On: 50,6,1
     #Flashing: 0
     #Access: 0
   #EndObj
@@ -1097,7 +1109,7 @@
     #OnBmpRes: 11
     #OffBmpRes: 31
     #BmpBkC: 0,128,128
-    #On: 18,6,1
+    #On: 48,6,2
     #Flashing: 0
     #Access: 0
   #EndObj
@@ -1109,7 +1121,7 @@
     #OnBmpRes: 11
     #OffBmpRes: 31
     #BmpBkC: 0,128,128
-    #On: 18,6,1
+    #On: 48,6,1
     #Flashing: 0
     #Access: 0
   #EndObj
@@ -1121,7 +1133,7 @@
     #OnBmpRes: 11
     #OffBmpRes: 31
     #BmpBkC: 0,128,128
-    #On: 18,6,1
+    #On: 48,6,3
     #Flashing: 0
     #Access: 0
   #EndObj
@@ -1204,8 +1216,8 @@
 #EndObj
 #Object: GroupBox
   #ID: 0
-  #Pos: 850,436
-  #Size: 270,209
+  #Pos: 450,252
+  #Size: 255,204
   #BkColor: clBtnHighlight
   #TxtColor: clWindowText
   #Font: Segoe UI,9,0000
@@ -1244,7 +1256,7 @@
     #OnBmpRes: 11
     #OffBmpRes: 31
     #BmpBkC: 0,128,128
-    #On: 18,6,1
+    #On: 49,6,3
     #Flashing: 0
     #Access: 0
   #EndObj
@@ -1256,7 +1268,7 @@
     #OnBmpRes: 11
     #OffBmpRes: 31
     #BmpBkC: 0,128,128
-    #On: 18,6,1
+    #On: 49,6,2
     #Flashing: 0
     #Access: 0
   #EndObj
@@ -1268,7 +1280,7 @@
     #OnBmpRes: 11
     #OffBmpRes: 31
     #BmpBkC: 0,128,128
-    #On: 18,6,1
+    #On: 49,6,1
     #Flashing: 0
     #Access: 0
   #EndObj
@@ -1338,8 +1350,8 @@
 #EndObj
 #Object: GroupBox
   #ID: 0
-  #Pos: 520,10
-  #Size: 295,124
+  #Pos: 5,10
+  #Size: 265,112
   #BkColor: clSkyBlue
   #TxtColor: clWindowText
   #Font: Segoe UI,9,0000
@@ -1353,6 +1365,7 @@
     #Font: Segoe UI,12,0001
     #Align: 37
     #Frame: 6
+    #Status: 0,0,0,clBtnFace,,100,,%4.f,40
     #Access: 0
   #EndObj
   #Object: Label
@@ -1402,6 +1415,7 @@
     #Font: Segoe UI,12,0001
     #Align: 37
     #Frame: 6
+    #Status: 0,0,0,clBtnFace,,100,,%2.0f,41
     #Access: 0
   #EndObj
   #Object: St_Bar
@@ -1412,6 +1426,7 @@
     #Font: Segoe UI,12,0001
     #Align: 37
     #Frame: 6
+    #Status: 0,0,0,clBtnFace,,100,,%2.0f,42
     #Access: 0
   #EndObj
   #Object: St_Bar
@@ -1422,6 +1437,7 @@
     #Font: Segoe UI,12,0001
     #Align: 37
     #Frame: 6
+    #Status: 0,0,0,clBtnFace,,100,,%2.0f,43
     #Access: 0
   #EndObj
   #Object: St_Bar
@@ -1432,6 +1448,7 @@
     #Font: Segoe UI,12,0001
     #Align: 37
     #Frame: 6
+    #Status: 0,0,0,clBtnFace,,100,,%2.0f,44
     #Access: 0
   #EndObj
   #Object: St_Bar
@@ -1442,6 +1459,7 @@
     #Font: Segoe UI,12,0001
     #Align: 37
     #Frame: 6
+    #Status: 0,0,0,clBtnFace,,100,,%2.0f,45
     #Access: 0
   #EndObj
   #Object: Label
@@ -1499,7 +1517,7 @@
 #EndObj
 #Object: GroupBox
   #ID: 0
-  #Pos: 705,515
+  #Pos: 705,510
   #Size: 135,130
   #BkColor: clInfoBk
   #TxtColor: clWindowText
@@ -1521,54 +1539,32 @@
   #EndObj
   #Object: Button
     #ID: 0
-    #Pos: 35,45
+    #Pos: 20,45
     #Size: 95,25
     #Cursor: 0
     #Label: Previous Tool
-    #Font: Segoe UI,10,0001
+    #Font: Segoe UI,9,0000
     #FunctionKey: -1
     #TabOrder: 0
     #Access: 0
+    #OnClick: StartF,M1PrevTool()
   #EndObj
   #Object: Button
     #ID: 0
-    #Pos: 35,90
+    #Pos: 20,90
     #Size: 95,25
     #Cursor: 0
     #Label: Next Tool
-    #Font: Segoe UI,10,0001
+    #Font: Segoe UI,9,0000
     #FunctionKey: -1
     #TabOrder: 1
     #Access: 0
-  #EndObj
-  #Object: Led
-    #ID: 0
-    #Pos: 15,50
-    #Size: 17,17
-    #Cursor: 0
-    #OnBmpRes: 11
-    #OffBmpRes: 31
-    #BmpBkC: 0,128,128
-    #On: 18,6,1
-    #Flashing: 0
-    #Access: 0
-  #EndObj
-  #Object: Led
-    #ID: 0
-    #Pos: 15,95
-    #Size: 17,17
-    #Cursor: 0
-    #OnBmpRes: 11
-    #OffBmpRes: 31
-    #BmpBkC: 0,128,128
-    #On: 18,6,1
-    #Flashing: 0
-    #Access: 0
+    #OnClick: StartF,M1NextTool()
   #EndObj
 #EndObj
 #Object: GroupBox
   #ID: 0
-  #Pos: 1120,515
+  #Pos: 705,325
   #Size: 135,130
   #BkColor: clInfoBk
   #TxtColor: clWindowText
@@ -1590,54 +1586,32 @@
   #EndObj
   #Object: Button
     #ID: 0
-    #Pos: 35,45
+    #Pos: 20,45
     #Size: 95,25
     #Cursor: 0
     #Label: Previous Tool
-    #Font: Segoe UI,10,0001
+    #Font: Segoe UI,9,0000
     #FunctionKey: -1
     #TabOrder: 0
     #Access: 0
+    #OnClick: StartF,M2PrevTool()
   #EndObj
   #Object: Button
     #ID: 0
-    #Pos: 35,90
+    #Pos: 20,90
     #Size: 95,25
     #Cursor: 0
     #Label: Next Tool
-    #Font: Segoe UI,10,0001
+    #Font: Segoe UI,9,0000
     #FunctionKey: -1
     #TabOrder: 1
     #Access: 0
-  #EndObj
-  #Object: Led
-    #ID: 0
-    #Pos: 15,50
-    #Size: 17,17
-    #Cursor: 0
-    #OnBmpRes: 11
-    #OffBmpRes: 31
-    #BmpBkC: 0,128,128
-    #On: 18,6,1
-    #Flashing: 0
-    #Access: 0
-  #EndObj
-  #Object: Led
-    #ID: 0
-    #Pos: 15,95
-    #Size: 17,17
-    #Cursor: 0
-    #OnBmpRes: 11
-    #OffBmpRes: 31
-    #BmpBkC: 0,128,128
-    #On: 18,6,1
-    #Flashing: 0
-    #Access: 0
+    #OnClick: StartF,M2NextTool()
   #EndObj
 #EndObj
 #Object: Button
   #ID: 0
-  #Pos: 830,40
+  #Pos: 30,135
   #Size: 85,27
   #Cursor: 0
   #Label: Alarms
@@ -1649,7 +1623,7 @@
 #EndObj
 #Object: Button
   #ID: 0
-  #Pos: 830,85
+  #Pos: 160,135
   #Size: 85,27
   #Cursor: 0
   #Label: Events
@@ -1658,4 +1632,71 @@
   #TabOrder: 60
   #Access: 0
   #OnClick: Template,\Events_screen
+#EndObj
+#Object: GroupBox
+  #ID: 0
+  #Pos: 850,305
+  #Size: 180,150
+  #BkColor: clMoneyGreen
+  #TxtColor: clWindowText
+  #Font: Segoe UI,9,0000
+  #Align: 0
+  #TabOrder: 61
+  #Object: Button
+    #ID: 0
+    #Pos: 55,30
+    #Size: 75,25
+    #Cursor: 0
+    #Label: Stop
+    #Font: Segoe UI,9,0000
+    #FunctionKey: -1
+    #TabOrder: 0
+    #Access: 0
+  #EndObj
+  #Object: Button
+    #ID: 0
+    #Pos: 55,60
+    #Size: 75,25
+    #Cursor: 0
+    #Label: Tool
+    #Font: Segoe UI,9,0000
+    #FunctionKey: -1
+    #TabOrder: 1
+    #Access: 0
+  #EndObj
+  #Object: Button
+    #ID: 0
+    #Pos: 55,90
+    #Size: 75,25
+    #Cursor: 0
+    #Label: Rotate+
+    #Font: Segoe UI,9,0000
+    #FunctionKey: -1
+    #TabOrder: 2
+    #Access: 0
+  #EndObj
+  #Object: Button
+    #ID: 0
+    #Pos: 55,120
+    #Size: 75,25
+    #Cursor: 0
+    #Label: Rotate-
+    #Font: Segoe UI,9,0000
+    #FunctionKey: -1
+    #TabOrder: 3
+    #Access: 0
+  #EndObj
+#EndObj
+#Object: Label
+  #ID: 0
+  #Pos: 890,315
+  #Size: 100,17
+  #BkColor: clBtnHighlight
+  #Cursor: 0
+  #TxtColor: clWindowText
+  #Font: Segoe UI,11,0001
+  #Label: Manual Mode
+  #Align: 32
+  #Frame: 1
+  #Access: 0
 #EndObj
