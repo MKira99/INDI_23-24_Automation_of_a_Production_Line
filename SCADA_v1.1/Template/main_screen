@@ -1642,7 +1642,7 @@
 #Object: GroupBox
   #ID: 0
   #Pos: 850,290
-  #Size: 180,150
+  #Size: 275,150
   #BkColor: clMoneyGreen
   #TxtColor: clWindowText
   #Font: Segoe UI,9,0000
@@ -1696,10 +1696,58 @@
     #Access: 0
     #OnClick: StartF,Set_M2RMinus()
   #EndObj
+  #Object: Button
+    #ID: 0
+    #Pos: 155,30
+    #Size: 75,25
+    #Cursor: 0
+    #Label: Y+
+    #Font: Segoe UI,9,0000
+    #FunctionKey: -1
+    #TabOrder: 4
+    #Access: 0
+    #OnClick: StartF,M2YPlus()
+  #EndObj
+  #Object: Button
+    #ID: 0
+    #Pos: 155,60
+    #Size: 75,25
+    #Cursor: 0
+    #Label: Y-
+    #Font: Segoe UI,9,0000
+    #FunctionKey: -1
+    #TabOrder: 5
+    #Access: 0
+    #OnClick: StartF,M2YMinus()
+  #EndObj
+  #Object: Button
+    #ID: 0
+    #Pos: 155,90
+    #Size: 75,25
+    #Cursor: 0
+    #Label: Z+
+    #Font: Segoe UI,9,0000
+    #FunctionKey: -1
+    #TabOrder: 6
+    #Access: 0
+    #OnClick: StartF,M2ZPlus()
+  #EndObj
+  #Object: Button
+    #ID: 0
+    #Pos: 155,120
+    #Size: 75,25
+    #Cursor: 0
+    #Label: Z-
+    #Font: Segoe UI,9,0000
+    #FunctionKey: -1
+    #TabOrder: 7
+    #Access: 0
+    #OnClick: StartF,M2ZMinus()
+  #EndObj
 #EndObj
 #Object: Label
   #ID: 0
-  #Pos: 885,300
+  #Pos: 925,300
   #Size: 110,17
   #BkColor: clBtnHighlight
   #Cursor: 0
@@ -1785,7 +1833,7 @@
 #Object: GroupBox
   #ID: 0
   #Pos: 855,480
-  #Size: 180,150
+  #Size: 265,150
   #BkColor: clMoneyGreen
   #TxtColor: clWindowText
   #Font: Segoe UI,9,0000
@@ -1839,10 +1887,58 @@
     #Access: 0
     #OnClick: StartF,M1RMinus()
   #EndObj
+  #Object: Button
+    #ID: 0
+    #Pos: 155,30
+    #Size: 75,25
+    #Cursor: 0
+    #Label: Y+
+    #Font: Segoe UI,9,0000
+    #FunctionKey: -1
+    #TabOrder: 4
+    #Access: 0
+    #OnClick: StartF,M1YPlus()
+  #EndObj
+  #Object: Button
+    #ID: 0
+    #Pos: 155,60
+    #Size: 75,25
+    #Cursor: 0
+    #Label: Y-
+    #Font: Segoe UI,9,0000
+    #FunctionKey: -1
+    #TabOrder: 5
+    #Access: 0
+    #OnClick: StartF,M1YMinus()
+  #EndObj
+  #Object: Button
+    #ID: 0
+    #Pos: 155,90
+    #Size: 75,25
+    #Cursor: 0
+    #Label: Z+
+    #Font: Segoe UI,9,0000
+    #FunctionKey: -1
+    #TabOrder: 6
+    #Access: 0
+    #OnClick: StartF,M1ZPlus()
+  #EndObj
+  #Object: Button
+    #ID: 0
+    #Pos: 155,120
+    #Size: 75,25
+    #Cursor: 0
+    #Label: Z-
+    #Font: Segoe UI,9,0000
+    #FunctionKey: -1
+    #TabOrder: 7
+    #Access: 0
+    #OnClick: StartF,M1ZMinus()
+  #EndObj
 #EndObj
 #Object: Label
   #ID: 0
-  #Pos: 890,490
+  #Pos: 935,490
   #Size: 110,17
   #BkColor: clBtnHighlight
   #Cursor: 0

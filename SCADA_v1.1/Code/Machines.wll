@@ -11,6 +11,18 @@ End
 Function Void M1RMinus()
     SetNumGateValue("manual_cm_mach1",27,3);
 End
+Function Void M1YPlus()
+    SetNumGateValue("manual_cm_mach1",27,4);
+End
+Function Void M1YMinus()
+    SetNumGateValue("manual_cm_mach1",27,5);
+End
+Function Void M1ZPlus()
+    SetNumGateValue("manual_cm_mach1",27,6);
+End
+Function Void M1ZMinus()
+    SetNumGateValue("manual_cm_mach1",27,7);
+End
 Function Void Toogle_M1Auto()
     SetNumGateValue("op_mode_mach1",26,1);
 End
@@ -32,6 +44,18 @@ Function Void Set_M2RPlus()
 End
 Function Void Set_M2RMinus()
     SetNumGateValue("manual_cm_mach2",30,3);
+End
+Function Void M2YPlus()
+    SetNumGateValue("manual_cm_mach2",30,4);
+End
+Function Void M2YMinus()
+    SetNumGateValue("manual_cm_mach2",30,5);
+End
+Function Void M2ZPlus()
+    SetNumGateValue("manual_cm_mach2",30,6);
+End
+Function Void M2ZMinus()
+    SetNumGateValue("manual_cm_mach2",30,7);
 End
 Function Void Toogle_M2Auto()
     SetNumGateValue("op_mode_mach2",29,1);
