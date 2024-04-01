@@ -1,0 +1,32 @@
+//Machine 1
+Function Void M1RPlus()
+    SetNumGateValue("manual_machine1",27,2);
+End
+Function Void M1RMinus()
+    SetNumGateValue("manual_machine1",27,3);
+End
+Function Void Toogle_M1Auto()
+    SetNumGateValue("op_machine1_mode",26,1);
+End
+Function Void Toogle_M1Maintenance()
+    SetNumGateValue("op_machine1_mode",26,3);
+End
+Function Void Toogle_M1Manual()
+    SetNumGateValue("op_machine1_mode",26,2);
+End
+//Machine2
+Function Void Set_M2RPlus()
+    SetNumGateValue("manual_machine2",29,2);
+End
+Function Void Set_M2RMinus()
+    SetNumGateValue("manual_machine2",29,3);
+End
+Function Void Toogle_M2Auto()
+    SetNumGateValue("op_machine2_mode",28,1);
+End
+Function Void Toogle_M2Maintenance()
+    SetNumGateValue("op_machine2_mode",28,3);
+End
+Function Void Toogle_M2Manual()
+    SetNumGateValue("op_machine2_mode",28,2);
+End
