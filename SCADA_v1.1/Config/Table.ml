@@ -127,3 +127,8 @@ Rotate+§Rotate+
 Rotate-§Rotate-
 Manual mode 2§Manual mode 2
 Manual mode 1§Manual mode 1
+Machine 1 Overload!§Machine 1 Overload!
+Y+§Y+
+Y-§Y-
+Z+§Z+
+Z-§Z-
