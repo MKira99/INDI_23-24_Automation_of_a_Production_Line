@@ -1,0 +1,92 @@
+function void button()
+    int temp;
+    temp = GetDigGateValue("UPDATE_PRESSED",99);
+    if(temp == 1) then
+        SetDigGateValue("UPDATE_PRESSED",99,0);
+    else
+        SetDigGateValue("UPDATE_PRESSED",99,1);
+    end
+end
+
+
+function void cont()
+    int selected;
+    int conv_mode;
+    int conv_comm;
+    int mode_value;
+    int comm_value;
+    int temp;
+    temp = GetDigGateValue("UPDATE_PRESSED",99);
+    while (temp == 1)
+        temp = GetDigGateValue("UPDATE_PRESSED",99);
+        selected = GetNumGateValue("SELECTED_CONV",999);
+        if(selected == 1)then
+        conv_mode = GetNumGateValue("op_mode_conv1",0);
+        conv_comm = GetNumGateValue("manual_cm_conv1",1);
+        else
+            if(selected == 2)then
+            conv_mode = GetNumGateValue("op_mode_conv2",2);
+            conv_comm = GetNumGateValue("manual_cm_conv2",3);
+            else
+                if(selected == 3)then
+                conv_mode = GetNumGateValue("op_mode_conv3",4);
+                conv_comm = GetNumGateValue("manual_cm_conv3",5);
+                else
+                    if(selected == 4)then
+                    conv_mode = GetNumGateValue("op_mode_conv4",6);
+                    conv_comm = GetNumGateValue("manual_cm_conv4",7);
+                    else
+                        if(selected == 5)then
+                        conv_mode = GetNumGateValue("op_mode_conv5",8);
+                        conv_comm = GetNumGateValue("manual_cm_conv5",9);
+                        else
+                            if(selected == 6)then
+                            conv_mode = GetNumGateValue("op_mode_conv6",10);
+                            conv_comm = GetNumGateValue("manual_cm_conv6",11);
+                            else
+                                if(selected == 7)then
+                                conv_mode = GetNumGateValue("op_mode_conv7",12);
+                                conv_comm = GetNumGateValue("manual_cm_conv7",13);
+                                else
+                                    if(selected == 8)then
+                                    conv_mode = GetNumGateValue("op_mode_conv8",14);
+                                    conv_comm = GetNumGateValue("manual_cm_conv8",15);
+                                    else
+                                        if(selected == 9)then
+                                        conv_mode = GetNumGateValue("op_mode_conv9",16);
+                                        conv_comm = GetNumGateValue("manual_cm_conv9",17);
+                                        else
+                                            if(selected == 10)then
+                                            conv_mode = GetNumGateValue("op_mode_conv10",18);
+                                            conv_comm = GetNumGateValue("manual_cm_conv10",19);
+                                            else
+                                                if(selected == 11)then
+                                                conv_mode = GetNumGateValue("op_mode_conv11",20);
+                                                conv_comm = GetNumGateValue("manual_cm_conv11",21);
+                                                else
+                                                    if(selected == 12)then
+                                                    conv_mode = GetNumGateValue("op_mode_conv12",22);
+                                                    conv_comm = GetNumGateValue("manual_cm_conv12",23);
+                                                    else
+                                                        if(selected == 13)then
+                                                        conv_mode = GetNumGateValue("op_mode_conv13",24);
+                                                        conv_comm = GetNumGateValue("manual_cm_conv13",25);
+                                                        end
+                                                    end
+                                                end
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        mode_value = conv_mode+selected*10;
+        comm_value = conv_comm+selected*10;
+        SetNumGateValue("CONV_OP_MODE",998, mode_value);
+        SetNumGateValue("CONV_MANUAL_COMMAND",997,comm_value);
+    end
+end
