@@ -1,0 +1,124 @@
+//Machine 1
+Function Void M1Stop()
+    SetNumGateValue("manual_cm_mach1",27,0);
+End
+Function Void M1Tool()
+    SetNumGateValue("manual_cm_mach1",27,1);
+End
+Function Void M1RPlus()
+    SetNumGateValue("manual_cm_mach1",27,2);
+End
+Function Void M1RMinus()
+    SetNumGateValue("manual_cm_mach1",27,3);
+End
+Function Void M1YPlus()
+    SetNumGateValue("manual_cm_mach1",27,4);
+End
+Function Void M1YMinus()
+    SetNumGateValue("manual_cm_mach1",27,5);
+End
+Function Void M1ZPlus()
+    SetNumGateValue("manual_cm_mach1",27,6);
+End
+Function Void M1ZMinus()
+    SetNumGateValue("manual_cm_mach1",27,7);
+End
+Function Void Toogle_M1Auto()
+    SetNumGateValue("op_mode_mach1",26,1);
+End
+Function Void Toogle_M1Maintenance()
+    SetNumGateValue("op_mode_mach1",26,3);
+End
+Function Void Toogle_M1Manual()
+    SetNumGateValue("op_mode_mach1",26,2);
+End
+//Machine2
+Function Void Set_M2Stop()
+    SetNumGateValue("manual_cm_mach2",30,0);
+End
+Function Void Set_M2Tool()
+    SetNumGateValue("manual_cm_mach2",30,1);
+End
+Function Void Set_M2RPlus()
+    SetNumGateValue("manual_cm_mach2",30,2);
+End
+Function Void Set_M2RMinus()
+    SetNumGateValue("manual_cm_mach2",30,3);
+End
+Function Void M2YPlus()
+    SetNumGateValue("manual_cm_mach2",30,4);
+End
+Function Void M2YMinus()
+    SetNumGateValue("manual_cm_mach2",30,5);
+End
+Function Void M2ZPlus()
+    SetNumGateValue("manual_cm_mach2",30,6);
+End
+Function Void M2ZMinus()
+    SetNumGateValue("manual_cm_mach2",30,7);
+End
+Function Void Toogle_M2Auto()
+    SetNumGateValue("op_mode_mach2",29,1);
+End
+Function Void Toogle_M2Maintenance()
+    SetNumGateValue("op_mode_mach2",29,3);
+End
+Function Void Toogle_M2Manual()
+    SetNumGateValue("op_mode_mach2",29,2);
+End
+
+Function Void M1NextTool()
+    int temp;
+    temp = GetNumGateValue("desired_tool_mach1",28);
+    if (temp==1) then
+        SetNumGateValue("desired_tool_mach1",28,2);
+    end
+    if (temp==2) then
+        SetNumGateValue("desired_tool_mach1",28,3);
+    end
+    if (temp==3) then
+        SetNumGateValue("desired_tool_mach1",28,1);
+    end
+end
+
+Function Void M1PrevTool()
+    int temp;
+    temp = GetNumGateValue("desired_tool_mach1",28);
+    if (temp==1) then
+        SetNumGateValue("desired_tool_mach1",28,3);
+    end
+    if (temp==2) then
+        SetNumGateValue("desired_tool_mach1",28,1);
+    end
+    if (temp==3) then
+        SetNumGateValue("desired_tool_mach1",28,2);
+    end
+end
+
+Function Void M2NextTool()
+    int temp;
+    temp = GetNumGateValue("desired_tool_mach2",31);
+    if (temp==1) then
+        SetNumGateValue("desired_tool_mach2",31,2);
+    end
+    if (temp==2) then
+        SetNumGateValue("desired_tool_mach2",31,3);
+    end
+    if (temp==3) then
+        SetNumGateValue("desired_tool_mach2",31,1);
+    end
+end
+
+Function Void M2PrevTool()
+    int temp;
+    temp = GetNumGateValue("desired_tool_mach2",31);
+    if (temp==1) then
+        SetNumGateValue("desired_tool_mach2",31,3);
+    end
+    if (temp==2) then
+        SetNumGateValue("desired_tool_mach2",31,1);
+    end
+    if (temp==3) then
+        SetNumGateValue("desired_tool_mach2",31,2);
+    end
+end
