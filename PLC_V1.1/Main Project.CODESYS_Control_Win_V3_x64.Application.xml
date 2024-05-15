@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Symbolconfiguration xmlns="http://www.3s-software.com/schemas/Symbolconfiguration.xsd">
+  <Header>
+    <Version>3.5.14.0</Version>
+    <SymbolConfigObject version="4.5.1.0" runtimeid="3.5.18.30" libversion="4.5.0.0" compiler="3.5.19.60" lmm="3.5.19.60" profile="CODESYS V3.5 SP19 Patch 6+" settings="SupportOPCUA, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
+    <ProjectInfo name="Main Project" devicename="CODESYS_Control_Win_V3_x64" appname="Application" />
+  </Header>
+  <TypeList>
+    <TypeSimple name="T_BOOL" size="1" swapsize="0" typeclass="Bool" iecname="BOOL" />
+    <TypeSimple name="T_INT" size="2" swapsize="2" typeclass="Int" iecname="INT" />
+    <TypeSimple name="T_STRING" size="81" swapsize="0" typeclass="String" iecname="STRING" />
+  </TypeList>
+  <NodeList>
+    <Node name="Application">
+      <Node name="MAIN_SM">
+        <Node name="cell0_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="cell1_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="cell2_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="cell3_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="cell4_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="cell5_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="cell6_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_cell0" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_cell1" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_cell2" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_cell3" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_cell4" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_cell5" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_cell6" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_load1" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_load2" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_load3" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_load4" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_unload1" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_unload2" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_unload3" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_unload4" type="T_BOOL" access="ReadWrite" />
+        <Node name="id_cell0" type="T_STRING" access="ReadWrite" />
+        <Node name="id_cell1" type="T_STRING" access="ReadWrite" />
+        <Node name="id_cell2" type="T_STRING" access="ReadWrite" />
+        <Node name="id_cell3" type="T_STRING" access="ReadWrite" />
+        <Node name="id_cell4" type="T_STRING" access="ReadWrite" />
+        <Node name="id_cell5" type="T_STRING" access="ReadWrite" />
+        <Node name="id_cell6" type="T_STRING" access="ReadWrite" />
+        <Node name="id_load1" type="T_STRING" access="ReadWrite" />
+        <Node name="id_load2" type="T_STRING" access="ReadWrite" />
+        <Node name="id_load3" type="T_STRING" access="ReadWrite" />
+        <Node name="id_load4" type="T_STRING" access="ReadWrite" />
+        <Node name="id_unload1" type="T_STRING" access="ReadWrite" />
+        <Node name="id_unload2" type="T_STRING" access="ReadWrite" />
+        <Node name="id_unload3" type="T_STRING" access="ReadWrite" />
+        <Node name="id_unload4" type="T_STRING" access="ReadWrite" />
+        <Node name="load1_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="load2_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="load3_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="load4_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="qty_cell0" type="T_INT" access="ReadWrite" />
+        <Node name="qty_cell1" type="T_INT" access="ReadWrite" />
+        <Node name="qty_cell2" type="T_INT" access="ReadWrite" />
+        <Node name="qty_cell3" type="T_INT" access="ReadWrite" />
+        <Node name="qty_cell4" type="T_INT" access="ReadWrite" />
+        <Node name="qty_cell5" type="T_INT" access="ReadWrite" />
+        <Node name="qty_cell6" type="T_INT" access="ReadWrite" />
+        <Node name="qty_load1" type="T_INT" access="ReadWrite" />
+        <Node name="qty_load2" type="T_INT" access="ReadWrite" />
+        <Node name="qty_load3" type="T_INT" access="ReadWrite" />
+        <Node name="qty_load4" type="T_INT" access="ReadWrite" />
+        <Node name="qty_unload1" type="T_INT" access="ReadWrite" />
+        <Node name="qty_unload2" type="T_INT" access="ReadWrite" />
+        <Node name="qty_unload3" type="T_INT" access="ReadWrite" />
+        <Node name="qty_unload4" type="T_INT" access="ReadWrite" />
+        <Node name="tool1_cell0" type="T_INT" access="ReadWrite" />
+        <Node name="tool1_cell1" type="T_INT" access="ReadWrite" />
+        <Node name="tool1_cell2" type="T_INT" access="ReadWrite" />
+        <Node name="tool1_cell3" type="T_INT" access="ReadWrite" />
+        <Node name="tool1_cell4" type="T_INT" access="ReadWrite" />
+        <Node name="tool1_cell5" type="T_INT" access="ReadWrite" />
+        <Node name="tool1_cell6" type="T_INT" access="ReadWrite" />
+        <Node name="tool1_load1" type="T_INT" access="ReadWrite" />
+        <Node name="tool1_load2" type="T_INT" access="ReadWrite" />
+        <Node name="tool1_load3" type="T_INT" access="ReadWrite" />
+        <Node name="tool1_load4" type="T_INT" access="ReadWrite" />
+        <Node name="tool1_unload1" type="T_INT" access="ReadWrite" />
+        <Node name="tool1_unload2" type="T_INT" access="ReadWrite" />
+        <Node name="tool1_unload3" type="T_INT" access="ReadWrite" />
+        <Node name="tool1_unload4" type="T_INT" access="ReadWrite" />
+        <Node name="tool2_cell0" type="T_INT" access="ReadWrite" />
+        <Node name="tool2_cell1" type="T_INT" access="ReadWrite" />
+        <Node name="tool2_cell2" type="T_INT" access="ReadWrite" />
+        <Node name="tool2_cell3" type="T_INT" access="ReadWrite" />
+        <Node name="tool2_cell4" type="T_INT" access="ReadWrite" />
+        <Node name="tool2_cell5" type="T_INT" access="ReadWrite" />
+        <Node name="tool2_cell6" type="T_INT" access="ReadWrite" />
+        <Node name="tool2_load1" type="T_INT" access="ReadWrite" />
+        <Node name="tool2_load2" type="T_INT" access="ReadWrite" />
+        <Node name="tool2_load3" type="T_INT" access="ReadWrite" />
+        <Node name="tool2_load4" type="T_INT" access="ReadWrite" />
+        <Node name="tool2_unload1" type="T_INT" access="ReadWrite" />
+        <Node name="tool2_unload2" type="T_INT" access="ReadWrite" />
+        <Node name="tool2_unload3" type="T_INT" access="ReadWrite" />
+        <Node name="tool2_unload4" type="T_INT" access="ReadWrite" />
+        <Node name="type_cell0" type="T_INT" access="ReadWrite" />
+        <Node name="type_cell1" type="T_INT" access="ReadWrite" />
+        <Node name="type_cell2" type="T_INT" access="ReadWrite" />
+        <Node name="type_cell3" type="T_INT" access="ReadWrite" />
+        <Node name="type_cell4" type="T_INT" access="ReadWrite" />
+        <Node name="type_cell5" type="T_INT" access="ReadWrite" />
+        <Node name="type_cell6" type="T_INT" access="ReadWrite" />
+        <Node name="type_load1" type="T_INT" access="ReadWrite" />
+        <Node name="type_load2" type="T_INT" access="ReadWrite" />
+        <Node name="type_load3" type="T_INT" access="ReadWrite" />
+        <Node name="type_load4" type="T_INT" access="ReadWrite" />
+        <Node name="type_unload1" type="T_INT" access="ReadWrite" />
+        <Node name="type_unload2" type="T_INT" access="ReadWrite" />
+        <Node name="type_unload3" type="T_INT" access="ReadWrite" />
+        <Node name="type_unload4" type="T_INT" access="ReadWrite" />
+        <Node name="unload1_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="unload2_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="unload3_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="unload4_finished" type="T_BOOL" access="ReadWrite" />
+      </Node>
+    </Node>
+  </NodeList>
+</Symbolconfiguration>
