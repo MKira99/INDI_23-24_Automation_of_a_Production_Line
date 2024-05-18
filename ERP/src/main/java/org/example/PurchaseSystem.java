@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PurchaseSystem {
-    private static List<Supplier> suppliers;
-    private static List<PurchaseOrder> purchaseOrders;
+    private static List<Supplier> suppliers=new ArrayList<>();
+    private static List<PurchaseOrder> purchaseOrders=new ArrayList<>();
 
     // Constructor
     public PurchaseSystem() {
-        suppliers = new ArrayList<>();
-        purchaseOrders = new ArrayList<>();
     }
 
     // Methods

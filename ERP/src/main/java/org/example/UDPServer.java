@@ -47,7 +47,6 @@ public class UDPServer {
             } else {
                 System.out.println("Nao temos no armazem essas peças, mas temos gajas se quiseres.");
                 Supplier Supplier1 = new Supplier(1, new int[]{30, 10}, 4);
-                System.out.println("Supplier1: " + Supplier1);
                 Supplier Supplier2 = new Supplier(2, new int[]{45, 15}, 2);
                 Supplier Supplier3 = new Supplier(3, new int[]{55, 18}, 1);
                 PurchaseSystem.addSupplier(Supplier1);
