@@ -1,4 +1,4 @@
-package org.example;
+package proca;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
