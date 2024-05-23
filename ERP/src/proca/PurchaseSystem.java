@@ -9,6 +9,8 @@ public class PurchaseSystem {
 
     // Constructor
     public PurchaseSystem() {
+        suppliers = new ArrayList<>();
+        purchaseOrders = new ArrayList<>();
     }
 
     // Methods

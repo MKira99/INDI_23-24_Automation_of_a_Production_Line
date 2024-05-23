@@ -1,6 +1,6 @@
 package proca;
 
-import org.example.Product;
+import proca.Product;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,28 +1,18 @@
 package proca;
 
-import main.java.org.example.PurchaseSystem;
-import main.java.org.example.Order;
-import main.java.org.example.Product;
-import org.example.OrderSystem;
+import java.net.*;
+import java.io.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import java.io.StringReader;
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
+import proca.ConsolidatedOrderSystem.*;
 
 public class UDPServer {
     public static void main(String[] args) throws IOException {
-        int port= 24680;
-        
+        int port = 24680;
+
         DatagramSocket ds = new DatagramSocket(port);
         byte[] buf = new byte[65535];
         DatagramPacket DpReceive = null;
@@ -40,6 +30,11 @@ public class UDPServer {
             buf = new byte[65535];
 
             OrderSystem.addOrder(order);
+
+            DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
+            DataOrder.printOrderData();
+
+            // The rest of your logic here
             Product product = new Product(order.getWorkpiece(), order.getQuantity());
 
             if (InventorySystem.checkHas(product, product.getQuantity()) == 1) {
@@ -59,7 +54,7 @@ public class UDPServer {
         }
     }
 
-        private static Order parseOrder(String xml) {
+    private static Order parseOrder(String xml) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -95,4 +90,3 @@ public class UDPServer {
         return null;
     }
 }
-

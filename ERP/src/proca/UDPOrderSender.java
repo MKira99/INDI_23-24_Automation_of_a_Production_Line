@@ -38,7 +38,6 @@ public class UDPOrderSender {
             socket.close();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }    
     }
 }
-

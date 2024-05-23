@@ -1,6 +1,5 @@
 package proca;
 import java.util.*;
-
 public class ConsolidatedOrderSystem {
 
     // Order class
@@ -65,7 +64,6 @@ public class ConsolidatedOrderSystem {
         }
     }
 
-    // OrderInformation class
     public static class OrderInformation {
         private int piece1Quantity;
         private int piece2Quantity;
@@ -92,7 +90,6 @@ public class ConsolidatedOrderSystem {
         }
     }
 
-    // OrderSystem class
     public static class OrderSystem {
         static ArrayList<Order> orders = new ArrayList<Order>();
 
@@ -111,7 +108,6 @@ public class ConsolidatedOrderSystem {
         }
     }
 
-    // OrderToMES class
     public static class OrderToMES {
         private int field1;
         private int field2;
@@ -150,8 +146,35 @@ public class ConsolidatedOrderSystem {
                     '}';
         }
     }
-    public static void main(String[] args){
-        System.out.println("GAJAS BOAS");
+
+    public static class OrderDataHolder {
+        private static String workpiece;
+        private static int quantity;
+        private static int dueDate;
+
+        public static void setOrderData(String workpiece, int quantity, int dueDate) {
+            OrderDataHolder.workpiece = workpiece;
+            OrderDataHolder.quantity = quantity;
+            OrderDataHolder.dueDate = dueDate;
+        }
+
+        public static String getWorkpiece() {
+            return workpiece;
+        }
+
+        public static int getQuantity() {
+            return quantity;
+        }
+
+        public static int getDueDate() {
+            return dueDate;
+        }
     }
 
+    public static void main(String[] args) {
+        // Print the order data
+        System.out.println("WCASDASDA: " + OrderDataHolder.getWorkpiece());
+        System.out.println("Quantity: " + OrderDataHolder.getQuantity());
+        System.out.println("Due Date: " + OrderDataHolder.getDueDate());
+    }
 }
