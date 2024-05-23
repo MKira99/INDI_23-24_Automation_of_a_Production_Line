@@ -32,9 +32,13 @@
         <Node name="comm_load3" type="T_BOOL" access="ReadWrite" />
         <Node name="comm_load4" type="T_BOOL" access="ReadWrite" />
         <Node name="comm_unload1" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_unload1_clear" type="T_BOOL" access="ReadWrite" />
         <Node name="comm_unload2" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_unload2_clear" type="T_BOOL" access="ReadWrite" />
         <Node name="comm_unload3" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_unload3_clear" type="T_BOOL" access="ReadWrite" />
         <Node name="comm_unload4" type="T_BOOL" access="ReadWrite" />
+        <Node name="comm_unload4_clear" type="T_BOOL" access="ReadWrite" />
         <Node name="id_cell0" type="T_STRING" access="ReadWrite" />
         <Node name="id_cell1" type="T_STRING" access="ReadWrite" />
         <Node name="id_cell2" type="T_STRING" access="ReadWrite" />

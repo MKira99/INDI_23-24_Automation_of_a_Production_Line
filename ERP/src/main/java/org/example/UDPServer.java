@@ -1,3 +1,4 @@
+/*
 package org.example;
 
 import main.java.org.example.PurchaseSystem;
@@ -95,4 +96,4 @@ public class UDPServer {
         return null;
     }
 }
-
+*/

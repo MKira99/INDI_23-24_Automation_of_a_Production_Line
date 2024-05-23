@@ -1,9 +1,9 @@
 package MES_Logic;
 
-import MAIN.MES_DB_SQL;
-
 import java.util.Comparator;
 import java.util.List;
+
+import CONNECTION.*;
 
 
 public class PieceProduction {

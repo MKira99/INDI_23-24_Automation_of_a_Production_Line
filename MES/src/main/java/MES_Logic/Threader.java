@@ -1,6 +1,13 @@
 package MES_Logic;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
+import org.json.JSONObject;
 
 import OPC.opcua;
 
@@ -24,88 +31,24 @@ public class Threader {
     private static Variant Unload3_finished;
     private static Variant Unload4_finished;
 
+    private static Variant mach_c1_top_finished;
+    private static Variant mach_c1_bot_finished;
+    private static Variant mach_c2_top_finished;
+    private static Variant mach_c2_bot_finished;
+    private static Variant mach_c3_top_finished;
+    private static Variant mach_c3_bot_finished;
+    private static Variant mach_c4_top_finished;
+    private static Variant mach_c4_bot_finished;
+    private static Variant mach_c5_top_finished;
+    private static Variant mach_c5_bot_finished;
+    private static Variant mach_c6_top_finished;
+    private static Variant mach_c6_bot_finished;
+
     public static MillisTimer DayTimer;
     public static MillisTimer SecondsTimer;
 
 
-
-/*
-    public static class acceptOrdersRunnable implements Runnable {
-
-        @Override
-        public void run() {
-
-            ServerSocket serverSocket = null;
-            try {
-                serverSocket = new ServerSocket(5000);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println("Server started. Listening on port 5000...");
-            while (true){
-                try{
-
-
-                    order Order1 = null;
-                    // Listen for incoming connections and handle them
-                    Socket clientSocket = serverSocket.accept();
-                    System.out.println("Client connected: " + clientSocket.getInetAddress().getHostAddress());
-
-                    // Create an input stream to receive data from the client
-                    InputStream inputStream = clientSocket.getInputStream();
-
-                    // Read the request from the client as a byte array
-                    byte[] requestBytes = new byte[1024];
-                    inputStream.read(requestBytes);
-
-                    // Convert the byte array to a JSON string
-                    String requestString = new String(requestBytes);
-                    // Parse the JSON string as a JSON object
-                    JSONObject requestJson = new JSONObject(requestString);
-
-                    // Print the request JSON object
-                    //System.out.println("Received request: " + requestJson);
-
-                    // Create a JSON object to store the response data
-                    JSONObject responseJson = new JSONObject();
-                    responseJson.put("status", "OK");
-
-                    // Convert the response JSON object to a JSON string
-                    String responseString = responseJson.toString();
-
-                    // Create an output stream to send data to the client
-                    OutputStream outputStream = clientSocket.getOutputStream();
-
-                    // Send the response string to the client
-                    outputStream.write(responseString.getBytes());
-                    //  int nextOrderNumber = DataBase.getNextOrderNumber();
-                    // requestJson.getInt("Time of a Piece")
-
-                    Order1 = new order();
-                    Order1.setPieceNr(requestJson.getInt("Piece"));
-                    Order1.setOrderID(requestJson.getInt("OrderID"));
-                    Order1.setQuantity(requestJson.getInt("Quantity"));
-                    Order1.setArrivingDay(requestJson.getInt("ArrivingDay"));
-                    Order1.setStartingDay(requestJson.getInt("Day"));
-
-                    outputStream.close();
-                    inputStream.close();
-                    clientSocket.close();
-
-                    //  DataBase.getNextOrderNumber();
-                    DataBase.insertOrder(Order1);
-                    startPieceProduction();
-
-
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-    }
-    */
-    public static class DayUpdateRunnable implements Runnable
-    {
+    public static class DayUpdateRunnable implements Runnable {
        @Override
        public void run()
        {
@@ -133,11 +76,70 @@ public class Threader {
     public static class AcceptOrderRunnable implements Runnable {
         @Override
         public void run() {
+            ServerSocket serverSocket = null;
+            try {
+                serverSocket = new ServerSocket(9999);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Server started. Listening on port 9999...");
             while (true) {
                 try {
+                    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     // Accept orders
                     // Create a new order object
                     // Insert the order into the database
+                    // order Order1 = null;
+                    // Listen for incoming connections and handle them
+                    Socket clientSocket = serverSocket.accept();
+                    System.out.println("Client connected: " + clientSocket.getInetAddress().getHostAddress());
+
+                    // Create an input stream to receive data from the client
+                    InputStream inputStream = clientSocket.getInputStream();
+
+                    // Read the request from the client as a byte array
+                    byte[] requestBytes = new byte[1024];
+                    inputStream.read(requestBytes);
+
+                    // Convert the byte array to a JSON string
+                    String requestString = new String(requestBytes);
+                    // Parse the JSON string as a JSON object
+                    JSONObject requestJson = new JSONObject(requestString);
+
+                    // Print the request JSON object
+                    System.out.println("Received request: " + requestJson.get("Piece") + " " + requestJson.get("Quantity") + " " + requestJson.get("Day"));
+
+                    // Create a JSON object to store the response data
+                    JSONObject responseJson = new JSONObject();
+                    responseJson.put("status", "OK");
+
+                    // Convert the response JSON object to a JSON string
+                    String responseString = responseJson.toString();
+
+                    // Create an output stream to send data to the client
+                    OutputStream outputStream = clientSocket.getOutputStream();
+
+                    // Send the response string to the client
+                    outputStream.write(responseString.getBytes());
+                    //  int nextOrderNumber = DataBase.getNextOrderNumber();
+                    // requestJson.getInt("Time of a Piece")
+
+                    /*
+                    Order1 = new order();
+                    Order1.setPieceNr(requestJson.getInt("Piece"));
+                    Order1.setOrderID(requestJson.getInt("OrderID"));
+                    Order1.setQuantity(requestJson.getInt("Quantity"));
+                    Order1.setArrivingDay(requestJson.getInt("ArrivingDay"));
+                    Order1.setStartingDay(requestJson.getInt("Day"));
+                    */
+
+                    serverSocket.close();
+
+                    //  DataBase.getNextOrderNumber();
+                    //DataBase.insertOrder(Order1);
+                    //startPieceProduction();
+                    
+
                     short quantity = 5;
                     short type = 2;
                     short tool1 = 0;
@@ -182,6 +184,21 @@ public class Threader {
                     Unload2_finished = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.unload2_finished");
                     Unload3_finished = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.unload3_finished");
                     Unload4_finished = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.unload4_finished");
+
+                    mach_c1_bot_finished = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c1_bot_finished");
+                    mach_c1_top_finished = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c1_top_finished");
+                    mach_c2_bot_finished = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c2_bot_finished");
+                    mach_c2_top_finished = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c2_top_finished");
+                    mach_c3_bot_finished = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c3_bot_finished");
+                    mach_c3_top_finished = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c3_top_finished");
+                    mach_c4_bot_finished = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c4_bot_finished");
+                    mach_c4_top_finished = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c4_top_finished");
+                    mach_c5_bot_finished = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c5_bot_finished");
+                    mach_c5_top_finished = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c5_top_finished");
+                    mach_c6_bot_finished = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c6_bot_finished");
+                    mach_c6_top_finished = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c6_top_finished");
+
+
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -206,4 +223,17 @@ public class Threader {
     public static Variant getUnload2_finished(){return Unload2_finished;}
     public static Variant getUnload3_finished(){return Unload3_finished;}
     public static Variant getUnload4_finished(){return Unload4_finished;}
+
+    public static Variant getmach_c1_top_finished(){return mach_c1_top_finished;}
+    public static Variant getmach_c1_bot_finished(){return mach_c1_bot_finished;}
+    public static Variant getmach_c2_top_finished(){return mach_c2_top_finished;}
+    public static Variant getmach_c2_bot_finished(){return mach_c2_bot_finished;}
+    public static Variant getmach_c3_top_finished(){return mach_c3_top_finished;}
+    public static Variant getmach_c3_bot_finished(){return mach_c3_bot_finished;}
+    public static Variant getmach_c4_top_finished(){return mach_c4_top_finished;}
+    public static Variant getmach_c4_bot_finished(){return mach_c4_bot_finished;}
+    public static Variant getmach_c5_top_finished(){return mach_c5_top_finished;}
+    public static Variant getmach_c5_bot_finished(){return mach_c5_bot_finished;}
+    public static Variant getmach_c6_top_finished(){return mach_c6_top_finished;}
+    public static Variant getmach_c6_bot_finished(){return mach_c6_bot_finished;}
 }

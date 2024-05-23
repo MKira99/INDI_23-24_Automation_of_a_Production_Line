@@ -40,6 +40,6 @@ public class ERPSystem {
     }
 
     public void createPurchaseOrder(PurchaseOrder order) {
-        purchaseSystem.addPurchaseOrder(order);
+        purchaseSystem.createPurchaseOrder(order);
     }
 }

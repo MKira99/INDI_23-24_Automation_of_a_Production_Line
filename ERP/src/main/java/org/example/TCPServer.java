@@ -4,7 +4,6 @@ import java.io.*;
 import java.net.*;
 import java.net.InetAddress;
 
-import org.example.OrderToMES;
 import org.json.*;
 
 public class TCPServer {
@@ -12,9 +11,8 @@ public class TCPServer {
     public static void main(String[] args) {
 
         try {
-            // Create a server socket that listens on port 8080
-            ServerSocket serverSocket = new ServerSocket(4999);
-            System.out.println("Server started. Listening on port 4999...");
+            ServerSocket serverSocket = new ServerSocket(10000);
+            System.out.println("Server started. Listening on port 10000...");
 
             InetAddress inetAddress = InetAddress.getLocalHost();
             String ipAddress = inetAddress.getHostAddress();
@@ -39,7 +37,7 @@ public class TCPServer {
                 JSONObject requestJson = new JSONObject(requestString);
 
                 // Print the request JSON object
-                //System.out.println("Received request: " + requestJson);
+                System.out.println("Received OrderID : " + requestJson.get("OrderID"));
 
                 // Create a JSON object to store the response data
                 JSONObject responseJson = new JSONObject();
@@ -64,9 +62,7 @@ public class TCPServer {
                 //System.out.println(myOrder.getField2());
                 //System.out.println(myOrder.getField3());
                 // Close the streams and the client socket
-                outputStream.close();
-                inputStream.close();
-                clientSocket.close();
+                serverSocket.close();
             }
 
         } catch (Exception e) {

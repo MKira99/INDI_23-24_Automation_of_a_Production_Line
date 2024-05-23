@@ -1,9 +1,8 @@
 package MES_Logic;
 
-import MAIN.MES_DB_SQL;
-import MAIN.MES_ERP_MTCP;
-
 import static MES_Logic.PieceProduction.quantity;
+
+import CONNECTION.*;
 
 public class Piece {
     public static int Conclusionday;

@@ -9,10 +9,11 @@ import org.json.*;
 public class TCPClient {
 
     public static void main(String[] args) {
-
+    while (true) {
         try {
             // Establish a TCP/IP connection to the remote host
-            Socket socket = new Socket("10.227.145.9", 4999);
+            
+            Socket socket = new Socket("localhost", 9999);
 
             // Create an output stream to send data to the remote host
             OutputStream outputStream = socket.getOutputStream();
@@ -51,8 +52,18 @@ public class TCPClient {
             inputStream.close();
             socket.close();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e) {
+        System.err.println("Failed to connect to the server. Retrying in 10 seconds...");
+        try {
+            // Sleep the thread for 10 seconds
+            Thread.sleep(10000);
+        } catch (InterruptedException ie) {
+            // Handle the case where the sleep is interrupted
+            System.err.println("Sleep interrupted: " + ie.getMessage());
+            // Optionally re-interrupt the current thread
+            Thread.currentThread().interrupt();
+        } 
     }
+    }
+}
 }
