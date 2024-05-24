@@ -1,6 +1,5 @@
 package Others;
 
-
 public class DataOrder {
     private static String workpiece;
     private static int quantity;
