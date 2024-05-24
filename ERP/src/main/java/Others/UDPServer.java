@@ -37,6 +37,7 @@ public class UDPServer {
 
                 OrderSystem.addOrder(order);
 
+                // Set order data in DataOrder
                 DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
                 DataOrder.printOrderData();
 
@@ -64,6 +65,10 @@ public class UDPServer {
             Order nextOrder = DecisionOrder.decideOrder(orderMatrix);
             if (nextOrder != null) {
                 System.out.println("Next order to process: " + nextOrder);
+
+                // Process order with DataOrder and get the summary
+                String response = processOrderWithDataOrder(nextOrder);
+                System.out.println("Order Summary: " + response);
             }
 
             buf = new byte[65535];
@@ -92,14 +97,6 @@ public class UDPServer {
                     String latePen = orderElement.getAttribute("LatePen");
                     String earlyPen = orderElement.getAttribute("EarlyPen");
 
-                    /*System.out.println("clientNameId: " + clientNameId);
-                    System.out.println("number: " + number);
-                    System.out.println("workPiece: " + workPiece);
-                    System.out.println("quantity: " + quantity);
-                    System.out.println("dueDate: " + dueDate);
-                    System.out.println("latePen: " + latePen);
-                    System.out.println("earlyPen: " + earlyPen);*/
-
                     Order order = new Order(clientNameId, Integer.parseInt(number), workPiece, Integer.parseInt(quantity),
                             Integer.parseInt(dueDate), Integer.parseInt(latePen), Integer.parseInt(earlyPen));
                     orders.add(order);
@@ -119,5 +116,11 @@ public class UDPServer {
             }
             System.out.println("-----");
         }
+    }
+
+    private static String processOrderWithDataOrder(Order order) {
+        // Set order data in DataOrder
+        DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
+        return DataOrder.getOrderSummary();
     }
 }
