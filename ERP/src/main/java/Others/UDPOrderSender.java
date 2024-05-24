@@ -23,8 +23,11 @@ public class UDPOrderSender {
                          ">\n" +
                          "]>\n" +
                          "<DOCUMENT>\n" +
-                         "  <Client NameId=\"Client CC\"/>\n" +
-                         "  <Order Number=\"991\" WorkPiece=\"P9\" Quantity=\"5\" DueDate=\"10\" LatePen=\"20\" EarlyPen=\"5\"/>\n" +
+                         "  <Client NameId=\"Client BB\"/>\n" +
+                         "  <Order Number=\"0042\" WorkPiece=\"P7\" Quantity=\"3\" DueDate=\"12\" LatePen=\"10\" EarlyPen=\"5\"/>\n" +
+                         "  <Order Number=\"0043\" WorkPiece=\"P7\" Quantity=\"2\" DueDate=\"12\" LatePen=\"15\" EarlyPen=\"5\"/>\n" +
+                         "  <Order Number=\"0044\" WorkPiece=\"P6\" Quantity=\"4\" DueDate=\"12\" LatePen=\"15\" EarlyPen=\"2\"/>\n" +
+                         "  <Order Number=\"0045\" WorkPiece=\"P5\" Quantity=\"8\" DueDate=\"11\" LatePen=\"15\" EarlyPen=\"2\"/>\n" +
                          "</DOCUMENT>";
 
         try {
