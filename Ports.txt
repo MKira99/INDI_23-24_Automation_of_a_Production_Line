@@ -1,0 +1,3 @@
+MES (Client) to ERP (Server) : 4999 (TCP)
+ERP (Client) to MES (Server) : 9999 (TCP)
+SimulatedClient (Client) to ERP (Server) : 12345 (UDP)

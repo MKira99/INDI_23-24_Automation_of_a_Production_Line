@@ -58,6 +58,30 @@
         <Node name="load2_finished" type="T_BOOL" access="ReadWrite" />
         <Node name="load3_finished" type="T_BOOL" access="ReadWrite" />
         <Node name="load4_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="mach_c1_bot_des_tool" type="T_INT" access="ReadWrite" />
+        <Node name="mach_c1_bot_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="mach_c1_top_des_tool" type="T_INT" access="ReadWrite" />
+        <Node name="mach_c1_top_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="mach_c2_bot_des_tool" type="T_INT" access="ReadWrite" />
+        <Node name="mach_c2_bot_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="mach_c2_top_des_tool" type="T_INT" access="ReadWrite" />
+        <Node name="mach_c2_top_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="mach_c3_bot_des_tool" type="T_INT" access="ReadWrite" />
+        <Node name="mach_c3_bot_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="mach_c3_top_des_tool" type="T_INT" access="ReadWrite" />
+        <Node name="mach_c3_top_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="mach_c4_bot_des_tool" type="T_INT" access="ReadWrite" />
+        <Node name="mach_c4_bot_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="mach_c4_top_des_tool" type="T_INT" access="ReadWrite" />
+        <Node name="mach_c4_top_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="mach_c5_bot_des_tool" type="T_INT" access="ReadWrite" />
+        <Node name="mach_c5_bot_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="mach_c5_top_des_tool" type="T_INT" access="ReadWrite" />
+        <Node name="mach_c5_top_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="mach_c6_bot_des_tool" type="T_INT" access="ReadWrite" />
+        <Node name="mach_c6_bot_finished" type="T_BOOL" access="ReadWrite" />
+        <Node name="mach_c6_top_des_tool" type="T_INT" access="ReadWrite" />
+        <Node name="mach_c6_top_finished" type="T_BOOL" access="ReadWrite" />
         <Node name="qty_cell0" type="T_INT" access="ReadWrite" />
         <Node name="qty_cell1" type="T_INT" access="ReadWrite" />
         <Node name="qty_cell2" type="T_INT" access="ReadWrite" />
