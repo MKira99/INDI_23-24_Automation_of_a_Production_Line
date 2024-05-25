@@ -51,10 +51,10 @@ public class DataOrder {
         bestSupplier = Supplier.getBestSupplier(determineInitialPiece(workpiece), quantity, daysUntilDueDate);
         if (bestSupplier != null) {
             DataOrder.rawMaterialCost = bestSupplier.getPricePerPiece() * quantity;
-            DataOrder.arrivalDate = dueDate * 86400 - bestSupplier.getDeliveryTime() * 86400; // Converting days to seconds
+            DataOrder.arrivalDate = dueDate * 60 - bestSupplier.getDeliveryTime() * 60; // Converting days to seconds
         } else {
             DataOrder.rawMaterialCost = 0;
-            DataOrder.arrivalDate = dueDate * 86400; // Converting days to seconds
+            DataOrder.arrivalDate = dueDate * 60; // Converting days to seconds
         }
     }
 
@@ -150,7 +150,7 @@ public class DataOrder {
     public static double calculateTotalCost() {
         int totalProcessingTime = getTotalProcessingTime(); // Total processing time in seconds
         double productionCost = calculateProductionCost(totalProcessingTime);
-        double depreciationCost = calculateDepreciationCost(rawMaterialCost, arrivalDate, dueDate * 86400);
+        double depreciationCost = calculateDepreciationCost(rawMaterialCost, arrivalDate, dueDate * 60);
 
         return rawMaterialCost + productionCost + depreciationCost;
     }
@@ -162,7 +162,7 @@ public class DataOrder {
 
     private static double calculateDepreciationCost(double rawMaterialCost, int arrivalDate, int dispatchDate) {
         int duration = dispatchDate - arrivalDate;
-        return rawMaterialCost * (duration / 86400.0) * 0.01; // Converting seconds to days
+        return rawMaterialCost * (duration / 60) * 0.01; // Converting seconds to days
     }
 
     public static void printOrderData() {
@@ -170,7 +170,7 @@ public class DataOrder {
         System.out.println("Quantity: " + quantity);
         System.out.println("Due Date: " + dueDate);
         System.out.println("Raw Material Cost: " + rawMaterialCost);
-        System.out.println("Arrival Date: " + arrivalDate / 86400 + " days"); // Converting seconds to days
+        System.out.println("Arrival Date: " + arrivalDate / 60 + " days"); // Converting seconds to days
     }
 
     public static JSONObject getOrderSummary() {
