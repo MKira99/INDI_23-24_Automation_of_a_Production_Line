@@ -13,7 +13,9 @@ public class DataOrder {
     private static String workpiece;
     private static int quantity;
     private static int dueDate; // in days
+    private static int finalDate; // in days
     private static double rawMaterialCost;
+    private static double totalCost;
     private static int arrivalDate; // in seconds
     private static Supplier bestSupplier; // Add this field to store the best supplier
     private static final Map<String, Integer> processingTimes = new HashMap<>();
@@ -90,8 +92,16 @@ public class DataOrder {
         return dueDate;
     }
 
+    public static int getFinalDate() {
+        return finalDate;
+    }
+
     public static double getRawMaterialCost() {
         return rawMaterialCost;
+    }
+
+    public static double getTotalCost() {
+        return totalCost;
     }
 
     public static int getArrivalDate() {
@@ -165,8 +175,8 @@ public class DataOrder {
 
     public static JSONObject getOrderSummary() {
         int totalProcessingTime = getTotalProcessingTime(); // Total processing time in seconds
-        double totalCost = calculateTotalCost();
-        int finalDate = getFinalDateInDays(); // Calculating final date
+        totalCost = calculateTotalCost();
+        finalDate = getFinalDateInDays(); // Calculating final date
         JSONObject orderSummary = new JSONObject();
         orderSummary.put("Type", workpiece);
         orderSummary.put("Quantity", quantity);

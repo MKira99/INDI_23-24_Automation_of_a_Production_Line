@@ -52,6 +52,13 @@ public class Threader {
                     for (Order order : orders) {
                         System.out.println(order);
 
+                        try {
+                            insertOrder(order.getClientName(), order.getOrderNumber(), order.getWorkpiece(), order.getQuantity(), order.getDueDate(), order.getLatePen(), order.getEarlyPen());
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                                continue; // Skip this iteration if the connection fails
+                            }
+
                         OrderSystem.addOrder(order);
 
                         // Set order data in DataOrder
@@ -73,6 +80,13 @@ public class Threader {
                             } else {
                                 System.out.println("No suitable supplier found for initial piece: " + initialPiece);
                             }
+                            double cost = bestSupplier.getPricePerPiece() * bestSupplier.getMinimumOrder();
+                            try{
+                                insertOrderCost(cost, order.getOrderNumber());
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                    continue; // Skip this iteration if the connection fails
+                                }
                         }
                     }
 

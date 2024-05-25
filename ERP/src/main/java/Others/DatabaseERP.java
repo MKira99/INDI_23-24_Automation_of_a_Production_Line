@@ -15,7 +15,8 @@ public class DatabaseERP {
         static String user = "infind202415";
         //static String password = "DedGdpdjej";
         static String password = "fi3Qo0ilr8";
-        static String ordersTable = "orders";
+        static String ordersactiveTable = "ordersactive";
+        static String ordersfinishedTable = "ordersfinished";
         static String piecesTable = "pieces";
 
 
@@ -32,24 +33,7 @@ public class DatabaseERP {
                 throw e;
             }
         }
-        
 
-        public boolean isConnected() throws SQLException {
-            try (Connection connection = DriverManager.getConnection(databaseUrl, user, password)) {
-                return true; // Connection established if no exception
-            } catch (SQLException e) {
-                return false;
-            }
-        }
-
-    /* To use databaseConnection
-    Database db = new Database();
-     try {
-        db.databaseConnection(databaseUrl, user, password);
-        // Connection logic would be inside the createConnection method (optional)
-     } catch (SQLException e) {
-        // Handle connection errors
-     }*/
 
     public static int newEntry(String SQLQuery, String databaseUrl, String user, String password) throws SQLException {
 
@@ -70,14 +54,14 @@ public class DatabaseERP {
     }
 
     // Create method insertOrder
-    public static int insertOrder(String orderNumber, String workPiece, int quantity, int dueDate, double latePenalty, double earlyPenalty) throws SQLException {
-        String SQLQuery = "INSERT INTO ERP." + ordersTable + " (ordernumber, workpiece, quantity, duedate, latepen, earlypen) VALUES ('" + orderNumber + "', '" + workPiece + "', " + quantity + ", " + dueDate + ", " + latePenalty + ", " + earlyPenalty + ");";
+    public static int insertOrder(String nameID, int orderNumber, String workPiece, int quantity, int dueDate, double latePenalty, double earlyPenalty) throws SQLException {
+        String SQLQuery = "INSERT INTO ERP." + ordersactiveTable + " (nameid, orderNumber, workPiece, quantity, dueDate, latePen, earlyPen) VALUES ('" + nameID + "', " + orderNumber + ", '" + workPiece + "', " + quantity + ", " + dueDate + ", " + latePenalty + ", " + earlyPenalty + ");";
         System.out.println(SQLQuery);
         return newEntry(SQLQuery, databaseUrl, user, password);
     }
 
-    public static int insertOrderCost(double orderCost) throws SQLException {
-        String SQLQuery = "UPDATE ERP." + ordersTable + " SET ordercost = "+ orderCost +" WHERE ordernumber = '124';";
+    public static int insertOrderCost(double orderCost, int orderNumber) throws SQLException {
+        String SQLQuery = "UPDATE ERP." + ordersactiveTable + " SET ordercost = " + orderCost + " WHERE ordernumber = " + orderNumber + ";";
         return newEntry(SQLQuery, databaseUrl, user, password);
     }
 
@@ -120,7 +104,10 @@ public class DatabaseERP {
     public static String getPassword() {
         return password;
     }
-    public static String getTable() {
-        return ordersTable;
+    public static String getOrdersActiveTable() {
+        return ordersactiveTable;
+    }
+    public static String getOrdersFinishedTable() {
+        return ordersfinishedTable;
     }
 }
