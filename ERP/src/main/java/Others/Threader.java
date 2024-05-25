@@ -93,6 +93,10 @@ public class Threader {
                     //orderMatrixtreated.add(nextOrder);
                 }
 
+                String clientID = DataOrder.generateClientID(nextOrder);
+                System.out.println("ClientID: " + clientID);
+                DataOrder.saveOrderToJson(nextOrder, clientID);
+
                 buf = new byte[65535];
             }
             } catch (IOException e) {

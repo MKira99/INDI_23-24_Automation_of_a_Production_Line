@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import java.awt.*;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import Others.ConsolidatedOrderSystem.*;
 import Others.DataOrder.*;
 
@@ -82,22 +83,30 @@ public class ProductionGUI extends JFrame implements OrderListener {
             for (Order order : orders) {
                 DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
                 JSONObject summary = DataOrder.getOrderSummary();
-                String workpiece = summary.get("Type").toString();
-                String quantity = summary.get("Quantity").toString();
-                String dueDate = summary.get("StartDate").toString();
-                String finalDate = summary.get("EndDate").toString();
-                String totalCost = summary.get("TotalCost").toString();
-                String processingTime = summary.get("ProcessingTime").toString();
-                mpsModel.addRow(new Object[]{workpiece, quantity, dueDate, finalDate, totalCost, processingTime});
+
+                String workpiece = summary.getString("Type");
+                int quantity = summary.getInt("Quantity");
+                int dueDateDays = summary.getInt("StartDate");
+                int processingTime = summary.getInt("ProcessingTime");
+                double totalCost = summary.getDouble("TotalCost");
+                int finalDateDays = summary.getInt("EndDate");
+
+                
+                String dueDateStr = convertDaysToDate(dueDateDays);
+                String finalDateStr = convertDaysToDate(finalDateDays);
+
+                mpsModel.addRow(new Object[]{
+                    workpiece, quantity, dueDateStr, finalDateStr, totalCost, processingTime/60
+                });
 
                 // Update Purchasing Plan
-                Supplier bestSupplier = Supplier.getBestSupplier(workpiece, Integer.parseInt(quantity));
+                Supplier bestSupplier = Supplier.getBestSupplier(workpiece, quantity);
                 if (bestSupplier != null) {
-                    int qty = bestSupplier.getMinimumOrder();
+                    int qty = quantity;
                     double cost = bestSupplier.getPricePerPiece() * qty;
                     purchasingModel.addRow(new Object[]{
                         bestSupplier.getName(),
-                        bestSupplier.getPiece(),
+                        workpiece,
                         qty,
                         bestSupplier.getPricePerPiece(),
                         cost,
@@ -106,9 +115,15 @@ public class ProductionGUI extends JFrame implements OrderListener {
                 }
 
                 // Update Production Plan
-                int procTime = DataOrder.getProcessingTime(workpiece);
-                productionModel.addRow(new Object[]{workpiece, quantity, procTime});
+                productionModel.addRow(new Object[]{workpiece, quantity, processingTime/60});
             }
         });
+    }
+
+    private String convertDaysToDate(int days) {
+        long millis = TimeUnit.DAYS.toMillis(days);
+        java.util.Date date = new java.util.Date(millis);
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd");
+        return sdf.format(date);
     }
 }
