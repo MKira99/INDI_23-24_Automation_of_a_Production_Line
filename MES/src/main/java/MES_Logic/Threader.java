@@ -65,6 +65,7 @@ public class Threader {
                        System.out.println("Server Day: "+DayTimer.getDay());
                        SecondsTimer.reset();
                        SecondsTimer.start_nano_seconds();
+                       
                    }
                } catch (Exception e) {
                    throw new RuntimeException(e);

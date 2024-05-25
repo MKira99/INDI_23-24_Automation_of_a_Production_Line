@@ -1,7 +1,12 @@
 package Others;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.json.JSONObject;
+
+import Others.ConsolidatedOrderSystem.Order;
 
 public class DataOrder {
     private static String workpiece;
@@ -89,11 +94,21 @@ public class DataOrder {
         System.out.println("Arrival Date: " + arrivalDate);
     }
 
-    public static String getOrderSummary() {
+    public static JSONObject getOrderSummary() {
         int processingTime = getProcessingTime(workpiece); // Assuming workpiece to producedPiece mapping
         double totalCost = calculateTotalCost();
         int finalDate = arrivalDate + processingTime; // Simplificação: considerando que o processamento começa no dia de chegada
-        return "Workpiece: " + workpiece + ", Quantity: " + quantity + ", Due Date: " + dueDate +
-                ", Final Date: " + finalDate + ", Total Cost: " + totalCost + ", Processing Time: " + processingTime;
+        JSONObject orderSummary = new JSONObject();
+        orderSummary.put("Type", workpiece);
+        orderSummary.put("Quantity", quantity);
+        orderSummary.put("StartDate", dueDate);
+        orderSummary.put("EndDate", finalDate);
+        orderSummary.put("TotalCost", totalCost);
+        orderSummary.put("ProcessingTime", processingTime);
+        return orderSummary;
+    }
+
+    public interface OrderListener {
+    void onNewOrders(List<Order> orders);
     }
 }

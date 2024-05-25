@@ -4,6 +4,8 @@ import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.SwingUtilities;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -13,75 +15,89 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import Others.ConsolidatedOrderSystem.*;
+import Others.DataOrder.OrderListener;
 
 
 public class Threader {
     
+    
     public static class UDPServer implements Runnable{
         private static List<List<Order>> orderMatrix = new ArrayList<>();
+        private static List<Order> allOrders = new ArrayList<>();
+        private static List<OrderListener> listeners = new ArrayList<>();
         @Override
         public void run(){
             int port = 12345;
             try {
-                DatagramSocket ds = new DatagramSocket(port);
-                byte[] buf = new byte[65535];
-                DatagramPacket DpReceive = null;
-                while (true) {
-                    DpReceive = new DatagramPacket(buf, buf.length);
-                    ds.receive(DpReceive);
-                    System.out.println("Received: " + DpReceive);
-                    String inp = new String(buf, 0, DpReceive.getLength());
-                    System.out.println("string: " + inp);
+            DatagramSocket ds = new DatagramSocket(port);
+            byte[] buf = new byte[65535];
+            DatagramPacket DpReceive = null;
 
-                    List<Order> orders = parseOrders(inp);
-                    orderMatrix.add(orders);
+            while (true) {
+                DpReceive = new DatagramPacket(buf, buf.length);
+                ds.receive(DpReceive);
+                System.out.println("Received: " + DpReceive);
+                String inp = new String(buf, 0, DpReceive.getLength());
+                System.out.println("string: " + inp);
 
-                    for (Order order : orders) {
-                        System.out.println(order);
+                List<Order> orders = parseOrders(inp);
+                orderMatrix.add(orders);
+                allOrders.addAll(orders);
 
-                        OrderSystem.addOrder(order);
+                for (Order order : orders) {
+                    System.out.println(order);
 
-                        DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
-                        DataOrder.printOrderData();
+                    OrderSystem.addOrder(order);
 
-                        Product product = new Product(order.getWorkpiece(), order.getQuantity());
+                    // Set order data in DataOrder
+                    DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
+                    DataOrder.printOrderData();
 
-                        ////OPTIMIZAR ESTE CODIGO
+                    Product product = new Product(order.getWorkpiece(), order.getQuantity());
 
-                        if (InventorySystem.checkHas(product, product.getQuantity()) == 1) {
-                            System.out.println("Has Enough on Warehouse");
-                        } else {
-                            System.out.println("Nao temos no armazem essas peças.");
-                            Supplier Supplier1 = new Supplier(1, new int[]{30, 10}, 4);
-                            Supplier Supplier2 = new Supplier(2, new int[]{45, 15}, 2);
-                            Supplier Supplier3 = new Supplier(3, new int[]{55, 18}, 1);
-                            PurchaseSystem.addSupplier(Supplier1);
-                            PurchaseSystem.addSupplier(Supplier2);
-                            PurchaseSystem.addSupplier(Supplier3);
-                            PurchaseOrder Ordem1 = new PurchaseOrder(Supplier1, 2, 4);
-                            PurchaseSystem.createPurchaseOrder(Ordem1);
-                            System.out.println("ORDEM EFETUADA :" + PurchaseSystem.getPurchaseOrdersForSupplier(Supplier1).get(0));
-                        }
+                    if (InventorySystem.checkHas(product, product.getQuantity()) == 1) {
+                        System.out.println("Has Enough on Warehouse");
+                    } else {
+                        System.out.println("Nao temos no armazem essas peças, mas temos gajas se quiseres.");
+                        Supplier Supplier1 = new Supplier(1, new int[]{30, 10}, 4);
+                        Supplier Supplier2 = new Supplier(2, new int[]{45, 15}, 2);
+                        Supplier Supplier3 = new Supplier(3, new int[]{55, 18}, 1);
+                        PurchaseSystem.addSupplier(Supplier1);
+                        PurchaseSystem.addSupplier(Supplier2);
+                        PurchaseSystem.addSupplier(Supplier3);
+                        PurchaseOrder Ordem1 = new PurchaseOrder(Supplier1, 2, 4);
+                        PurchaseSystem.createPurchaseOrder(Ordem1);
+                        System.out.println("ORDEM EFETUADA :" + PurchaseSystem.getPurchaseOrdersForSupplier(Supplier1).get(0));
                     }
-
-                    printOrderMatrix();
-
-                    // Decide which order to process next based on the smallest due date
-                    Order nextOrder = DecisionOrder.decideOrder(orderMatrix);
-                    if (nextOrder != null) {
-                        System.out.println("Next order to process: " + nextOrder);
-                    }
-                    buf = new byte[65535];
-                    ds.close();
-
-
-
-                    
                 }
+
+                printOrderMatrix();
+
+                // Notify liteners about new orders
+                notifyListeners(orders);
+
+                // Decide which order to process next based on the smallest due date
+                Order nextOrder = DecisionOrder.decideOrder(orderMatrix);
+                
+
+                if (nextOrder != null) {
+                    System.out.println("Next order to process: " + nextOrder);
+
+                    // Process order with DataOrder and get the summary
+                    JSONObject response = processOrderWithDataOrder(nextOrder);
+
+                    //TCPClient(response);
+                    //System.out.println("Order Summary: " + response);
+                    //Database.sendData(nextOrder);
+                    //orderMatrix.remove(nextOrder);
+                    //orderMatrixtreated.add(nextOrder);
+                }
+
+                buf = new byte[65535];
+            }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            
         }
         
         private static List<Order> parseOrders(String xml) {
@@ -106,14 +122,6 @@ public class Threader {
                         String latePen = orderElement.getAttribute("LatePen");
                         String earlyPen = orderElement.getAttribute("EarlyPen");
     
-                        /*System.out.println("clientNameId: " + clientNameId);
-                        System.out.println("number: " + number);
-                        System.out.println("workPiece: " + workPiece);
-                        System.out.println("quantity: " + quantity);
-                        System.out.println("dueDate: " + dueDate);
-                        System.out.println("latePen: " + latePen);
-                        System.out.println("earlyPen: " + earlyPen);*/
-    
                         Order order = new Order(clientNameId, Integer.parseInt(number), workPiece, Integer.parseInt(quantity),
                                 Integer.parseInt(dueDate), Integer.parseInt(latePen), Integer.parseInt(earlyPen));
                         orders.add(order);
@@ -124,6 +132,7 @@ public class Threader {
             }
             return orders;
         }
+    
         private static void printOrderMatrix() {
             System.out.println("Order Matrix:");
             for (List<Order> orderList : orderMatrix) {
@@ -133,7 +142,43 @@ public class Threader {
                 System.out.println("-----");
             }
         }
+    
+        private static JSONObject processOrderWithDataOrder(Order order) {
+            // Set order data in DataOrder
+            DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
+            return DataOrder.getOrderSummary();
+        }
+    
+        public static List<Order> getAllOrders() {
+            return allOrders;
+        }
+    
+        public static void addOrderListener(OrderListener listener) {
+            listeners.add(listener);
+        }
+    
+        public static void removeOrderListener(OrderListener listener) {
+            listeners.remove(listener);
+        }
+    
+        private static void notifyListeners(List<Order> orders) {
+            for (OrderListener listener : listeners) {
+                listener.onNewOrders(orders);
+            }
+        }
+    
     }
+
+    public static class GUI implements Runnable{
+        public void run() {
+            // Launch the GUI
+            SwingUtilities.invokeLater(() -> {
+                ProductionGUI gui = new ProductionGUI();
+                UDPServer.addOrderListener(gui);
+                gui.setVisible(true);
+            });
+    }
+}
 
     public static class TCPServer implements Runnable{
 
@@ -165,6 +210,8 @@ public class Threader {
 
                     // Parse the JSON string as a JSON object
                     JSONObject requestJson = new JSONObject(requestString);
+
+                    //orderMatrixtreated.remove(requestJson.getInt("OrderID"));
 
                     // Print the request JSON object
                     //System.out.println("Received request: " + requestJson);
@@ -200,9 +247,6 @@ public class Threader {
             }
         }
 }
-
-
-
 
 
 }

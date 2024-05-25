@@ -23,10 +23,10 @@ public class UDPOrderSender {
                          ">\n" +
                          "]>\n" +
                          "<DOCUMENT>\n" +
-                         "  <Client NameId=\"Client BB\"/>\n" +
+                         "  <Client NameId=\"Client AA\"/>\n" +
                          "  <Order Number=\"0042\" WorkPiece=\"P4\" Quantity=\"9\" DueDate=\"12\" LatePen=\"10\" EarlyPen=\"5\"/>\n" +
                          "</DOCUMENT>";
-
+                        //OrderID :="AA_42"
         try {
             byte[] sendData = xmlData.getBytes();
             InetAddress serverAddress = InetAddress.getByName("localhost");
