@@ -12,7 +12,7 @@ public class Supplier {
     private int[] prices = new int[2];
     private int deliveryTime; // in days
 
-    // Construtor completo
+    // Full constructor
     public Supplier(int supplierId, String name, String piece, int minimumOrder, double pricePerPiece, int deliveryTime) {
         this.supplierId = supplierId;
         this.name = name;
@@ -22,7 +22,7 @@ public class Supplier {
         this.deliveryTime = deliveryTime;
     }
 
-    // Construtor para o array de preços
+    // Constructor for the price array
     public Supplier(int supplierId, int[] prices, int deliveryTime) {
         this.supplierId = supplierId;
         this.prices = prices;
@@ -89,22 +89,43 @@ public class Supplier {
     public static Map<String, Supplier> suppliers = new HashMap<>();
 
     static {
-        suppliers.put("SupplierA-P1", new Supplier(1, "SupplierA", "P1", 16, 30.0, 4));
-        suppliers.put("SupplierA-P2", new Supplier(1, "SupplierA", "P2", 16, 10.0, 4));
-        suppliers.put("SupplierB-P1", new Supplier(2, "SupplierB", "P1", 8, 45.0, 2));
-        suppliers.put("SupplierB-P2", new Supplier(2, "SupplierB", "P2", 8, 15.0, 2));
-        suppliers.put("SupplierC-P1", new Supplier(3, "SupplierC", "P1", 4, 55.0, 1));
-        suppliers.put("SupplierC-P2", new Supplier(3, "SupplierC", "P2", 4, 18.0, 1));
+        suppliers.put("SupplierA-P1", new Supplier(1, "SupplierA", "P1", 16, 30, 4));
+        suppliers.put("SupplierA-P2", new Supplier(1, "SupplierA", "P2", 16, 10, 4));
+        suppliers.put("SupplierB-P1", new Supplier(2, "SupplierB", "P1", 8, 45, 2));
+        suppliers.put("SupplierB-P2", new Supplier(2, "SupplierB", "P2", 8, 15, 2));
+        suppliers.put("SupplierC-P1", new Supplier(3, "SupplierC", "P1", 4, 55, 1));
+        suppliers.put("SupplierC-P2", new Supplier(3, "SupplierC", "P2", 4, 18, 1));
     }
 
-    public static Supplier getBestSupplier(String piece, int quantity) {
+    public static Supplier getBestSupplier(String piece, int quantity, int daysUntilDueDate) {
         Supplier bestSupplier = null;
+        System.out.println("Searching for best supplier for initial Piece: " + piece + ", Quantity: " + quantity + ", Days Until Due Date: " + daysUntilDueDate);
         for (Supplier supplier : suppliers.values()) {
-            if (supplier.getPiece().equals(piece) && supplier.getMinimumOrder() <= quantity) {
-                if (bestSupplier == null || supplier.getPricePerPiece() < bestSupplier.getPricePerPiece()) {
-                    bestSupplier = supplier;
+            System.out.println("Evaluating Supplier: " + supplier.getName() + " for Piece: " + supplier.getPiece());
+            if (supplier.getPiece().equals(piece) && quantity <= supplier.getMinimumOrder()) {
+                System.out.println("Supplier " + supplier.getName() + " matches the piece and minimum order criteria.");
+                if (daysUntilDueDate >= supplier.getDeliveryTime()) {
+                    System.out.println("Supplier " + supplier.getName() + " can deliver within the due date.");
+                    if (bestSupplier == null || supplier.getPricePerPiece() < bestSupplier.getPricePerPiece()) {
+                        bestSupplier = supplier;
+                        System.out.println("Supplier " + supplier.getName() + " is currently the best option with price per piece: " + supplier.getPricePerPiece());
+                    }
+                } else {
+                    System.out.println("Supplier " + supplier.getName() + " cannot deliver within the due date.");
                 }
+            } else {
+                System.out.println("Supplier " + supplier.getName() + " does not match the piece or minimum order criteria.");
             }
+        }
+        if (bestSupplier != null) {
+            System.out.println("Best Supplier: " + bestSupplier.getName() + 
+                               " Piece: " + bestSupplier.getPiece() + 
+                               " Minimum Order: " + bestSupplier.getMinimumOrder() + 
+                               " Price Per Piece: " + bestSupplier.getPricePerPiece() + 
+                               " Delivery Time: " + bestSupplier.getDeliveryTime());
+            System.out.println("Input Parameters - Initial Piece: " + piece + ", Quantity: " + quantity + ", Days Until Due Date: " + daysUntilDueDate);
+        } else {
+            System.out.println("No suitable supplier found for Initial Piece: " + piece + ", Quantity: " + quantity + ", Days Until Due Date: " + daysUntilDueDate);
         }
         return bestSupplier;
     }

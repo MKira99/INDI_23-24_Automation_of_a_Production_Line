@@ -14,7 +14,7 @@ public class PurchaseOrder {
         this.supplier = supplier;
         this.piece=piece;
         this.quantity=quantity;
-        this.totalCost=supplier.getPrices()[piece-1]*quantity;
+        //this.totalCost=supplier.getPrices()[piece-1]*quantity;
     }
 
 

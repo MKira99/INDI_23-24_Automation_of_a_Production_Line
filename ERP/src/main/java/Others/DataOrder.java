@@ -1,19 +1,23 @@
 package Others;
 
+import org.json.JSONObject;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.json.JSONObject;
 import Others.ConsolidatedOrderSystem.Order;
+
 public class DataOrder {
     private static String workpiece;
     private static int quantity;
     private static int dueDate; // in days
     private static double rawMaterialCost;
     private static int arrivalDate; // in seconds
+    private static Supplier bestSupplier; // Add this field to store the best supplier
     private static final Map<String, Integer> processingTimes = new HashMap<>();
+    private static final Map<String, String> pieceMapping = new HashMap<>();
 
     static {
         // Initialize processing times based on the provided table
@@ -25,6 +29,15 @@ public class DataOrder {
         processingTimes.put("P2-P8", 45);
         processingTimes.put("P8-P7", 15);
         processingTimes.put("P8-P9", 45);
+
+        // Initialize piece mappings based on the provided table
+        pieceMapping.put("P3", "P1");
+        pieceMapping.put("P4", "P3");
+        pieceMapping.put("P5", "P4");
+        pieceMapping.put("P6", "P4");
+        pieceMapping.put("P7", "P4");
+        pieceMapping.put("P8", "P2");
+        pieceMapping.put("P9", "P8");
     }
 
     public static void setOrderData(String workpiece, int quantity, int dueDate) {
@@ -32,7 +45,8 @@ public class DataOrder {
         DataOrder.quantity = quantity;
         DataOrder.dueDate = dueDate;
 
-        Supplier bestSupplier = Supplier.getBestSupplier(workpiece, quantity);
+        int daysUntilDueDate = dueDate; // Assuming dueDate is in days
+        bestSupplier = Supplier.getBestSupplier(determineInitialPiece(workpiece), quantity, daysUntilDueDate);
         if (bestSupplier != null) {
             DataOrder.rawMaterialCost = bestSupplier.getPricePerPiece() * quantity;
             DataOrder.arrivalDate = dueDate * 86400 - bestSupplier.getDeliveryTime() * 86400; // Converting days to seconds
@@ -40,6 +54,10 @@ public class DataOrder {
             DataOrder.rawMaterialCost = 0;
             DataOrder.arrivalDate = dueDate * 86400; // Converting days to seconds
         }
+    }
+
+    public static Supplier getBestSupplier() {
+        return bestSupplier;
     }
 
     public static void saveOrderToJson(Order order, String clientID) {
@@ -107,14 +125,7 @@ public class DataOrder {
     }
 
     private static String getInitialPiece() {
-        // Here you define the logic to find the initial piece
-        // Based on the table, we can assume the initial piece is "P1" or "P2" depending on the workpiece needed
-        if (workpiece.startsWith("P1") || workpiece.startsWith("P3") || workpiece.startsWith("P4") || workpiece.startsWith("P5") || workpiece.startsWith("P6") || workpiece.startsWith("P7")) {
-            return "P1";
-        } else if (workpiece.startsWith("P8") || workpiece.startsWith("P9")) {
-            return "P2";
-        }
-        return "P1"; // Default to P1 if no other conditions are met
+        return determineInitialPiece(workpiece);
     }
 
     private static String getNextPiece(String currentPiece) {
@@ -168,6 +179,14 @@ public class DataOrder {
 
     public static String generateClientID(Order order) {
         return order.getClientName() + "_" + order.getOrderNumber();
+    }
+
+    public static String determineInitialPiece(String finalPiece) {
+        String currentPiece = finalPiece;
+        while (pieceMapping.containsKey(currentPiece)) {
+            currentPiece = pieceMapping.get(currentPiece);
+        }
+        return currentPiece;
     }
 
     public interface OrderListener {

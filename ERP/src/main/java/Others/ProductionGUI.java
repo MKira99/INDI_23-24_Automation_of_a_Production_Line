@@ -91,23 +91,22 @@ public class ProductionGUI extends JFrame implements OrderListener {
                 double totalCost = summary.getDouble("TotalCost");
                 int finalDateDays = summary.getInt("EndDate");
 
-                
                 String dueDateStr = convertDaysToDate(dueDateDays);
                 String finalDateStr = convertDaysToDate(finalDateDays);
 
                 mpsModel.addRow(new Object[]{
-                    workpiece, quantity, dueDateStr, finalDateStr, totalCost, processingTime/60
+                    workpiece, quantity, dueDateStr, finalDateStr, totalCost, processingTime / 60
                 });
 
                 // Update Purchasing Plan
-                Supplier bestSupplier = Supplier.getBestSupplier(workpiece, quantity);
+                Supplier bestSupplier = DataOrder.getBestSupplier(); // Get the best supplier from DataOrder
                 if (bestSupplier != null) {
-                    int qty = quantity;
-                    double cost = bestSupplier.getPricePerPiece() * qty;
+                    double cost = bestSupplier.getPricePerPiece() * bestSupplier.getMinimumOrder();
+                    String initialPiece = DataOrder.determineInitialPiece(workpiece); // Get the initial piece
                     purchasingModel.addRow(new Object[]{
                         bestSupplier.getName(),
-                        workpiece,
-                        qty,
+                        initialPiece, // Use the initial piece here
+                        bestSupplier.getMinimumOrder(), // Use the minimum order quantity here
                         bestSupplier.getPricePerPiece(),
                         cost,
                         bestSupplier.getDeliveryTime()
@@ -115,7 +114,7 @@ public class ProductionGUI extends JFrame implements OrderListener {
                 }
 
                 // Update Production Plan
-                productionModel.addRow(new Object[]{workpiece, quantity, processingTime/60});
+                productionModel.addRow(new Object[]{workpiece, quantity, processingTime / 60});
             }
         });
     }
