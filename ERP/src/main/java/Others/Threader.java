@@ -22,9 +22,10 @@ import static Others.DatabaseERP.*;
 public class Threader {
 
     public static class UDPServer implements Runnable {
-        private static List<List<Order>> orderMatrix = new ArrayList<>();
         private static List<Order> allOrders = new ArrayList<>();
         public static List<OrderListener> listeners = new ArrayList<>();
+        public static List<List<Order>> orderMatrix = new ArrayList<>();
+
 
         @Override
         public void run() {
@@ -46,51 +47,53 @@ public class Threader {
                         System.out.println("No valid orders found.");
                         continue;
                     }
-                    orderMatrix.add(orders);
-                    allOrders.addAll(orders);
 
-                    for (Order order : orders) {
-                        System.out.println(order);
+                    synchronized (allOrders) {
+                        for (Order order : orders) {
+                            if (!isOrderDuplicated(order)) {
+                                allOrders.add(order);
 
-                        try {
-                            insertOrder(order.getClientName(), order.getOrderNumber(), order.getWorkpiece(), order.getQuantity(), order.getDueDate(), order.getLatePen(), order.getEarlyPen());
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                                continue; // Skip this iteration if the connection fails
-                            }
-
-                        OrderSystem.addOrder(order);
-
-                        // Set order data in DataOrder
-                        DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
-                        DataOrder.printOrderData();
-
-                        Product product = new Product(order.getWorkpiece(), order.getQuantity());
-
-                        if (InventorySystem.checkHas(product, product.getQuantity()) == 1) {
-                            System.out.println("Has Enough on Warehouse");
-                        } else {
-                            System.out.println("Nao temos no armazem essas peças, mas temos gajas se quiseres.");
-
-                            // Determine the best supplier for the initial piece
-                            String initialPiece = DataOrder.determineInitialPiece(order.getWorkpiece());
-                            Supplier bestSupplier = Supplier.getBestSupplier(initialPiece, order.getQuantity(), order.getDueDate());
-                            if (bestSupplier != null) {
-                                System.out.println("Best supplier found: " + bestSupplier.getName());
-                            } else {
-                                System.out.println("No suitable supplier found for initial piece: " + initialPiece);
-                            }
-                            double cost = bestSupplier.getPricePerPiece() * bestSupplier.getMinimumOrder();
-                            try{
-                                insertOrderCost(cost, order.getOrderNumber());
+                                try {
+                                    insertOrder(order.getClientName(), order.getOrderNumber(), order.getWorkpiece(), order.getQuantity(), order.getDueDate(), order.getLatePen(), order.getEarlyPen());
                                 } catch (SQLException e) {
                                     e.printStackTrace();
                                     continue; // Skip this iteration if the connection fails
                                 }
+
+                                OrderSystem.addOrder(order);
+
+                                // Set order data in DataOrder
+                                DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
+                                DataOrder.printOrderData();
+
+                                Product product = new Product(order.getWorkpiece(), order.getQuantity());
+
+                                if (InventorySystem.checkHas(product, product.getQuantity()) == 1) {
+                                    System.out.println("Has Enough on Warehouse");
+                                } else {
+                                    System.out.println("Nao temos no armazem essas peças, mas temos gajas se quiseres.");
+
+                                    // Determine the best supplier for the initial piece
+                                    String initialPiece = DataOrder.determineInitialPiece(order.getWorkpiece());
+                                    Supplier bestSupplier = Supplier.getBestSupplier(initialPiece, order.getQuantity(), order.getDueDate());
+                                    if (bestSupplier != null) {
+                                        System.out.println("Best supplier found: " + bestSupplier.getName());
+                                    } else {
+                                        System.out.println("No suitable supplier found for initial piece: " + initialPiece);
+                                    }
+                                    double cost = bestSupplier.getPricePerPiece() * bestSupplier.getMinimumOrder();
+                                    try {
+                                        insertOrderCost(cost, order.getOrderNumber());
+                                    } catch (SQLException e) {
+                                        e.printStackTrace();
+                                        continue; // Skip this iteration if the connection fails
+                                    }
+                                }
+                            }
                         }
                     }
 
-                    printOrderMatrix();
+                    printOrders();
 
                     // Notify listeners about new orders
                     notifyListeners(orders);
@@ -116,6 +119,17 @@ public class Threader {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+        private static boolean isOrderDuplicated(Order order) {
+            synchronized (allOrders) {
+                for (Order existingOrder : allOrders) {
+                    if (existingOrder.equals(order)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         private static List<Order> parseOrders(String xml) {
@@ -151,14 +165,12 @@ public class Threader {
             return orders;
         }
 
-        private static void printOrderMatrix() {
-            System.out.println("Order Matrix:");
-            for (List<Order> orderList : orderMatrix) {
-                for (Order order : orderList) {
-                    System.out.println(order);
-                }
-                System.out.println("-----");
+        private static void printOrders() {
+            System.out.println("Order List:");
+            for (Order order : allOrders) {
+                System.out.println(order);
             }
+            System.out.println("-----");
         }
 
         private static void notifyListeners(List<Order> orders) {
