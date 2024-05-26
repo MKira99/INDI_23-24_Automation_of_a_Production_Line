@@ -48,6 +48,7 @@ public class Threader {
                         continue;
                     }
 
+                    
                     synchronized (allOrders) {
                         for (Order order : orders) {
                             if (!isOrderDuplicated(order)) {
@@ -65,7 +66,7 @@ public class Threader {
                                 // Set order data in DataOrder
                                 DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
                                 JSONObject summary = DataOrder.getOrderSummary();
-                                int finalDateDays = summary.getInt("EndDate");
+                                int finalDateDays = summary.getInt("DateEnd");
                                 String finalDateStr = ProductionGUI.convertDaysToDate(finalDateDays);
 
                                 try{
@@ -82,7 +83,7 @@ public class Threader {
                                 if (InventorySystem.checkHas(product, product.getQuantity()) == 1) {
                                     System.out.println("Has Enough on Warehouse");
                                 } else {
-                                    System.out.println("Nao temos no armazem essas peças, mas temos gajas se quiseres.");
+                                    System.out.println("Nao temos no armazem essas peças.");
 
                                     // Determine the best supplier for the initial piece
                                     String initialPiece = DataOrder.determineInitialPiece(order.getWorkpiece());
@@ -114,6 +115,7 @@ public class Threader {
                     Order nextOrder = DecisionOrder.decideOrder(orderMatrix);
 
                     if (nextOrder != null) {
+                        
                         System.out.println("Next order to process: " + nextOrder);
 
                         // Process order with DataOrder and get the summary
@@ -121,14 +123,16 @@ public class Threader {
 
                         String clientID = DataOrder.generateClientID(nextOrder);
                         System.out.println("ClientID: " + clientID);
-                        DataOrder.saveOrderToJson(nextOrder, clientID);
-                        //DEBUG
                         TCPClient.main(response);
+                        //DataOrder.saveOrderToJson(nextOrder, clientID);
+                        //DEBUG
+                        
                         
 
 
 
                     } else {
+                        System.out.println("WTF\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                         System.out.println("No next order to process.");
                     }
 

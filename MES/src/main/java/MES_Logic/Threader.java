@@ -98,8 +98,7 @@ public class Threader {
             //while (true) {
                 try {
                     
-                    /*
-                    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
                     Socket clientSocket = serverSocket.accept();
                     System.out.println("Client connected: " + clientSocket.getInetAddress().getHostAddress());
@@ -136,14 +135,6 @@ public class Threader {
                     inputStream.close();
                     outputStream.close();
                     clientSocket.close();
-                    */
-
-                    JSONObject requestJson = new JSONObject();
-                    requestJson.put("OrderID", "Testing Order");
-                    requestJson.put("PieceType", "P3");
-                    requestJson.put("Quantity", 9);
-                    requestJson.put("DateStart", 1);
-                    requestJson.put("DateEnd", 3);
 
                     System.out.println("Criou\n\n\n\n\n");
 
@@ -182,7 +173,7 @@ public class Threader {
                     MESLogic logic = new MESLogic(newOrder);
                     logic.main();
 
-                    Thread plc = new Thread(new PLCHandler(newOrder, logic.getCommand()));
+                    Thread plc = new Thread(new PLCHandler(newOrder, logic.getCommand(), logic.getUsageOfCell_2()));
                     plc.start();
 
 
@@ -554,12 +545,14 @@ public class Threader {
     public static class PLCHandler implements Runnable {
         private Order ReceivedOrder;
         private Command[] commands;
+        boolean usageOfCell_2 = false;
     
         // Constructor to initialize the Order
         
-        public PLCHandler(Order ReceivedOrder, Command[] commands) {
+        public PLCHandler(Order ReceivedOrder, Command[] commands, boolean usageOfCell_2) {
             this.ReceivedOrder = ReceivedOrder;
             this.commands = commands;
+            this.usageOfCell_2 = usageOfCell_2;
         }
     
         @Override
@@ -569,6 +562,22 @@ public class Threader {
             System.out.println("Order Accepted.\nStarting Production ...\n\n\n");
 
             try{
+                //Machine
+                if(commands[5].tool1 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c1_top_des_tool", new Variant(commands[5].tool1));}
+                if(commands[5].tool2 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c1_bot_des_tool", new Variant(commands[5].tool2));}
+                if(commands[6].tool1 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c2_top_des_tool", new Variant(commands[6].tool1));}
+                if(commands[6].tool2 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c2_bot_des_tool", new Variant(commands[6].tool2));}
+                if(commands[7].tool1 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c3_top_des_tool", new Variant(commands[7].tool1));}
+                if(commands[7].tool2 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c3_bot_des_tool", new Variant(commands[7].tool2));}
+                if(commands[8].tool1 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c4_top_des_tool", new Variant(commands[8].tool1));}
+                if(commands[8].tool2 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c4_bot_des_tool", new Variant(commands[8].tool2));}
+                if(commands[9].tool1 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c5_top_des_tool", new Variant(commands[9].tool1));}
+                if(commands[9].tool2 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c5_bot_des_tool", new Variant(commands[9].tool2));}
+                if(commands[10].tool1 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c6_top_des_tool", new Variant(commands[10].tool1));}
+                if(commands[10].tool2 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c6_bot_des_tool", new Variant(commands[10].tool2));}
+
+
+
                 //Load
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_load1", new Variant(commands[0].id));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_load2", new Variant(commands[1].id));
@@ -649,6 +658,108 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell5", new Variant(true));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell6", new Variant(true));
 
+
+                while(getCell0_finished().equals(new Variant(false)) ||
+                        getCell1_finished().equals(new Variant(false)) ||
+                        getCell2_finished().equals(new Variant(false)) ||
+                        getCell3_finished().equals(new Variant(false)) ||
+                        getCell4_finished().equals(new Variant(false)) ||
+                        getCell5_finished().equals(new Variant(false)) ||
+                        getCell6_finished().equals(new Variant(false)))
+                {
+                    synchronized (this) {
+                        this.wait(1000);
+                    }
+                }
+
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load1", new Variant(false));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load2", new Variant(false));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load3", new Variant(false));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load4", new Variant(false));
+
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell0", new Variant(false));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell1", new Variant(false));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell2", new Variant(false));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell3", new Variant(false));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell4", new Variant(false));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell5", new Variant(false));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell6", new Variant(false));
+
+
+
+                if(usageOfCell_2 == true)
+                {
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell0", new Variant(commands[11].id));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell1", new Variant(commands[12].id));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell2", new Variant(commands[13].id));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell3", new Variant(commands[14].id));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell4", new Variant(commands[15].id));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell5", new Variant(commands[16].id));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell6", new Variant(commands[17].id));
+
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell0", new Variant(commands[11].quantity));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell1", new Variant(commands[12].quantity));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell2", new Variant(commands[13].quantity));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell3", new Variant(commands[14].quantity));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell4", new Variant(commands[15].quantity));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell5", new Variant(commands[16].quantity));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell6", new Variant(commands[17].quantity));
+
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell0", new Variant(commands[11].type));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell1", new Variant(commands[12].type));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell2", new Variant(commands[13].type));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell3", new Variant(commands[14].type));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell4", new Variant(commands[15].type));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell5", new Variant(commands[16].type));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell6", new Variant(commands[17].type));
+
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell0", new Variant(commands[11].tool1));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell1", new Variant(commands[12].tool1));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell2", new Variant(commands[13].tool1));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell3", new Variant(commands[14].tool1));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell4", new Variant(commands[15].tool1));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell5", new Variant(commands[16].tool1));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell6", new Variant(commands[17].tool1));
+
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell0", new Variant(commands[11].tool2));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell1", new Variant(commands[12].tool2));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell2", new Variant(commands[13].tool2));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell3", new Variant(commands[14].tool2));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell4", new Variant(commands[15].tool2));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell5", new Variant(commands[16].tool2));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell6", new Variant(commands[17].tool2));
+
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell0", new Variant(true));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell1", new Variant(true));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell2", new Variant(true));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell3", new Variant(true));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell4", new Variant(true));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell5", new Variant(true));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell6", new Variant(true));
+
+                    while(getCell0_finished().equals(new Variant(false)) ||
+                            getCell1_finished().equals(new Variant(false)) ||
+                            getCell2_finished().equals(new Variant(false)) ||
+                            getCell3_finished().equals(new Variant(false)) ||
+                            getCell4_finished().equals(new Variant(false)) ||
+                            getCell5_finished().equals(new Variant(false)) ||
+                            getCell6_finished().equals(new Variant(false)))
+                    {
+                        synchronized (this) {
+                            this.wait(1000);
+                        }
+                    }
+
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell0", new Variant(false));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell1", new Variant(false));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell2", new Variant(false));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell3", new Variant(false));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell4", new Variant(false));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell5", new Variant(false));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell6", new Variant(false));
+                
+                }
+
                 //Unload
 
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_unload1", new Variant(commands[18].id));
@@ -681,13 +792,44 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload3", new Variant(true));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload4", new Variant(true));
 
+                while(getUnload1_finished().equals(new Variant(false)) ||
+                        getUnload2_finished().equals(new Variant(false)) ||
+                        getUnload3_finished().equals(new Variant(false)) ||
+                        getUnload4_finished().equals(new Variant(false)))
+                {
+                    synchronized (this) {
+                        this.wait(1000);
+                    }
+                }
+
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload1", new Variant(false));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload2", new Variant(false));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload3", new Variant(false));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload4", new Variant(false));
 
 
-                
+
+                while(DayTimer.getDay() < ReceivedOrder.getEndDay())
+                {
+                    synchronized (this) {
+                        this.wait(1000);
+                    }
+                }
+
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload1_clear", new Variant(true));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload2_clear", new Variant(true));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload3_clear", new Variant(true));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload4_clear", new Variant(true));
 
                 synchronized (this) {
                     this.wait(5000);
                 }
+
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload1_clear", new Variant(false));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload2_clear", new Variant(false));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload3_clear", new Variant(false));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload4_clear", new Variant(false));
+
 
                 System.out.println("Finished");
                 ActiveOrders.printList();

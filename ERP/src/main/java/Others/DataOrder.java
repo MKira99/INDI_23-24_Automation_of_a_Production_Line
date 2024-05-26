@@ -178,7 +178,9 @@ public class DataOrder {
         totalCost = calculateTotalCost();
         finalDate = getFinalDateInDays(); // Calculating final date
         JSONObject orderSummary = new JSONObject();
-        orderSummary.put("Type", workpiece);
+
+        orderSummary.put("OrderID", "ORDERIDPLEASE");
+        orderSummary.put("PieceType", workpiece);
         orderSummary.put("Quantity", quantity);
         orderSummary.put("DateStart", dueDate);
         orderSummary.put("DateEnd", finalDate);

@@ -445,6 +445,9 @@ public class MESLogic {
         return number;
     }    
 
+    public static boolean getUsageOfCell_2() {
+        return usageOfCell_2;
+    }
 }
 
 

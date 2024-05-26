@@ -84,12 +84,12 @@ public class ProductionGUI extends JFrame implements OrderListener {
                 DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
                 JSONObject summary = DataOrder.getOrderSummary();
 
-                String workpiece = summary.getString("Type");
+                String workpiece = summary.getString("PieceType");
                 int quantity = summary.getInt("Quantity");
-                int dueDateDays = summary.getInt("StartDate");
+                int dueDateDays = summary.getInt("DateStart");
                 int processingTime = summary.getInt("ProcessingTime");
                 double totalCost = summary.getDouble("TotalCost");
-                int finalDateDays = summary.getInt("EndDate");
+                int finalDateDays = summary.getInt("DateEnd");
 
                 String dueDateStr = convertDaysToDate(dueDateDays);
                 String finalDateStr = convertDaysToDate(finalDateDays);

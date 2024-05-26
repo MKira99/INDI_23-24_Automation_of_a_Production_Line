@@ -12,13 +12,6 @@ public class TCPClient {
     public static void main(JSONObject args) {
 
         try {
-            JSONObject response2 = new JSONObject();
-            response2.put("OrderID", "AA_01");
-            response2.put("PieceType", "P3");
-            response2.put("Quantity", 9);
-            response2.put("DateStart", 1);
-            response2.put("DateEnd", 3);
-
             // Establish a TCP/IP connection to the remote host
             Socket socket = new Socket("localhost", 9999);
 
@@ -26,7 +19,7 @@ public class TCPClient {
             OutputStream outputStream = socket.getOutputStream();
 
             // Convert the JSON object to a JSON string
-            String jsonString = response2.toString();
+            String jsonString = args.toString();
             System.out.println(jsonString);
 
             // Send the JSON string over the connection

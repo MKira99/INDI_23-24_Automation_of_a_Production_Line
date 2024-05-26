@@ -6,10 +6,10 @@ public class Main extends Thread {
 
         Thread XMLReceive = new Thread(new Threader.UDPServer());
         Thread ERPGUI = new Thread(new Threader.GUI());
-        Thread TCPSend = new Thread(new Threader.TCPServer());
+        Thread TCPReceive = new Thread(new Threader.TCPServer());
         
         XMLReceive.start();
-        TCPSend.start();
+        TCPReceive.start();
         ERPGUI.start();
     }
 }
