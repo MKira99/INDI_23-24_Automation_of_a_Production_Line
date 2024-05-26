@@ -3,36 +3,89 @@ package Others;
 // Para compilar: javac -cp "postgresql-42.7.3.jar." src/main/java/Others/DatabaseERP.java
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import Others.ConsolidatedOrderSystem.Order;
+import Others.ConsolidatedOrderSystem.OrderSystem;
 
 public class DatabaseERP {
 
-        static Statement stmt;
-        static ResultSet rs;
-        static Connection connection;
-        static String databaseUrl = "jdbc:postgresql://db.fe.up.pt:5432/infind202415";
-        //static String user = "infind202419";
-        //static String password = "m6Fhd32pLt";
-        static String user = "infind202415";
-        //static String password = "DedGdpdjej";
-        static String password = "fi3Qo0ilr8";
-        static String ordersactiveTable = "ordersactive";
-        static String ordersfinishedTable = "ordersfinished";
-        static String piecesTable = "pieces";
+    static Statement stmt;
+    static ResultSet rs;
+    static Connection connection;
+    static String databaseUrl = "jdbc:postgresql://db.fe.up.pt:5432/infind202415";
+    //static String user = "infind202419";
+    //static String password = "m6Fhd32pLt";
+    static String user = "infind202415";
+    //static String password = "DedGdpdjej";
+    static String password = "fi3Qo0ilr8";
+    static String ordersactiveTable = "ordersactive";
+    static String ordersfinishedTable = "ordersfinished";
+    static String piecesTable = "pieces";
 
 
-        public static void databaseConnection(String databaseUrl, String user, String password) throws SQLException {
-            try {
-                // Carregar o driver explicitamente (opcional)
-                Class.forName("org.postgresql.Driver");
-                connection = DriverManager.getConnection(databaseUrl, user, password);
-                System.out.println("Connection: " + connection);
-            } catch (ClassNotFoundException e) {
-                System.err.println("Driver não encontrado. Certifique-se de que o driver JDBC do PostgreSQL está no classpath.");
-                e.printStackTrace();
-            } catch (SQLException e) {
-                throw e;
-            }
+    public static void databaseConnection(String databaseUrl, String user, String password) throws SQLException {
+        try {
+            // Carregar o driver explicitamente (opcional)
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseUrl, user, password);
+            System.out.println("Connection: " + connection);
+        } catch (ClassNotFoundException e) {
+            System.err.println("Driver não encontrado. Certifique-se de que o driver JDBC do PostgreSQL está no classpath.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            throw e;
         }
+    }
+
+    // Method to check if the connection is active
+    public static boolean isConnected() {
+        try {
+            return connection != null && !connection.isClosed();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Method to reconnect and retrieve all orders
+    public static void reconnectAndRetrieveOrders() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    if (isConnected()) {
+                        ResultSet rs = getAllOrders();
+                        List<Order> orders = new ArrayList<>();
+                        while (rs.next()) {
+                            Order order = new Order(
+                                rs.getString("nameid"),
+                                rs.getInt("ordernumber"),
+                                rs.getString("workpiece"),
+                                rs.getInt("quantity"),
+                                rs.getInt("duedate"),
+                                rs.getInt("latepen"),
+                                rs.getInt("earlypen")
+                            );
+                            orders.add(order);
+                        }
+                        // Add orders to the system
+                        for (Order order : orders) {
+                            OrderSystem.addOrder(order);
+                        }
+                        System.out.println("Orders recovered and added to the system");
+                        timer.cancel(); // Cancel the timer if reconnection is successful
+                    }
+                } catch (SQLException e) {
+                    System.err.println("Reconnection failed, will retry...");
+                }
+            }
+        }, 0, 5000); // Retry every 5 seconds
+    }
 
 
     public static int newEntry(String SQLQuery, String databaseUrl, String user, String password) throws SQLException {
@@ -54,14 +107,19 @@ public class DatabaseERP {
     }
 
     // Create method insertOrder
-    public static int insertOrder(String nameID, int orderNumber, String workPiece, int quantity, int dueDate, double latePenalty, double earlyPenalty) throws SQLException {
-        String SQLQuery = "INSERT INTO ERP." + ordersactiveTable + " (nameid, orderNumber, workPiece, quantity, dueDate, latePen, earlyPen) VALUES ('" + nameID + "', " + orderNumber + ", '" + workPiece + "', " + quantity + ", " + dueDate + ", " + latePenalty + ", " + earlyPenalty + ");";
+    public static int insertOrder(String nameID, int orderNumber, String workPiece, int quantity, int dueDate, double latePenalty, double earlyPenalty, int startDate) throws SQLException {
+        String SQLQuery = "INSERT INTO ERP." + ordersactiveTable + " (nameid, ordernumber, workpiece, quantity, duedate, latepen, earlypen, startdate) VALUES ('" + nameID + "', " + orderNumber + ", '" + workPiece + "', " + quantity + ", " + dueDate + ", " + latePenalty + ", " + earlyPenalty + ", " + startDate + ");";
         System.out.println(SQLQuery);
         return newEntry(SQLQuery, databaseUrl, user, password);
     }
 
     public static int insertOrderCost(double orderCost, int orderNumber) throws SQLException {
         String SQLQuery = "UPDATE ERP." + ordersactiveTable + " SET ordercost = " + orderCost + " WHERE ordernumber = " + orderNumber + ";";
+        return newEntry(SQLQuery, databaseUrl, user, password);
+    }
+
+    public static int inserFinaltDate(String endDate, int orderNumber) throws SQLException {
+        String SQLQuery = "UPDATE ERP." + ordersactiveTable + " SET enddate = " + endDate + " WHERE ordernumber = " + orderNumber + ";";
         return newEntry(SQLQuery, databaseUrl, user, password);
     }
 
@@ -82,6 +140,25 @@ public class DatabaseERP {
         }
         return resultSet;
     }
+
+    public static ResultSet getAllOrders() throws SQLException {
+        ResultSet resultSet = null;
+        Connection connection = null;
+        Statement statement = null;
+        try {
+            connection = DriverManager.getConnection(databaseUrl, user, password);
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String SQLQuery = "SELECT * FROM ERP.ordersactive;";
+            resultSet = statement.executeQuery(SQLQuery);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e; // Rethrow the exception to handle it in the calling method
+        } finally {
+            // Note: Do not close connection and statement here because we need the ResultSet
+        }
+        return resultSet;
+    }
+
     public static int getResultSetSize(ResultSet resultSet) {
         int size = 0;
         try {

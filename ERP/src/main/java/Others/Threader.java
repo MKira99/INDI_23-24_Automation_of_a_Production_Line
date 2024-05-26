@@ -54,7 +54,7 @@ public class Threader {
                                 allOrders.add(order);
 
                                 try {
-                                    insertOrder(order.getClientName(), order.getOrderNumber(), order.getWorkpiece(), order.getQuantity(), order.getDueDate(), order.getLatePen(), order.getEarlyPen());
+                                    insertOrder(order.getClientName(), order.getOrderNumber(), order.getWorkpiece(), order.getQuantity(), order.getDueDate(), order.getLatePen(), order.getEarlyPen(), order.getDueDate());
                                 } catch (SQLException e) {
                                     e.printStackTrace();
                                     continue; // Skip this iteration if the connection fails
@@ -64,6 +64,17 @@ public class Threader {
 
                                 // Set order data in DataOrder
                                 DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
+                                JSONObject summary = DataOrder.getOrderSummary();
+                                int finalDateDays = summary.getInt("EndDate");
+                                String finalDateStr = ProductionGUI.convertDaysToDate(finalDateDays);
+
+                                try{
+                                    inserFinaltDate(finalDateStr, order.getOrderNumber());
+                                    } catch (SQLException e) {
+                                        e.printStackTrace();
+                                        continue; // Skip this iteration if the connection fails
+                                    }
+
                                 DataOrder.printOrderData();
 
                                 Product product = new Product(order.getWorkpiece(), order.getQuantity());
@@ -88,6 +99,7 @@ public class Threader {
                                         e.printStackTrace();
                                         continue; // Skip this iteration if the connection fails
                                     }
+
                                 }
                             }
                         }
