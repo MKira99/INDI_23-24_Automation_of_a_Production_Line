@@ -123,6 +123,11 @@ public class DatabaseERP {
         return newEntry(SQLQuery, databaseUrl, user, password);
     }
 
+    public static int updateSendedMes(int orderNumber) throws SQLException {
+        String SQLQuery = "UPDATE ERP." + ordersactiveTable + " SET sendedmes = " + true + " WHERE ordernumber = " + orderNumber + ";";
+        return newEntry(SQLQuery, databaseUrl, user, password);
+    }
+
     /*public static int insertPiece(String pieceName, String rawPiece, int orderNumber, double rawCost) throws SQLException {
         String SQLQuery = "INSERT INTO ERP." + piecesTable + " (piecetype, rawpiece, orderid, currenttype, rawcost) VALUES ('" + pieceName + "', '" + rawPiece + "', " + orderNumber + ", '" + rawPiece + "', " + rawCost + ");";
         return newEntry(SQLQuery, databaseUrl, user, password);

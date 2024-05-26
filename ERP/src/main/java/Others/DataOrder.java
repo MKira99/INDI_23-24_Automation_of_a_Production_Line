@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import Others.ConsolidatedOrderSystem.Order;
+import Others.OrderDatabase.OrderDb;
 
 public class DataOrder {
     private static String workpiece;
@@ -63,6 +64,24 @@ public class DataOrder {
     }
 
     public static void saveOrderToJson(Order order, String clientID) {
+        JSONObject json = new JSONObject();
+        json.put("ClientID", clientID);
+        json.put("ClientName", order.getClientName());
+        json.put("OrderNumber", order.getOrderNumber());
+        json.put("Workpiece", order.getWorkpiece());
+        json.put("Quantity", order.getQuantity());
+        json.put("DueDate", order.getDueDate());
+        json.put("FinalDate", DataOrder.getFinalDateInDays());
+
+        try (FileWriter file = new FileWriter("order_" + clientID + ".json")) {
+            file.write(json.toString(4)); // Indent with 4 spaces for readability
+            System.out.println("Successfully saved order to JSON file: order_" + clientID + ".json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveOrderDbToJson(OrderDb order, String clientID) {
         JSONObject json = new JSONObject();
         json.put("ClientID", clientID);
         json.put("ClientName", order.getClientName());
@@ -208,6 +227,10 @@ public class DataOrder {
     }
 
     public static String generateClientID(Order order) {
+        return order.getClientName() + "_" + order.getOrderNumber();
+    }
+
+    public static String generateClientIDDb(OrderDb order) {
         return order.getClientName() + "_" + order.getOrderNumber();
     }
 
