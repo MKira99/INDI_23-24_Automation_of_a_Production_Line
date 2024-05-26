@@ -93,6 +93,12 @@ public class Threader {
                         String clientID = DataOrder.generateClientID(nextOrder);
                         System.out.println("ClientID: " + clientID);
                         DataOrder.saveOrderToJson(nextOrder, clientID);
+                        //DEBUG
+                        TCPClient.main(response);
+                        
+
+
+
                     } else {
                         System.out.println("No next order to process.");
                     }

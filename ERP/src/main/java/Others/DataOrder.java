@@ -170,8 +170,8 @@ public class DataOrder {
         JSONObject orderSummary = new JSONObject();
         orderSummary.put("Type", workpiece);
         orderSummary.put("Quantity", quantity);
-        orderSummary.put("StartDate", dueDate);
-        orderSummary.put("EndDate", finalDate);
+        orderSummary.put("DateStart", dueDate);
+        orderSummary.put("DateEnd", finalDate);
         orderSummary.put("TotalCost", totalCost);
         orderSummary.put("ProcessingTime", totalProcessingTime);
         return orderSummary;

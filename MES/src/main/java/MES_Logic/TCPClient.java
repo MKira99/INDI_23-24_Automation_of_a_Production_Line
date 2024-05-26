@@ -8,8 +8,15 @@ import org.json.*;
 
 
 public class TCPClient {
+    public static String args = new String();
 
-    public static void main(String[] args) { //Order Completed
+    public TCPClient(String create) {
+        args = create;
+    }
+
+
+
+    public static void main() { //Order Completed
 
         try {
             // Establish a TCP/IP connection to the remote host
@@ -20,7 +27,7 @@ public class TCPClient {
 
             // Create a JSON object to store the data you want to send
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("OrderID", args[0]);
+            jsonObject.put("OrderID", args);
 
             // Convert the JSON object to a JSON string
             String jsonString = jsonObject.toString();

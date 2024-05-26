@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MES_DB_SQL {
+public class MES_DB_SQL {/*
     private static boolean ordercompleted = false;
     public static MillisTimer ConnectingDatabase;
 
@@ -234,7 +234,7 @@ public class MES_DB_SQL {
     public static void setFlagFalse() {
         ordercompleted = false;}
 
-
+*/
 }
 
 

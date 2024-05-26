@@ -1,71 +1,51 @@
 package MES_Logic;
 public class Order {
-    public int OrderID = 0;
-    public int PieceNr = 0;
-    public int Quantity = 0;
-    public int ArrivingDay = 0;
-    public int StartingDay = 0;
+    private String OrderID = "";
+    private String PieceType = "";
+    private short Quantity = 0;
+    private short StartDay = 0;
+    private short EndDay = 0;
 
-
-    public int OrderID() {
-        return OrderID;}
-    public int PieceNr() {
-        return PieceNr;
+    public Order(String OrderID, String PieceNr, short Quantity, short StartDay, short EndDay) {
+        this.OrderID = OrderID;
+        this.PieceType = PieceNr;
+        this.Quantity = Quantity;
+        this.StartDay = StartDay;
+        this.EndDay = EndDay;
     }
-    public int Quantity() {
+
+    public String getOrderID() {
+        return OrderID;
+    }
+    public void setOrderID(String OrderID) {
+        this.OrderID = OrderID;
+    }
+
+    public String getPieceType() {
+        return PieceType;
+    }
+    public void setPieceType(String PieceType) {
+        this.PieceType = PieceType;
+    }
+
+    public short getQuantity() {
         return Quantity;
     }
-
-    public int ArrivingDay() {
-        return ArrivingDay;
-    }
-
-    public int StartingDay(){
-        return  StartingDay;
-    }
-
-
-    public void setOrderID(int OrderID){this.OrderID = OrderID;}
-    public void setPieceNr(int PieceNr) {
-        this.PieceNr = PieceNr;
-    }
-    public void setQuantity(int Quantity) {
+    public void setQuantity(short Quantity) {
         this.Quantity = Quantity;
     }
-    public void setArrivingDay(int ArrivingDay) {
-        this.ArrivingDay = ArrivingDay;
-    }
-    public void setStartingDay(int StartingDay) {
-        this.StartingDay = StartingDay;
-    }
 
-
-
-
-    public int getOrderID(){return  this.OrderID();}
-    public int getPieceNr() {
-        return this.PieceNr;
+    public short getStartDay() {
+        return StartDay;
     }
-    public int getQuantity() {
-        return this.Quantity;
-    }
-    public int getArrivingDay() {
-        return this.ArrivingDay;
-    }
-    public int getStartingDay() {
-        return this.StartingDay;
+    public void setStartDay(short StartDay) {
+        this.StartDay = StartDay;
     }
 
-
-
-    @Override
-    public String toString() {
-        return "order{" +
-                "OrderID='" + OrderID + '\'' +
-                ", PieceNr=" + PieceNr +
-                ", Quantity=" + Quantity +
-                ", ArrivingDay=" + ArrivingDay +
-                ", StartingDay=" + StartingDay +
-                '}';
+    public short getEndDay() {
+        return EndDay;
+    }
+    public void setEndDay(short EndDay) {
+        this.EndDay = EndDay;
     }
 }

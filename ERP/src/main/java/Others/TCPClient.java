@@ -9,34 +9,24 @@ import org.json.*;
 
 public class TCPClient {
 
-    public static void main(String[] args) {
+    public static void main(JSONObject args) {
 
         try {
-            String[] Test = new String[]{"Testing Order", "P4", "9", "1", "5"};
+            JSONObject response2 = new JSONObject();
+            response2.put("OrderID", "AA_01");
+            response2.put("PieceType", "P3");
+            response2.put("Quantity", 9);
+            response2.put("DateStart", 1);
+            response2.put("DateEnd", 3);
+
             // Establish a TCP/IP connection to the remote host
             Socket socket = new Socket("localhost", 9999);
 
             // Create an output stream to send data to the remote host
             OutputStream outputStream = socket.getOutputStream();
 
-            // Create a JSON object to store the data you want to send
-            /*
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("OrderID", args[0]);
-            jsonObject.put("PieceType", args[1]);
-            jsonObject.put("Quantity", args[2]);
-            jsonObject.put("DateStart", args[3]);
-            jsonObject.put("DateEnd", args[4]);
-            */
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("OrderID", Test[0]);
-            jsonObject.put("PieceType", Test[1]);
-            jsonObject.put("Quantity", Test[2]);
-            jsonObject.put("DateStart", Test[3]);
-            jsonObject.put("DateEnd", Test[4]);
-
             // Convert the JSON object to a JSON string
-            String jsonString = jsonObject.toString();
+            String jsonString = response2.toString();
             System.out.println(jsonString);
 
             // Send the JSON string over the connection
