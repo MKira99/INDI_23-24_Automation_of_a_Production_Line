@@ -25,11 +25,12 @@ public class Threader {
         private static List<Order> allOrders = new ArrayList<>();
         public static List<OrderListener> listeners = new ArrayList<>();
         public static List<List<Order>> orderMatrix = new ArrayList<>();
+        public static List<Order> ordersended = new ArrayList<>();
 
         @Override
         public void run() {
             try {
-                int port = 12345;
+                int port = 24680;
                 DatagramSocket ds = new DatagramSocket(port);
                 byte[] buf = new byte[65535];
                 DatagramPacket DpReceive = null;
@@ -107,6 +108,43 @@ public class Threader {
     
                     // Notify listeners about new orders
                     notifyListeners(orders);
+
+                    Order nextOrder = DecisionOrder.decideOrder(orderMatrix);
+
+                    System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+                    printOrderMatrix();
+                    System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+
+                    orderMatrix.add(orders);
+
+                    System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+                    printOrderMatrix();
+                    System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+
+                    System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+                    printOrderMatrix();
+                    System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+
+                    nextOrder = DecisionOrder.decideOrder(orderMatrix);
+
+                    if (nextOrder != null) {
+                        System.out.println("Next order to process: " + nextOrder);
+
+                        // Process order with DataOrder and get the summary
+                        JSONObject response = processOrderWithDataOrder(nextOrder);
+
+                        String clientID = DataOrder.generateClientID(nextOrder);
+                        System.out.println("ClientID: " + clientID);
+                        DataOrder.saveOrderToJson(nextOrder, clientID);
+                        //DEBUG
+                        TCPClient.main(response);
+
+
+                    } else {
+                        System.out.println("No next order to process.");
+                    }
+
+
     
                     buf = new byte[65535];
                 }
@@ -198,6 +236,16 @@ public class Threader {
             System.out.println("-----");
         }
 
+        private static void printOrderMatrix() {
+            System.out.println("Order Matrix:");
+            for (List<Order> orderList : orderMatrix) {
+                for (Order order : orderList) {
+                    System.out.println(order);
+                }
+                System.out.println("-----");
+            }
+        }
+
         private static void notifyListeners(List<Order> orders) {
             for (OrderListener listener : listeners) {
                 listener.onNewOrders(orders);
@@ -221,6 +269,11 @@ public class Threader {
             }
             return nextOrder;
         }
+    
+        private static JSONObject processOrderWithDataOrder(Order nextOrder) {
+            DataOrder.setOrderData(nextOrder.getWorkpiece(), nextOrder.getQuantity(), nextOrder.getDueDate());
+            return DataOrder.getOrderSummary();
+        }
     }
 
     public static class GUI implements Runnable {
@@ -239,79 +292,13 @@ public class Threader {
 
         public void run() {
             try {
-                // Create a server socket that listens on port 4999
-                ServerSocket serverSocket = new ServerSocket(4999);
-                System.out.println("Server started. Listening on port 4999...");
-    
-                InetAddress inetAddress = InetAddress.getLocalHost();
-                String ipAddress = inetAddress.getHostAddress();
-                System.out.println("Your IP address is: " + ipAddress);
-    
-                // Listen for incoming connections and handle them
-                while (true) {
-                    Socket clientSocket = serverSocket.accept();
-                    System.out.println("Client connected: " + clientSocket.getInetAddress().getHostAddress());
-                    
-    
-                    // Create an input stream to receive data from the client
-                    InputStream inputStream = clientSocket.getInputStream();
-    
-                    // Read the request from the client as a byte array
-                    byte[] requestBytes = new byte[1024];
-                    inputStream.read(requestBytes);
-    
-                    // Convert the byte array to a JSON string
-                    String requestString = new String(requestBytes).trim();
-    
-                    // Parse the JSON string as a JSON object
-                    JSONObject requestJson = new JSONObject(requestString);
-    
-                    // Print the request JSON object
-                    System.out.println("Received request: " + requestJson);
-    
-                    // Fetch the highest-priority order
-                    Order nextOrder = UDPServer.getNextOrder();
-                    if (nextOrder == null) {
-                        System.out.println("No orders to process.");
-                        continue;
-                    }
-    
-                    // Print the next order to be processed
-                    System.out.println("Next order to be sent: " + nextOrder);
-    
-                    // Process order with DataOrder and get the summary
-                    JSONObject response = processOrderWithDataOrder(nextOrder);
-    
-                    // Create a JSON object to store the response data
-                    JSONObject responseJson = new JSONObject();
-                    responseJson.put("status", "OK");
-                    responseJson.put("order", nextOrder);
-    
-                    // Convert the response JSON object to a JSON string
-                    String responseString = responseJson.toString();
-    
-                    // Create an output stream to send data to the client
-                    OutputStream outputStream = clientSocket.getOutputStream();
-    
-                    // Send the response string to the client
-                    outputStream.write(responseString.getBytes());
-    
-                    String clientID = DataOrder.generateClientID(nextOrder);
-                    System.out.println("ClientID: " + clientID);
-                    TCPClient.main(response);
-                    DataOrder.saveOrderToJson(nextOrder, clientID);
-    
-                    // Close the streams and the client socket
-                    clientSocket.close();
-                }
+                ServerSocket serverSocket = new ServerSocket(12346);
+                System.out.println("TCP Server started on port 12346");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     
-        private static JSONObject processOrderWithDataOrder(Order nextOrder) {
-            DataOrder.setOrderData(nextOrder.getWorkpiece(), nextOrder.getQuantity(), nextOrder.getDueDate());
-            return DataOrder.getOrderSummary();
-        }
+        
     }
 }

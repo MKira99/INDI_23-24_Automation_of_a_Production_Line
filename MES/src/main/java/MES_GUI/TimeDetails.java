@@ -1,4 +1,4 @@
-package Interface;
+package MES_GUI;
 
 public class TimeDetails {
 

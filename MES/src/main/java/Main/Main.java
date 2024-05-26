@@ -11,9 +11,11 @@ public class Main extends Thread {
         Thread VarPLC = new Thread(new Threader.VariablesReadRunnable());
         Thread DayUpdate = new Thread(new Threader.DayUpdateRunnable());
         Thread AcceptOrderERP = new Thread(new Threader.AcceptOrderRunnable());
+        Thread GUIMES = new Thread(new Threader.GUI());
         
         VarPLC.start();
         DayUpdate.start();
         AcceptOrderERP.start();
+        GUIMES.start();
     }
 }

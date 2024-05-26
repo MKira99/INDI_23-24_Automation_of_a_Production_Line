@@ -1,16 +1,6 @@
-package Interface;
-
-import MES_Logic.*;
-import TCP_IP.DataBase;
+package MES_GUI;
 
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -19,41 +9,26 @@ import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 
 
 
 public class Screen extends JFrame {
-
-    private static final int FRAME_WIDTH = 400;
-    private static final int FRAME_HEIGHT = 200;
-
-    private JFrame orderDetailsFrame;
 
     public Screen() {
         // Create the frame
@@ -442,110 +417,6 @@ public class Screen extends JFrame {
                 setVisible(false);
             }
         });*/
-
-
-
-    private OrderDetails getOrderDetails(int orderID) {
-        // Perform database query to retrieve order details based on the orderID
-        // You can use the JDBC code to connect to the database and execute the query
-
-        OrderDetails orderDetails = null;
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-
-        try {
-            con = DriverManager.getConnection("jdbc:postgresql://10.227.240.130:5432/up202200600", "up202200600", "v7Tn2Rtkv");
-            System.out.println("Connected to the PostgreSQL database successfully.");
-
-            String sql = "SELECT * FROM \"Order\" WHERE OrderID = ?";
-            pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, orderID);
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                // Retrieve the necessary data from the result set
-                int pieceProduced = rs.getInt("piecenr");
-
-
-                // Create an instance of OrderDetails and populate it with the retrieved data
-                orderDetails = new OrderDetails(orderID, pieceProduced);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            // Close the database resources
-            try {
-                //if (rs != null) {
-                  //  rs.close();
-                //}
-                if (pstmt != null)
-                    pstmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-
-        return orderDetails;
-
-
-    }
-
-    private TimeDetails getTimeDetails(int totalTime){
-
-        TimeDetails timeDetails = null;
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-
-        try {
-            con = DriverManager.getConnection("jdbc:postgresql://10.227.240.130:5432/up202200600", "up202200600", "v7Tn2Rtkv");
-            System.out.println("Connected to the PostgreSQL database successfully.");
-
-            String sql = "SELECT * FROM \"ProducedOrder\" WHERE OrderID = ?";
-            pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, totalTime);
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                // Retrieve the necessary data from the result set
-                int TotalTime = rs.getInt("mediumtimepiece");
-                int orderId = rs.getInt("orderid");
-                int Pt5s = rs.getInt("timept5");
-                int Pt6s = rs.getInt("timept6");
-                int St5s = rs.getInt("timest5");
-                int St3s = rs.getInt("timest3");
-
-                // Create an instance of OrderDetails and populate it with the retrieved data
-                timeDetails = new TimeDetails(TotalTime, orderId, Pt5s, Pt6s, St5s, St3s);
-
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            // Close the database resources
-            try {
-                if (rs != null)
-                    rs.close();
-                if (pstmt != null)
-                    pstmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-
-        return timeDetails;
-
-
-
-
-
-    }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             Screen screen = new Screen();

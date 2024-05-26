@@ -339,35 +339,56 @@ public class MESLogic {
                 cell1_2.id = "cell1_2_" + TreatOrder.getOrderID();
                 cell2_2.id = "cell2_2_" + TreatOrder.getOrderID();
                 cell3_2.id = "cell3_2_" + TreatOrder.getOrderID();
+                cell4_2.id = "NULL";
+                cell5_2.id = "NULL";
+                cell6_2.id = "NULL";
 
                 temp_quantity = (short) Math.round(Quantity/3);
                 if(Quantity%3 == 0){
                     cell1_2.quantity = temp_quantity;
                     cell2_2.quantity = temp_quantity;
                     cell3_2.quantity = temp_quantity;
+                    cell4_2.quantity = 0;
+                    cell5_2.quantity = 0;
+                    cell6_2.quantity = 0;
                 }
                 else if(Quantity%3 == 1){
                     cell1_2.quantity = (short) (temp_quantity + 1);
                     cell2_2.quantity = temp_quantity;
                     cell3_2.quantity = temp_quantity;
+                    cell4_2.quantity = 0;
+                    cell5_2.quantity = 0;
+                    cell6_2.quantity = 0;
                 }
                 else if(Quantity%3 == 2){
                     cell1_2.quantity = (short) (temp_quantity + 1);
                     cell2_2.quantity = (short) (temp_quantity + 1);
                     cell3_2.quantity = temp_quantity;
+                    cell4_2.quantity = 0;
+                    cell5_2.quantity = 0;
+                    cell6_2.quantity = 0;
                 }
 
                 cell1_2.type = 3;
                 cell2_2.type = 3;
                 cell3_2.type = 3;
+                cell4_2.type = 0;
+                cell5_2.type = 0;
+                cell6_2.type = 0;
 
                 cell1_2.tool1 = 0;
                 cell2_2.tool1 = 0;
                 cell3_2.tool1 = 0;
+                cell4_2.tool1 = 0;
+                cell5_2.tool1 = 0;
+                cell6_2.tool1 = 0;
 
                 cell1_2.tool2 = 2;
                 cell2_2.tool2 = 2;
                 cell3_2.tool2 = 2;
+                cell4_2.tool2 = 0;
+                cell5_2.tool2 = 0;
+                cell6_2.tool2 = 0;
 
                 break;
 

@@ -6,11 +6,13 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import javax.swing.SwingUtilities;
+
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
 import org.json.JSONObject;
 
+import MES_GUI.Screen;
 import OPC.opcua;
-import MES_Logic.Order;
 
 
 public class Threader {
@@ -65,7 +67,7 @@ public class Threader {
            while (true)
            {
                try {
-                   if (SecondsTimer.getSeconds() > 60.0) {
+                   if (SecondsTimer.getSeconds() > 20.0) { //MUDAR
                        System.out.println("Server Day: "+DayTimer.getDay());
                        SecondsTimer.reset();
                        SecondsTimer.start_nano_seconds();
@@ -114,6 +116,7 @@ public class Threader {
                     String requestString = new String(requestBytes);
                     // Parse the JSON string as a JSON object
                     JSONObject requestJson = new JSONObject(requestString);
+                    
 
                     // Print the request JSON object
                     System.out.println("OrderID: " + requestJson.get("OrderID") + "\nPieceType / Quantity :  " + requestJson.get("PieceType") + " / " + requestJson.get("Quantity") + "\nDay to Start / Finish: " + requestJson.get("DateStart") + " / " + requestJson.get("DateEnd") + "\n");
@@ -121,6 +124,8 @@ public class Threader {
                     // Create a JSON object to store the response data
                     JSONObject responseJson = new JSONObject();
                     responseJson.put("status", "OK");
+
+
 
                     // Convert the response JSON object to a JSON string
                     String responseString = responseJson.toString();
@@ -577,6 +582,13 @@ public class Threader {
                 if(commands[10].tool2 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c6_bot_des_tool", new Variant(commands[10].tool2));}
 
 
+                while(ReceivedOrder.getStartDay() > DayTimer.getDay()){
+                    synchronized (this) {
+                        System.out.println("Waiting for the right day to start ...\nCurrent Day: " + DayTimer.getDay() + "\nDay to Start: " + ReceivedOrder.getStartDay() + "\n");
+                        this.wait(1000);
+                    }
+                }
+
 
                 //Load
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_load1", new Variant(commands[0].id));
@@ -669,8 +681,50 @@ public class Threader {
                 {
                     synchronized (this) {
                         this.wait(1000);
+                        System.out.println("Waiting for the Cells_1 to finish ...\n");
                     }
                 }
+
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell0", new Variant("NULL"));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell1", new Variant("NULL"));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell2", new Variant("NULL"));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell3", new Variant("NULL"));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell4", new Variant("NULL"));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell5", new Variant("NULL"));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell6", new Variant("NULL"));
+
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell0", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell1", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell2", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell3", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell4", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell5", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell6", new Variant(0));
+
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell0", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell1", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell2", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell3", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell4", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell5", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell6", new Variant(0));
+
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell0", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell1", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell2", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell3", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell4", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell5", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell6", new Variant(0));
+
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell0", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell1", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell2", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell3", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell4", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell5", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell6", new Variant(0));
+                
 
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load1", new Variant(false));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load2", new Variant(false));
@@ -747,6 +801,7 @@ public class Threader {
                     {
                         synchronized (this) {
                             this.wait(1000);
+                            System.out.println("Waiting for the Cells_2 to finish ...\n");
                         }
                     }
 
@@ -799,6 +854,7 @@ public class Threader {
                 {
                     synchronized (this) {
                         this.wait(1000);
+                        System.out.println("Waiting for the Unloading to finish ...\n");
                     }
                 }
 
@@ -813,6 +869,7 @@ public class Threader {
                 {
                     synchronized (this) {
                         this.wait(1000);
+                        System.out.println("Waiting for the right day to finish ...\n");
                     }
                 }
 
@@ -846,6 +903,15 @@ public class Threader {
 
 
             
+        }
+    }
+    
+    public static class GUI implements Runnable {
+        public void run() {
+            SwingUtilities.invokeLater(() -> {
+            Screen screen = new Screen();
+            screen.setVisible(true);
+        });
         }
     }
     
