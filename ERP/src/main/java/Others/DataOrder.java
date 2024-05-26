@@ -75,6 +75,7 @@ public class DataOrder {
         try (FileWriter file = new FileWriter("order_" + clientID + ".json")) {
             file.write(json.toString(4)); // Indent with 4 spaces for readability
             System.out.println("Successfully saved order to JSON file: order_" + clientID + ".json");
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -188,6 +189,8 @@ public class DataOrder {
         orderSummary.put("ProcessingTime", totalProcessingTime);
         return orderSummary;
     }
+
+    
 
     public static String generateClientID(Order order) {
         return order.getClientName() + "_" + order.getOrderNumber();

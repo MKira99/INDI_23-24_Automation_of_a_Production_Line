@@ -1,6 +1,3 @@
-
-
-
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -24,7 +21,10 @@ public class UDPOrderSender {
                          "]>\n" +
                          "<DOCUMENT>\n" +
                          "  <Client NameId=\"Client AA\"/>\n" +
-                         "  <Order Number=\"991\" WorkPiece=\"P3\" Quantity=\"5\" DueDate=\"5\" LatePen=\"20\" EarlyPen=\"5\"/>\n" +
+                         "  <Order Number=\"14\" WorkPiece=\"P9\" Quantity=\"5\" DueDate=\"10\" LatePen=\"20\" EarlyPen=\"5\"/>\n" +
+                         "  <Order Number=\"15\" WorkPiece=\"P5\" Quantity=\"8\" DueDate=\"7\" LatePen=\"10\" EarlyPen=\"5\"/>\n" +
+                         "  <Order Number=\"16\" WorkPiece=\"P6\" Quantity=\"1\" DueDate=\"14\" LatePen=\"10\" EarlyPen=\"10\"/>\n" +
+                         
                          "</DOCUMENT>";
                         //OrderID :="AA_42"
         try {
