@@ -119,7 +119,7 @@ public class ProductionGUI extends JFrame implements OrderListener {
         });
     }
 
-    private String convertDaysToDate(int days) {
+    public static String convertDaysToDate(int days) {
         long millis = TimeUnit.DAYS.toMillis(days);
         java.util.Date date = new java.util.Date(millis);
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd");
