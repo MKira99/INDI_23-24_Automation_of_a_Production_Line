@@ -67,7 +67,7 @@ public class Threader {
            while (true)
            {
                try {
-                   if (SecondsTimer.getSeconds() > 20.0) { //MUDAR
+                   if (SecondsTimer.getSeconds() > 10.0) { //MUDAR
                        System.out.println("Server Day: "+DayTimer.getDay());
                        SecondsTimer.reset();
                        SecondsTimer.start_nano_seconds();
@@ -83,22 +83,20 @@ public class Threader {
     public static class AcceptOrderRunnable implements Runnable {
         @Override
         public void run() {
-            
-            
-            ServerSocket serverSocket = null;
-            try {
-                serverSocket = new ServerSocket(9999);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println("Server started. Listening on port 9999...");
-            for (int i = 0; i < 100; i++) {
-                DaysOccupied[i] = "Not Occupied";
-            }
-
-            
-            //while (true) {
+           
+            while (true) {
                 try {
+                    ServerSocket serverSocket = null;
+                    try {
+                        serverSocket = new ServerSocket(9999);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    System.out.println("Server started. Listening on port 9999...");
+                    for (int i = 0; i < 100; i++) {
+                        DaysOccupied[i] = "Not Occupied";
+                    }
+
                     
                     System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
@@ -181,325 +179,18 @@ public class Threader {
                     Thread plc = new Thread(new PLCHandler(newOrder, logic.getCommand(), logic.getUsageOfCell_2()));
                     plc.start();
 
-
-
-
-                    /*
-                    Order1 = new order();
-                    Order1.setPieceNr(requestJson.getInt("Piece"));
-                    Order1.setOrderID(requestJson.getInt("OrderID"));
-                    Order1.setQuantity(requestJson.getInt("Quantity"));
-                    Order1.setArrivingDay(requestJson.getInt("ArrivingDay"));
-                    Order1.setStartingDay(requestJson.getInt("Day"));
-
-                    //  DataBase.getNextOrderNumber();
-                    //DataBase.insertOrder(Order1);
-                    //startPieceProduction();
                     
-                    System.out.println("TEST : " + requestJson.get("OrderID").equals("Testing Order"));
-                    if(requestJson.get("PieceType").equals("P4") && requestJson.get("Quantity").equals("9") && requestJson.get("DateStart").equals("1") && requestJson.get("DateEnd").equals("5") && requestJson.get("OrderID").equals("Testing Order"))
-                    {
-                        boolean test;
-                        test = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c1_bot_finished") != new Variant(true);
-                        System.out.println("TEST : " + test);
-                        System.out.println("Order Accepted.\nStarting Production ...\n\n\n");
-                        String dateStartString = requestJson.getString("DateStart");
-                        int dateStart = Integer.parseInt(dateStartString);
 
-                        synchronized (this) {
-                            int elapsedTime = 0; // Counter to track elapsed time
-                            System.out.println("Waiting for the right day to start ...\nCurrent Day: " + DayTimer.getDay() + "\nDay to Start: " + dateStart + "\n");
-                            while (DayTimer.getDay() < dateStart) {
-                                try {
-                                    this.wait(100); // Wait for 100 milliseconds
-                                    elapsedTime += 100; // Increment elapsed time by 100  milliseconds
-                        
-                                    if (elapsedTime >= 30000) { // Print message every 30 seconds (30000 milliseconds)
-                                        System.out.println("Still waiting for the right day to start ...\nCurrent Day: " + DayTimer.getDay() + "\nDay to Start: " + dateStart + "\n");
-                                        elapsedTime = 0; // Reset elapsed time
-                                    }
-                                } catch (InterruptedException e) {
-                                    Thread.currentThread().interrupt();
-                                    // Handle interruption
-                                }
-                            }
-                        }
-                        
-
-                        System.out.println("Order Accepted.\nStarting Production ...\n\n\n");
-                        System.out.println("Putting Machines with the right tools ...\n");
-                        short value1 = 1;
-                        short value2 = 2;
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c1_bot_des_tool", new Variant(value1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c1_bot_des_tool", new Variant(value2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c2_top_des_tool", new Variant(value1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c2_bot_des_tool", new Variant(value2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c3_top_des_tool", new Variant(value1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c3_bot_des_tool", new Variant(value2));
-
-                        
-                        synchronized (this) {
-                            this.wait(1000); // Wait for 1000 milliseconds (1 second)
-                            int elapsedTime = 0; // Counter to track elapsed time
-                            System.out.println("Waiting for Machines to be ready ...\n");
-                            test = opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c1_bot_finished") == new Variant(false);
-                            System.out.println("TEST : " + test + "    BUT     " + opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c1_bot_finished") + "      " + new Variant(false));
-                            while (opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c1_bot_finished").equals(new Variant(false)) ||
-                                    opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c1_top_finished").equals(new Variant(false)) ||
-                                    opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c2_bot_finished").equals(new Variant(false)) ||
-                                    opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c2_top_finished").equals(new Variant(false)) ||
-                                    opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c3_bot_finished").equals(new Variant(false)) ||
-                                    opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c3_top_finished").equals(new Variant(false))) {      
-                                try {
-                                    this.wait(1000); // Wait for 1000 milliseconds (1 second)
-                                    elapsedTime += 1000; // Increment elapsed time by 1000 milliseconds
-                                    
-                                    if (elapsedTime >= 10000) { // Print message every 10 seconds (10000 milliseconds)
-                                        System.out.println("Still waiting for Machines to be ready ...\n");
-                                        System.out.println("Values : " + opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c1_bot_finished") != new Variant(true) + " " + opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c1_top_finished")  + " " + opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c2_bot_finished") + " " + opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c2_top_finished") + " " + opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c3_bot_finished") + " " + opcua.read("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c3_top_finished") + "\n");
-                                        elapsedTime = 0; // Reset elapsed time
-                                    }
-                                } catch (InterruptedException e) {
-                                    Thread.currentThread().interrupt();
-                                    // Handle interruption
-                                }
-                            }
-                        }
-                        
-
-                        System.out.println("Loading Raw Material ...\n");
-                        
-                        String idload1 = "load1_test1";
-                        String idload2 = "load2_test1";
-                        String idload3 = "load3_test1";
-                        String idload4 = "load4_test1";
-                        
-                        short qty1 = 3;
-                        short qty2 = 2;
-                        short qty3 = 2;
-                        short qty4 = 2;
-                        
-                        short rawtype = 1;
-                        
-                        short tool1 = 0;
-                        short tool2 = 0;
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_load1", new Variant(idload1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_load2", new Variant(idload2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_load3", new Variant(idload3));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_load4", new Variant(idload4));
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_load1", new Variant(qty1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_load2", new Variant(qty2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_load3", new Variant(qty3));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_load4", new Variant(qty4));
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_load1", new Variant(rawtype));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_load2", new Variant(rawtype));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_load3", new Variant(rawtype));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_load4", new Variant(rawtype));
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_load1", new Variant(tool1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_load2", new Variant(tool1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_load3", new Variant(tool1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_load4", new Variant(tool1));
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_load1", new Variant(tool2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_load2", new Variant(tool2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_load3", new Variant(tool2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_load4", new Variant(tool2));
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load1", new Variant(true));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load2", new Variant(true));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load3", new Variant(true));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load4", new Variant(true));
-                        
-                        
-                        synchronized (this) {
-                            this.wait(5000); // Wait for 1000 milliseconds (1 second)
-                            int elapsedTime = 0; // Counter to track elapsed time
-                            System.out.println("Waiting for Loading all Raw Materials ...\n");
-                            while (getLoad1_finished().equals(new Variant(false)) ||
-                                    getLoad2_finished().equals(new Variant(false)) ||
-                                    getLoad3_finished().equals(new Variant(false)) ||
-                                    getLoad4_finished().equals(new Variant(false))) {
-                        
-                                try {
-                                    this.wait(1000); // Wait for 1000 milliseconds (1 second)
-                                    elapsedTime += 1000; // Increment elapsed time by 1000 milliseconds
-                                    
-                                    if (elapsedTime >= 10000) { // Print message every 10 seconds (10000 milliseconds)
-                                        System.out.println("Still waiting for Loading all Raw Materials ...\n");
-                                        elapsedTime = 0; // Reset elapsed time
-                                    }
-                                } catch (InterruptedException e) {
-                                    Thread.currentThread().interrupt();
-                                    // Handle interruption
-                                }
-                            }
-                        }
-                        
-
-                        System.out.println("Starting Transformation ...\n");
-                        
-                        String idcell1 = "load1_test1";
-                        String idcell2 = "load2_test1";
-                        String idcell3 = "load3_test1";
-                        
-                        qty1 = 3;
-                        qty2 = 3;
-                        qty3 = 4;
-                        
-                        short type1 = 1;
-                        short type2 = 1;
-                        short type3 = 1;
-                        
-                        tool1 = 1;
-                        tool2 = 2;
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell1", new Variant(idcell1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell2", new Variant(idcell2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell3", new Variant(idcell3));
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell1", new Variant(qty1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell2", new Variant(qty2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell3", new Variant(qty3));
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell1", new Variant(type1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell2", new Variant(type2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell3", new Variant(type3));
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell1", new Variant(tool1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell2", new Variant(tool1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell3", new Variant(tool1));
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell1", new Variant(tool2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell2", new Variant(tool2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell3", new Variant(tool2));
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell1", new Variant(true));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell2", new Variant(true));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell3", new Variant(true));
-                        
-                        
-                        synchronized (this) {
-                            this.wait(1000); // Wait for 1000 milliseconds (1 second)
-                            int elapsedTime = 0; // Counter to track elapsed time
-                            System.out.println("Waiting for Transformation to be done ...\n");
-                            while (getCell1_finished().equals(new Variant(false)) ||
-                                    getCell2_finished().equals(new Variant(false)) ||
-                                    getCell3_finished().equals(new Variant(false))) {
-                                try {
-                                    this.wait(1000); // Wait for 1000 milliseconds (1 second)
-                                    elapsedTime += 1000; // Increment elapsed time by 1000 milliseconds
-                                    
-                                    if (elapsedTime >= 10000) { // Print message every 10 seconds (10000 milliseconds)
-                                        System.out.println("Still waiting for Transformation to be done ...\n");
-                                        elapsedTime = 0; // Reset elapsed time
-                                    }
-                                } catch (InterruptedException e) {
-                                    Thread.currentThread().interrupt();
-                                    // Handle interruption
-                                }
-                            }
-                        }
-                        
-
-                        System.out.println("Unloading Finished Products ...\n");
-                        String idunload1 = "load1_test1";
-                        String idunload2 = "load2_test1";
-                        String idunload3 = "load3_test1";
-                        String idunload4 = "load4_test1";
-                        
-                        
-                        qty1 = 3;
-                        qty2 = 2;
-                        qty3 = 2;
-                        qty4 = 2;
-                        
-                        short finishtype = 4;
-                        
-                        tool1 = 0;
-                        tool2 = 0;
-                        
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_unload1", new Variant(idunload1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_unload2", new Variant(idunload2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_unload3", new Variant(idunload3));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_unload4", new Variant(idunload4));
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_unload1", new Variant(qty1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_unload2", new Variant(qty2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_unload3", new Variant(qty3));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_unload4", new Variant(qty4));
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_unload1", new Variant(finishtype));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_unload2", new Variant(finishtype));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_unload3", new Variant(finishtype));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_unload4", new Variant(finishtype));
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_unload1", new Variant(tool1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_unload2", new Variant(tool1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_unload3", new Variant(tool1));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_unload4", new Variant(tool1));
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_unload1", new Variant(tool2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_unload2", new Variant(tool2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_unload3", new Variant(tool2));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_unload4", new Variant(tool2));
-                        
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload1", new Variant(true));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload2", new Variant(true));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload3", new Variant(true));
-                        opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload4", new Variant(true));
-                        
-                        String dateEndStr = (String) requestJson.get("DateEnd");
-                        int dateEnd = Integer.parseInt(dateEndStr);
-
-                        
-                        synchronized (this) {
-                            this.wait(1000); // Wait for 1000 milliseconds (1 second)
-                            int elapsedTime = 0; // Counter to track elapsed time
-                            System.out.println("Waiting for Unloading all Finished Products and to the Final Day Arrives : " + dateEnd + " ...\n");
-                            while (getUnload1_finished().equals(new Variant(false)) ||
-                                    getUnload2_finished().equals(new Variant(false)) ||
-                                    getUnload3_finished().equals(new Variant(false)) ||
-                                    getUnload4_finished().equals(new Variant(false)) ||
-                                    DayTimer.getDay() < dateEnd) {
-                                try {
-                                    this.wait(1000); // Wait for 1000 milliseconds (1 second)
-                                    elapsedTime += 1000; // Increment elapsed time by 1000 milliseconds
-                                    
-                                    if (elapsedTime >= 10000) { // Print message every 10 seconds (10000 milliseconds)
-                                        System.out.println("Still waiting for Unloading all Finished Products ...\n");
-                                        elapsedTime = 0; // Reset elapsed time
-                                    }
-                                } catch (InterruptedException e) {
-                                    Thread.currentThread().interrupt();
-                                    // Handle interruption
-                                }
-                            }
-                        }
-                        
+                    
 
 
-                        
-                        
 
-                        System.out.println("Order Completed, thanks for working with us.\n");
 
-                    }
-                    else
-                    {
-                        System.out.println("Order Rejected");
-
-                    }*/
-
+                    
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
-            //}
+            }
         }  
     }
 
@@ -685,6 +376,10 @@ public class Threader {
                     }
                 }
 
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_load1", new Variant("NULL"));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_load2", new Variant("NULL"));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_load3", new Variant("NULL"));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_load4", new Variant("NULL"));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell0", new Variant("NULL"));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell1", new Variant("NULL"));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell2", new Variant("NULL"));
@@ -693,6 +388,10 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell5", new Variant("NULL"));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell6", new Variant("NULL"));
 
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_load1", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_load2", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_load3", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_load4", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell0", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell1", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell2", new Variant(0));
@@ -701,6 +400,10 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell5", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell6", new Variant(0));
 
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_load1", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_load2", new Variant(0));  
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_load3", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_load4", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell0", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell1", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell2", new Variant(0));
@@ -709,6 +412,10 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell5", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell6", new Variant(0));
 
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_load1", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_load2", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_load3", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_load4", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell0", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell1", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell2", new Variant(0));
@@ -717,6 +424,10 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell5", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell6", new Variant(0));
 
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_load1", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_load2", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_load3", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_load4", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell0", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell1", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell2", new Variant(0));
@@ -805,6 +516,46 @@ public class Threader {
                         }
                     }
 
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell0", new Variant("NULL"));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell1", new Variant("NULL"));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell2", new Variant("NULL"));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell3", new Variant("NULL"));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell4", new Variant("NULL"));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell5", new Variant("NULL"));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell6", new Variant("NULL"));
+
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell0", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell1", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell2", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell3", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell4", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell5", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_cell6", new Variant(0));
+
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell0", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell1", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell2", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell3", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell4", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell5", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_cell6", new Variant(0));
+
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell0", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell1", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell2", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell3", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell4", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell5", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_cell6", new Variant(0));
+
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell0", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell1", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell2", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell3", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell4", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell5", new Variant(0));
+                    opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell6", new Variant(0));
+
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell0", new Variant(false));
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell1", new Variant(false));
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell2", new Variant(false));
@@ -857,6 +608,32 @@ public class Threader {
                         System.out.println("Waiting for the Unloading to finish ...\n");
                     }
                 }
+
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_unload1", new Variant("NULL"));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_unload2", new Variant("NULL"));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_unload3", new Variant("NULL"));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_unload4", new Variant("NULL"));
+
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_unload1", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_unload2", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_unload3", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.qty_unload4", new Variant(0));
+
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_unload1", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_unload2", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_unload3", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.type_unload4", new Variant(0));
+
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_unload1", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_unload2", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_unload3", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool1_unload4", new Variant(0));
+
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_unload1", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_unload2", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_unload3", new Variant(0));
+                opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_unload4", new Variant(0));
+
 
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload1", new Variant(false));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload2", new Variant(false));
