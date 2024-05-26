@@ -17,7 +17,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import Others.ConsolidatedOrderSystem.*;
 import Others.DataOrder.*;
-//import static Others.DatabaseERP.*;
+import static Others.DatabaseERP.*;
 
 public class Threader {
 
@@ -55,6 +55,14 @@ public class Threader {
                             if (!isOrderDuplicated(order)) {
                                 System.out.println("Order is not duplicated: " + order);
                                 allOrders.add(order);
+
+                                try {
+                                    System.out.println("Inserting order into database: " + order);
+                                    insertOrder(order.getClientName(), order.getOrderNumber(), order.getWorkpiece(), order.getQuantity(), order.getDueDate(), order.getLatePen(), order.getEarlyPen(), order.getDueDate());
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                    continue; // Skip this iteration if the connection fails
+                                }
     
                                 OrderSystem.addOrder(order);
     
@@ -64,7 +72,15 @@ public class Threader {
                                 JSONObject summary = DataOrder.getOrderSummary();
                                 int finalDateDays = summary.getInt("DateEnd");
                                 String finalDateStr = ProductionGUI.convertDaysToDate(finalDateDays);
-    
+                                
+                                try {
+                                    System.out.println("Inserting final date into database: " + finalDateStr + " for order: " + order.getOrderNumber());
+                                    insertFinaltDate(finalDateStr, order.getOrderNumber());
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                    continue; // Skip this iteration if the connection fails
+                                }
+
                                 DataOrder.printOrderData();
     
                                 Product product = new Product(order.getWorkpiece(), order.getQuantity());
@@ -83,13 +99,13 @@ public class Threader {
                                         System.out.println("No suitable supplier found for initial piece: " + initialPiece);
                                     }
                                     double cost = bestSupplier.getPricePerPiece() * bestSupplier.getMinimumOrder();
-                                    /*try {
+                                    try {
                                         System.out.println("Inserting order cost into database: " + cost + " for order: " + order.getOrderNumber());
                                         insertOrderCost(cost, order.getOrderNumber());
                                     } catch (SQLException e) {
                                         e.printStackTrace();
                                         continue; // Skip this iteration if the connection fails
-                                    }*/
+                                    }
                                 }
     
                                 // Save order to JSON
@@ -137,7 +153,7 @@ public class Threader {
                         System.out.println("ClientID: " + clientID);
                         DataOrder.saveOrderToJson(nextOrder, clientID);
                         //DEBUG
-                        TCPClient.main(response);
+                        //TCPClient.main(response);
 
 
                     } else {
@@ -292,13 +308,79 @@ public class Threader {
 
         public void run() {
             try {
-                ServerSocket serverSocket = new ServerSocket(12346);
-                System.out.println("TCP Server started on port 12346");
+                // Create a server socket that listens on port 4999
+                ServerSocket serverSocket = new ServerSocket(4999);
+                System.out.println("Server started. Listening on port 4999...");
+    
+                InetAddress inetAddress = InetAddress.getLocalHost();
+                String ipAddress = inetAddress.getHostAddress();
+                System.out.println("Your IP address is: " + ipAddress);
+    
+                // Listen for incoming connections and handle them
+                while (true) {
+                    Socket clientSocket = serverSocket.accept();
+                    System.out.println("Client connected: " + clientSocket.getInetAddress().getHostAddress());
+                    
+    
+                    // Create an input stream to receive data from the client
+                    InputStream inputStream = clientSocket.getInputStream();
+    
+                    // Read the request from the client as a byte array
+                    byte[] requestBytes = new byte[1024];
+                    inputStream.read(requestBytes);
+    
+                    // Convert the byte array to a JSON string
+                    String requestString = new String(requestBytes).trim();
+    
+                    // Parse the JSON string as a JSON object
+                    JSONObject requestJson = new JSONObject(requestString);
+    
+                    // Print the request JSON object
+                    System.out.println("Received request: " + requestJson);
+    
+                    // Fetch the highest-priority order
+                    Order nextOrder = UDPServer.getNextOrder();
+                    if (nextOrder == null) {
+                        System.out.println("No orders to process.");
+                        continue;
+                    }
+    
+                    // Print the next order to be processed
+                    System.out.println("Next order to be sent: " + nextOrder);
+    
+                    // Process order with DataOrder and get the summary
+                    JSONObject response = processOrderWithDataOrder(nextOrder);
+    
+                    // Create a JSON object to store the response data
+                    JSONObject responseJson = new JSONObject();
+                    responseJson.put("status", "OK");
+                    responseJson.put("order", nextOrder);
+    
+                    // Convert the response JSON object to a JSON string
+                    String responseString = responseJson.toString();
+    
+                    // Create an output stream to send data to the client
+                    OutputStream outputStream = clientSocket.getOutputStream();
+    
+                    // Send the response string to the client
+                    outputStream.write(responseString.getBytes());
+    
+                    String clientID = DataOrder.generateClientID(nextOrder);
+                    System.out.println("ClientID: " + clientID);
+                    TCPClient.main(response);
+                    DataOrder.saveOrderToJson(nextOrder, clientID);
+    
+                    // Close the streams and the client socket
+                    clientSocket.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     
-        
+        private static JSONObject processOrderWithDataOrder(Order nextOrder) {
+            DataOrder.setOrderData(nextOrder.getWorkpiece(), nextOrder.getQuantity(), nextOrder.getDueDate());
+            return DataOrder.getOrderSummary();
+        }
     }
 }

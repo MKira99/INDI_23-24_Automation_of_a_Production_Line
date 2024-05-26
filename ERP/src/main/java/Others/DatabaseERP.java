@@ -52,7 +52,7 @@ public class DatabaseERP {
     }
 
     // Method to reconnect and retrieve all orders
-    public static void reconnectAndRetrieveOrders() {
+    /*public static void reconnectAndRetrieveOrders() {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -85,7 +85,7 @@ public class DatabaseERP {
                 }
             }
         }, 0, 5000); // Retry every 5 seconds
-    }
+    }*/
 
 
     public static int newEntry(String SQLQuery, String databaseUrl, String user, String password) throws SQLException {
@@ -108,7 +108,7 @@ public class DatabaseERP {
 
     // Create method insertOrder
     public static int insertOrder(String nameID, int orderNumber, String workPiece, int quantity, int dueDate, double latePenalty, double earlyPenalty, int startDate) throws SQLException {
-        String SQLQuery = "INSERT INTO ERP." + ordersactiveTable + " (nameid, ordernumber, workpiece, quantity, duedate, latepen, earlypen, startdate) VALUES ('" + nameID + "', " + orderNumber + ", '" + workPiece + "', " + quantity + ", " + dueDate + ", " + latePenalty + ", " + earlyPenalty + ", " + startDate + ");";
+        String SQLQuery = "INSERT INTO ERP." + ordersactiveTable + " (nameid, ordernumber, workpiece, quantity, duedate, latepen, earlypen, startdate, sendedmes) VALUES ('" + nameID + "', " + orderNumber + ", '" + workPiece + "', " + quantity + ", " + dueDate + ", " + latePenalty + ", " + earlyPenalty + ", " + startDate + ", " + false + ");";
         System.out.println(SQLQuery);
         return newEntry(SQLQuery, databaseUrl, user, password);
     }
@@ -118,15 +118,15 @@ public class DatabaseERP {
         return newEntry(SQLQuery, databaseUrl, user, password);
     }
 
-    public static int inserFinaltDate(String endDate, int orderNumber) throws SQLException {
+    public static int insertFinaltDate(String endDate, int orderNumber) throws SQLException {
         String SQLQuery = "UPDATE ERP." + ordersactiveTable + " SET enddate = " + endDate + " WHERE ordernumber = " + orderNumber + ";";
         return newEntry(SQLQuery, databaseUrl, user, password);
     }
 
-    public static int insertPiece(String pieceName, String rawPiece, int orderNumber, double rawCost) throws SQLException {
+    /*public static int insertPiece(String pieceName, String rawPiece, int orderNumber, double rawCost) throws SQLException {
         String SQLQuery = "INSERT INTO ERP." + piecesTable + " (piecetype, rawpiece, orderid, currenttype, rawcost) VALUES ('" + pieceName + "', '" + rawPiece + "', " + orderNumber + ", '" + rawPiece + "', " + rawCost + ");";
         return newEntry(SQLQuery, databaseUrl, user, password);
-    }
+    }*/
 
     public static ResultSet getPieceByOrderNumber(String orderNumber) {
         ResultSet resultSet = null;
@@ -170,6 +170,37 @@ public class DatabaseERP {
         }
         return size;
     }
+
+    public static boolean isTableEmpty() throws SQLException {
+        boolean isEmpty = false;
+        String SQLQuery = "SELECT COUNT(*) AS rowcount FROM ERP.ordersactive;";
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DriverManager.getConnection(databaseUrl, user, password);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(SQLQuery);
+
+            if (resultSet.next()) {
+                int rowCount = resultSet.getInt("rowcount");
+                if (rowCount == 0) {
+                    isEmpty = true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (resultSet != null) resultSet.close();
+            if (statement != null) statement.close();
+            if (connection != null) connection.close();
+        }
+
+        return isEmpty;
+    }
+
     public static String getUser() {
         return user;
     }
