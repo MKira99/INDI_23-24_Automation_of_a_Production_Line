@@ -27,6 +27,25 @@ public class ConsolidatedOrderSystem {
             return clientName;
         }
 
+        public void setDueDate(int dueDate) {
+            this.dueDate = dueDate;
+        }
+    
+        // Sobrescreva equals e hashCode para garantir a comparação correta das ordens
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            Order order = (Order) obj;
+            return orderNumber == order.orderNumber &&
+                    clientName.equals(order.clientName);
+        }
+    
+        @Override
+        public int hashCode() {
+            return Objects.hash(clientName, orderNumber);
+        }
+
         public int getOrderNumber() {
             return orderNumber;
         }

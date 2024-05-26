@@ -75,7 +75,6 @@ public class DataOrder {
         try (FileWriter file = new FileWriter("order_" + clientID + ".json")) {
             file.write(json.toString(4)); // Indent with 4 spaces for readability
             System.out.println("Successfully saved order to JSON file: order_" + clientID + ".json");
-            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -84,6 +83,24 @@ public class DataOrder {
     public static String getWorkpiece() {
         return workpiece;
     }
+
+    public static int calculateProcessingTimeForOrder(Order order) {
+        int totalTime = 0;
+        String currentPiece = determineInitialPiece(order.getWorkpiece());
+        String finalPiece = order.getWorkpiece();
+        int quantity = order.getQuantity();
+    
+        while (!currentPiece.equals(finalPiece)) {
+            String nextPiece = getNextPiece(currentPiece);
+            if (nextPiece == null) {
+                break;
+            }
+            totalTime += getProcessingTime(currentPiece, nextPiece);
+            currentPiece = nextPiece;
+        }
+        return totalTime * quantity;
+    }
+
 
     public static int getQuantity() {
         return quantity;
@@ -190,10 +207,12 @@ public class DataOrder {
         return orderSummary;
     }
 
-    
-
     public static String generateClientID(Order order) {
         return order.getClientName() + "_" + order.getOrderNumber();
+    }
+
+    public static void setDueDate(int newDueDate) {
+        DataOrder.dueDate = newDueDate;
     }
 
     public static String determineInitialPiece(String finalPiece) {

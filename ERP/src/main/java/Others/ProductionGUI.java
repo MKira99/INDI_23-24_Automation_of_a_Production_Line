@@ -78,46 +78,48 @@ public class ProductionGUI extends JFrame implements OrderListener {
     }
 
     @Override
-    public void onNewOrders(List<Order> orders) {
-        SwingUtilities.invokeLater(() -> {
-            for (Order order : orders) {
-                DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
-                JSONObject summary = DataOrder.getOrderSummary();
+public void onNewOrders(List<Order> orders) {
+    SwingUtilities.invokeLater(() -> {
+        for (Order order : orders) {
+            // Define the order data
+            DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
+            JSONObject summary = DataOrder.getOrderSummary();
 
-                String workpiece = summary.getString("PieceType");
-                int quantity = summary.getInt("Quantity");
-                int dueDateDays = summary.getInt("DateStart");
-                int processingTime = summary.getInt("ProcessingTime");
-                double totalCost = summary.getDouble("TotalCost");
-                int finalDateDays = summary.getInt("DateEnd");
+            String workpiece = summary.getString("PieceType");
+            int quantity = summary.getInt("Quantity");
+            int dueDateDays = summary.getInt("DateStart");
+            int processingTime = summary.getInt("ProcessingTime");
+            double totalCost = summary.getDouble("TotalCost");
+            int finalDateDays = summary.getInt("DateEnd");
 
-                String dueDateStr = convertDaysToDate(dueDateDays);
-                String finalDateStr = convertDaysToDate(finalDateDays);
+            String dueDateStr = convertDaysToDate(dueDateDays);
+            String finalDateStr = convertDaysToDate(finalDateDays);
 
-                mpsModel.addRow(new Object[]{
-                    workpiece, quantity, dueDateStr, finalDateStr, totalCost, processingTime / 60
+            // Update Master Production Schedule
+            mpsModel.addRow(new Object[]{
+                workpiece, quantity, dueDateStr, finalDateStr, totalCost, processingTime / 60
+            });
+
+            // Update Purchasing Plan
+            Supplier bestSupplier = DataOrder.getBestSupplier(); // Get the best supplier from DataOrder
+            if (bestSupplier != null) {
+                double cost = bestSupplier.getPricePerPiece() * bestSupplier.getMinimumOrder();
+                String initialPiece = DataOrder.determineInitialPiece(workpiece); // Get the initial piece
+                purchasingModel.addRow(new Object[]{
+                    bestSupplier.getName(),
+                    initialPiece, // Use the initial piece here
+                    bestSupplier.getMinimumOrder(), // Use the minimum order quantity here
+                    bestSupplier.getPricePerPiece(),
+                    cost,
+                    bestSupplier.getDeliveryTime()
                 });
-
-                // Update Purchasing Plan
-                Supplier bestSupplier = DataOrder.getBestSupplier(); // Get the best supplier from DataOrder
-                if (bestSupplier != null) {
-                    double cost = bestSupplier.getPricePerPiece() * bestSupplier.getMinimumOrder();
-                    String initialPiece = DataOrder.determineInitialPiece(workpiece); // Get the initial piece
-                    purchasingModel.addRow(new Object[]{
-                        bestSupplier.getName(),
-                        initialPiece, // Use the initial piece here
-                        bestSupplier.getMinimumOrder(), // Use the minimum order quantity here
-                        bestSupplier.getPricePerPiece(),
-                        cost,
-                        bestSupplier.getDeliveryTime()
-                    });
-                }
-
-                // Update Production Plan
-                productionModel.addRow(new Object[]{workpiece, quantity, processingTime / 60});
             }
-        });
-    }
+
+            // Update Production Plan
+            productionModel.addRow(new Object[]{workpiece, quantity, processingTime / 60});
+        }
+    });
+}
 
     public static String convertDaysToDate(int days) {
         long millis = TimeUnit.DAYS.toMillis(days);
