@@ -1,0 +1,303 @@
+[33mcommit 72e0b9373e38121deb801e5e0266feaac0383dc2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Merge: 9f1f03b 3f870a3
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Sun May 26 04:46:18 2024 +0100
+
+    MESLogic and PLCHandler Done, but incomplete
+
+[33mcommit 9f1f03b4e1a337bb39663b921a726996c30ff5bd[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Sun May 26 04:45:03 2024 +0100
+
+    MESLogic and PLCHandler Done, but incomplete
+
+[33mcommit 3f870a3529cf41aa7756a61a2eb0379a0de9849e[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: carlosFEUP <up202009574@up.pt>
+Date:   Sun May 26 01:12:04 2024 +0100
+
+    Starting Database reconnection implementation
+
+[33mcommit fb1d6f538dea73a120ad6cfa8cf5e811b1f753bd[m
+Author: Pedro Vieira <fosteproca@gmail.com>
+Date:   Sat May 25 20:12:09 2024 +0100
+
+    prioridades das ordens operacionais (acho eu)
+
+[33mcommit 91b94ac4f8efb8ee9d598932c959bfeef4d8d57c[m
+Author: Pedro Vieira <fosteproca@gmail.com>
+Date:   Sat May 25 19:38:52 2024 +0100
+
+    ja consegue ler as orders todas
+
+[33mcommit be2259e62b2aef05ba6bc9d93af1b1df4581ac8d[m
+Author: carlosFEUP <up202009574@up.pt>
+Date:   Sat May 25 18:36:26 2024 +0100
+
+    Database updates
+
+[33mcommit ad4091b07d2c3d9f0fde2503d7fc37cd4d31ba2e[m
+Author: Pedro Vieira <fosteproca@gmail.com>
+Date:   Sat May 25 14:11:32 2024 +0100
+
+    Alterações na Threader, implementação da escolha do supplier, organização da ordem e GUI
+
+[33mcommit ae9947cb0129b7c781b763a46e62242f778c1882[m
+Author: Pedro Vieira <fosteproca@gmail.com>
+Date:   Sat May 25 11:10:41 2024 +0100
+
+    PUTI QUI PARI
+
+[33mcommit 7adc311c148bc3c97bafcc93490941a41801fc66[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Sat May 25 01:14:43 2024 +0100
+
+    Confia no pai que o plc cai
+
+[33mcommit c01af603945d75c6416ff5a99a0a55910b05483e[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Fri May 24 21:44:46 2024 +0100
+
+    fully working with a hard coded example
+
+[33mcommit 178b6710c52d4be015b915e346c7fd6f3eca3172[m
+Author: carlosFEUP <up202009574@up.pt>
+Date:   Fri May 24 17:45:47 2024 +0100
+
+    Database Connection Implementation
+
+[33mcommit 53264b1bc1f8785f1420654aceb2fb3ea0543ace[m
+Author: Pedro Vieira <fosteproca@gmail.com>
+Date:   Fri May 24 16:53:25 2024 +0100
+
+    alterariones
+
+[33mcommit 43909ab3233d5ce31fff1d6213d227e68ca4248d[m
+Author: Pedro Vieira <fosteproca@gmail.com>
+Date:   Fri May 24 14:49:58 2024 +0100
+
+    Escolha da ordem decidida
+
+[33mcommit cc496a2bcffef36b0c657ecdb52afd52321e9e91[m
+Author: Pedro Vieira <fosteproca@gmail.com>
+Date:   Fri May 24 12:39:45 2024 +0100
+
+    Ajustar o UDPOrder e UDPServer
+
+[33mcommit 29418bf386bfba943696efa1113486a2d437fc30[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Fri May 24 01:43:22 2024 +0100
+
+    Updated, tomorrow i will test
+
+[33mcommit ea0eec44036bbaffaf5ae3f455cb8874902ace61[m
+Author: Pedro Vieira <fosteproca@gmail.com>
+Date:   Fri May 24 00:19:06 2024 +0100
+
+    Atualizações do ERP - ja ta guardado em variaveis as cenas da workpiece, quantity e duedata
+
+[33mcommit ba4290d12aba877c542eb99beb3031358ac73d31[m
+Author: Pedro Vieira <fosteproca@gmail.com>
+Date:   Thu May 23 19:26:49 2024 +0100
+
+    ADD ERP
+
+[33mcommit 8ee8315f952335793e05acd8b08d6dc96e216497[m
+Merge: 93392d7 0e64069
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Thu May 23 19:07:04 2024 +0100
+
+    Full PLC
+
+[33mcommit 93392d7d9593976b3abc0fb7f621d2edb6c53dea[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Thu May 23 19:05:08 2024 +0100
+
+    Full PLC
+
+[33mcommit 0e640699541d38e434cd43745483a6b79f9d6096[m
+Author: Pedro Vieira <fosteproca@gmail.com>
+Date:   Thu May 23 17:55:00 2024 +0100
+
+    Novas alterações -> Implementação dos planos e alteração dos ficheiros das ordens, tudo na pasta nova 'proca'
+
+[33mcommit a69e002a7980d8f489c55c3de984351d7e57be88[m
+Author: carlosFEUP <up202009574@up.pt>
+Date:   Sat May 18 19:29:50 2024 +0100
+
+    Error correction in Purchase System file
+
+[33mcommit 26529c973b9b7ff59b53541ca69c6ffdb67ea063[m
+Author: carlosFEUP <up202009574@up.pt>
+Date:   Sat May 18 18:39:59 2024 +0100
+
+    Adding ERP demo
+
+[33mcommit daed72b878e6173deabc723fa3da1b3b44fcce9b[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Wed May 15 17:18:22 2024 +0100
+
+    Mes Implementation
+
+[33mcommit 4a876f2c3fc65c8b851e9dbbce85f46dc1e7db88[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Thu Apr 25 13:34:51 2024 +0100
+
+    Implemented all the functions blocks we should need and implemented load 1 and 2 and cell 1 and 2
+
+[33mcommit 179a19cefe145e962e22f3aa63216d26db4dc24e[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Sat Apr 6 23:12:31 2024 +0100
+
+    Final Scada
+
+[33mcommit c58b00fe054b022a3d49bf807b7cb5ca09319719[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Fri Apr 5 12:02:16 2024 +0100
+
+    Scada v1.1
+
+[33mcommit ece87e52c1ceec349e2fb854f42bed7de8becaee[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Wed Apr 3 02:57:45 2024 +0100
+
+    Full implementation of conveyor control logic
+
+[33mcommit b11594cbd353d20f21c5f4d8d27aab70a9d7d236[m
+Author: up202009574 <up202009574@fe.up.pt>
+Date:   Mon Apr 1 12:11:44 2024 +0100
+
+    Delivered
+
+[33mcommit b47b4ea19cefc38d39199a7da86ced99837a9c95[m
+Author: up202009574 <up202009574@fe.up.pt>
+Date:   Mon Apr 1 11:47:53 2024 +0100
+
+    Done
+
+[33mcommit ac39fc5478172f0c183c43981327a0a444379243[m
+Author: up202009574 <up202009574@fe.up.pt>
+Date:   Mon Apr 1 11:37:57 2024 +0100
+
+    Almost done
+
+[33mcommit 5f4978916c12a1acf5bb0d7edc544ef009a3a5af[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Mon Apr 1 02:46:04 2024 +0100
+
+    unfinished scada v1.1
+
+[33mcommit 3bb5a055cd87096b1979ab919c8a6f08b84ba7d0[m
+Author: Tiago Cunha <up202007672@up.pt>
+Date:   Mon Apr 1 01:17:28 2024 +0100
+
+    Excel
+
+[33mcommit c98f64fd921b1303f449d409b045d6b2d6331c47[m
+Author: Tiago Cunha <up202007672@up.pt>
+Date:   Mon Apr 1 01:11:59 2024 +0100
+
+    Falta atualizar as gates do SCADA
+
+[33mcommit 4dd52bbf25908627f61a02432f742c80c520c92e[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Sun Mar 31 20:37:59 2024 +0100
+
+    upload excel with scada variables mapping
+
+[33mcommit ab4e3623dd4ba3894b21667d3332eb0e15d4213a[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Sun Mar 31 20:33:45 2024 +0100
+
+    final scada with codesys
+
+[33mcommit 15931791be78fb9afa8bbf67f5ad85e0ab15a473[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Sun Mar 31 18:08:16 2024 +0100
+
+    scada try with updated codesys
+
+[33mcommit 4b123d327cfa9c80981108d8b5d4cdf7043e64a9[m
+Merge: f2f66c0 32d90db
+Author: up202009574 <up202009574@fe.up.pt>
+Date:   Sat Mar 30 19:18:07 2024 +0000
+
+    Merge branch 'main' of https://github.com/MKira99/INDI_23-24_Automation_of_a_Production_Line
+
+[33mcommit f2f66c09184fde7b2ad26a202a10ad41f9d21a1a[m
+Author: up202009574 <up202009574@fe.up.pt>
+Date:   Sat Mar 30 19:14:24 2024 +0000
+
+    SCADA Carlos_updated version
+
+[33mcommit 32d90dbbeda8cfdcbe32b3e41dedd823c164f518[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Sat Mar 30 19:06:35 2024 +0000
+
+    problably a semi-complete automatic system v2
+
+[33mcommit 120b729264d0c9849123b5c3ff2b3b04e06ae446[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Sat Mar 30 19:03:46 2024 +0000
+
+    problably a semi-complete automatic system
+
+[33mcommit b7920dfc6cdc484108d28c0221f94080fcac5345[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Sat Mar 30 05:51:48 2024 +0000
+
+    Full version of wh2 to wh1
+
+[33mcommit d21665966218a7889a5d4e1b41252bd2dffc58c0[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Wed Mar 20 10:25:15 2024 +0000
+
+    Load 1 done
+
+[33mcommit c588f78bd3177ed3d9228679325575f23dcd52b7[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Wed Mar 20 10:02:39 2024 +0000
+
+    Sigaaa
+
+[33mcommit 8fab2aae8eb4699f4df92b0633fbc14cf8100eb1[m
+Merge: 6bd2e53 0f26465
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Thu Feb 29 22:33:28 2024 +0000
+
+    Merge branch 'main' of github.com:MKira99/INDI_23-24_Automation_of_a_Production_Line
+
+[33mcommit 6bd2e53f62d5947ab51280fd2c9a2cf0fbe9b7b0[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Thu Feb 29 22:32:46 2024 +0000
+
+    created a simple state-machine that controls the fours states of operation (off / auto / manual / maintenace), which is altered in SCADA
+
+[33mcommit 0f2646529991de7861900bd6ac46479b71f05920[m
+Author: Hoowy24 <159502661+Hoowy24@users.noreply.github.com>
+Date:   Wed Feb 28 09:16:47 2024 +0000
+
+    Update README.md
+
+[33mcommit ddfc6ce776fe87caca51ab3cb9db784859650121[m
+Author: Pedro Vieira <110850846+PedroRic@users.noreply.github.com>
+Date:   Wed Feb 28 09:14:07 2024 +0000
+
+    Update README.md
+
+[33mcommit 82f660cf1a9ac423e500ca133c555eeba4696c70[m
+Author: Pedro Vieira <110850846+PedroRic@users.noreply.github.com>
+Date:   Wed Feb 28 09:13:59 2024 +0000
+
+    Update README.md
+
+[33mcommit 9515c395dee6efbf6b5911b4be0b4afcd5a55869[m
+Author: LAPTOP-2VCQGOJI\Guedes <up202005324@up.pt>
+Date:   Wed Feb 28 09:07:09 2024 +0000
+
+    Mapping of PLC variables finished and first commit
+
+[33mcommit 98c8303c7fca0699d61be110fa77c3263a654698[m
+Author: MKira99 <126240186+MKira99@users.noreply.github.com>
+Date:   Wed Feb 21 09:01:58 2024 +0000
+
+    Initial commit
