@@ -153,7 +153,6 @@ public class Threader {
                         System.out.println("ClientID: " + clientID);
                         DataOrder.saveOrderToJson(nextOrder, clientID);
                         //DEBUG
-<<<<<<< HEAD
                         response.put("DateEnd", response.get("DateStart"));
                         TCPClient.main(response);
                         
@@ -164,9 +163,6 @@ public class Threader {
                                 e.printStackTrace();
                             }
                         }
-=======
-                        //TCPClient.main(response);
->>>>>>> b0f4b31b3284abc151798802de07e39c41b6929a
 
 
                     } else {
