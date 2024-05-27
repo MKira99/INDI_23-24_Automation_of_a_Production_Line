@@ -17,6 +17,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import Others.ConsolidatedOrderSystem.*;
 import Others.DataOrder.*;
+import Others.OrderDatabase.OrderDb;
+import Others.OrderDatabase.OrderSystemDb;
+
 import static Others.DatabaseERP.*;
 
 public class Threader {
@@ -25,7 +28,9 @@ public class Threader {
         private static List<Order> allOrders = new ArrayList<>();
         public static List<OrderListener> listeners = new ArrayList<>();
         public static List<List<Order>> orderMatrix = new ArrayList<>();
+        public static List<List<OrderDb>> orderDbMatrix = new ArrayList<>();
         public static List<Order> ordersended = new ArrayList<>();
+        public static boolean firstTime=true; 
 
         @Override
         public void run() {
@@ -36,86 +41,20 @@ public class Threader {
                 DatagramPacket DpReceive = null;
     
                 while (true) {
-                    DpReceive = new DatagramPacket(buf, buf.length);
-                    ds.receive(DpReceive);
-                    System.out.println("Received: " + DpReceive);
-                    String inp = new String(buf, 0, DpReceive.getLength());
-                    System.out.println("string: " + inp);
-    
-                    List<Order> orders = parseOrders(inp);
-                    if (orders == null || orders.isEmpty()) {
-                        System.out.println("No valid orders found.");
-                        continue;
-                    }
-    
-                    synchronized (allOrders) {
-                        for (Order order : orders) {
-                            System.out.println("Processing order: " + order);
-                            adjustDueDateIfNeeded(order); // Ajusta a data de entrega se necessário
-                            if (!isOrderDuplicated(order)) {
-                                System.out.println("Order is not duplicated: " + order);
-                                allOrders.add(order);
-
-                                try {
-                                    System.out.println("Inserting order into database: " + order);
-                                    insertOrder(order.getClientName(), order.getOrderNumber(), order.getWorkpiece(), order.getQuantity(), order.getDueDate(), order.getLatePen(), order.getEarlyPen(), order.getDueDate());
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                    continue; // Skip this iteration if the connection fails
-                                }
-    
-                                OrderSystem.addOrder(order);
-    
-                                // Set order data in DataOrder
-                                DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
-    
-                                JSONObject summary = DataOrder.getOrderSummary();
-                                int finalDateDays = summary.getInt("DateEnd");
-                                String finalDateStr = ProductionGUI.convertDaysToDate(finalDateDays);
-                                
-                                try {
-                                    System.out.println("Inserting final date into database: " + finalDateStr + " for order: " + order.getOrderNumber());
-                                    insertFinaltDate(finalDateStr, order.getOrderNumber());
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                    continue; // Skip this iteration if the connection fails
-                                }
-
-                                DataOrder.printOrderData();
-    
-                                Product product = new Product(order.getWorkpiece(), order.getQuantity());
-    
-                                if (InventorySystem.checkHas(product, product.getQuantity()) == 1) {
-                                    System.out.println("Has Enough on Warehouse");
-                                } else {
-                                    System.out.println("Nao temos no armazem essas peças.");
-    
-                                    // Determine the best supplier for the initial piece
-                                    String initialPiece = DataOrder.determineInitialPiece(order.getWorkpiece());
-                                    Supplier bestSupplier = Supplier.getBestSupplier(initialPiece, order.getQuantity(), order.getDueDate());
-                                    if (bestSupplier != null) {
-                                        System.out.println("Best supplier found: " + bestSupplier.getName());
-                                    } else {
-                                        System.out.println("No suitable supplier found for initial piece: " + initialPiece);
-                                    }
-                                    double cost = bestSupplier.getPricePerPiece() * bestSupplier.getMinimumOrder();
-                                    try {
-                                        System.out.println("Inserting order cost into database: " + cost + " for order: " + order.getOrderNumber());
-                                        insertOrderCost(cost, order.getOrderNumber());
-                                    } catch (SQLException e) {
-                                        e.printStackTrace();
-                                        continue; // Skip this iteration if the connection fails
-                                    }
-                                }
-    
-                                // Save order to JSON
-                                String clientID = DataOrder.generateClientID(order);
-                                System.out.println("Generated clientID: " + clientID);
-                                DataOrder.saveOrderToJson(order, clientID);
-                                System.out.println("Order saved to JSON for clientID: " + clientID);
-                            } else {
-                                System.out.println("Order is duplicated and will not be processed: " + order);
+                    try{
+                        if((DatabaseERP.isTableEmpty()) || (!DatabaseERP.isTableEmpty() && firstTime==false)){
+                            DpReceive = new DatagramPacket(buf, buf.length);
+                            ds.receive(DpReceive);
+                            System.out.println("Received: " + DpReceive);
+                            String inp = new String(buf, 0, DpReceive.getLength());
+                            System.out.println("string: " + inp);
+            
+                            List<Order> orders = parseOrders(inp);
+                            if (orders == null || orders.isEmpty()) {
+                                System.out.println("No valid orders found.");
+                                continue;
                             }
+<<<<<<< HEAD
     
                         }
                     }
@@ -155,23 +94,178 @@ public class Threader {
                         //DEBUG
                         response.put("DateEnd", response.get("DateStart"));
                         TCPClient.main(response);
+=======
+>>>>>>> 8c409aad8f484a0c1e65c1618634e87ccdc53ded
                         
-                        synchronized (this) {
-                            try {
-                                this.wait(5000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+        
+                            synchronized (allOrders) {
+                                for (Order order : orders) {
+                                    System.out.println("Processing order: " + order);
+                                    adjustDueDateIfNeeded(order); // Ajusta a data de entrega se necessário
+                                    if (!isOrderDuplicated(order)) {
+                                        System.out.println("Order is not duplicated: " + order);
+                                        allOrders.add(order);
+
+                                        try {
+                                            System.out.println("Inserting order into database: " + order);
+                                            insertOrder(order.getClientName(), order.getOrderNumber(), order.getWorkpiece(), order.getQuantity(), order.getDueDate(), order.getLatePen(), order.getEarlyPen(), order.getDueDate());
+                                        } catch (SQLException e) {
+                                            e.printStackTrace();
+                                            continue; // Skip this iteration if the connection fails
+                                        }
+            
+                                        OrderSystem.addOrder(order);
+            
+                                        // Set order data in DataOrder
+                                        DataOrder.setOrderData(order.getWorkpiece(), order.getQuantity(), order.getDueDate());
+            
+                                        JSONObject summary = DataOrder.getOrderSummary();
+                                        int finalDateDays = summary.getInt("DateEnd");
+                                        String finalDateStr = ProductionGUI.convertDaysToDate(finalDateDays);
+                                        
+                                        try {
+                                            System.out.println("Inserting final date into database: " + finalDateStr + " for order: " + order.getOrderNumber());
+                                            insertFinaltDate(finalDateStr, order.getOrderNumber());
+                                        } catch (SQLException e) {
+                                            e.printStackTrace();
+                                            continue; // Skip this iteration if the connection fails
+                                        }
+
+                                        DataOrder.printOrderData();
+            
+                                        Product product = new Product(order.getWorkpiece(), order.getQuantity());
+            
+                                        if (InventorySystem.checkHas(product, product.getQuantity()) == 1) {
+                                            System.out.println("Has Enough on Warehouse");
+                                        } else {
+                                            System.out.println("Nao temos no armazem essas peças.");
+            
+                                            // Determine the best supplier for the initial piece
+                                            String initialPiece = DataOrder.determineInitialPiece(order.getWorkpiece());
+                                            Supplier bestSupplier = Supplier.getBestSupplier(initialPiece, order.getQuantity(), order.getDueDate());
+                                            if (bestSupplier != null) {
+                                                System.out.println("Best supplier found: " + bestSupplier.getName());
+                                            } else {
+                                                System.out.println("No suitable supplier found for initial piece: " + initialPiece);
+                                            }
+                                            double cost = bestSupplier.getPricePerPiece() * bestSupplier.getMinimumOrder();
+                                            try {
+                                                System.out.println("Inserting order cost into database: " + cost + " for order: " + order.getOrderNumber());
+                                                insertOrderCost(cost, order.getOrderNumber());
+                                            } catch (SQLException e) {
+                                                e.printStackTrace();
+                                                continue; // Skip this iteration if the connection fails
+                                            }
+                                        }
+            
+                                        // Save order to JSON
+                                        String clientID = DataOrder.generateClientID(order);
+                                        System.out.println("Generated clientID: " + clientID);
+                                        DataOrder.saveOrderToJson(order, clientID);
+                                        System.out.println("Order saved to JSON for clientID: " + clientID);
+                                    } else {
+                                        System.out.println("Order is duplicated and will not be processed: " + order);
+                                    }
+            
+                                }
+                            }
+        
+                            printOrders();
+            
+                            // Notify listeners about new orders
+                            notifyListeners(orders);
+
+                            System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+                            printOrderMatrix();
+                            System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+
+                            orderMatrix.add(orders);
+
+                            System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+                            printOrderMatrix();
+                            System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+
+                            System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+                            printOrderMatrix();
+                            System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+
+                            Order nextOrder = DecisionOrder.decideOrder(orderMatrix);
+
+                            if (nextOrder != null) {
+                                System.out.println("Next order to process: " + nextOrder);
+
+                                // Process order with DataOrder and get the summary
+                                JSONObject response = processOrderWithDataOrder(nextOrder);
+
+                                String clientID = DataOrder.generateClientID(nextOrder);
+                                System.out.println("ClientID: " + clientID);
+                                DataOrder.saveOrderToJson(nextOrder, clientID);
+
+                                //RETIRAR DE COMENTADO
+                                //DEBUG
+                                TCPClient.main(response);
+
+                                // Update sendedMes variable in database
+                                /*try {
+                                    System.out.println("Setting sendedMes variable true for order: " + nextOrder.getOrderNumber());
+                                    updateSendedMes(nextOrder.getOrderNumber());
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                    continue; // Skip this iteration if the connection fails
+                                }*/
+
+                            } else {
+                                System.out.println("No next order to process.");
                             }
                         }
+<<<<<<< HEAD
+=======
+                        else{
+                            ArrayList<OrderDb> orders = (ArrayList<OrderDb>) OrderSystemDb.getAllOrders();
+                            for (OrderDb order : orders) {
+                                System.out.println(order);
+                            }
+                            orderDbMatrix.add(orders);
+                            printOrderDbMatrix(); 
+                            System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+>>>>>>> 8c409aad8f484a0c1e65c1618634e87ccdc53ded
 
+                            OrderDb nextOrder = DecisionOrder.decideOrderDb(orderDbMatrix);
 
-                    } else {
-                        System.out.println("No next order to process.");
+                            if (nextOrder != null) {
+                                System.out.println("Next order to process: " + nextOrder);
+
+                                // Process order with DataOrder and get the summary
+                                JSONObject response = processOrderWithDataOrderDb(nextOrder);
+
+                                String clientID = DataOrder.generateClientIDDb(nextOrder);
+                                System.out.println("ClientID: " + clientID);
+
+                                DataOrder.saveOrderDbToJson(nextOrder, clientID);
+
+                                //RETIRAR DE COMENTADO
+                                //DEBUG
+                                TCPClient.main(response);
+
+                                // Update sendedMes variable in database
+                                /*try {
+                                    System.out.println("Setting sendedMes variable true for order: " + nextOrder.getOrderNumber());
+                                    updateSendedMes(nextOrder.getOrderNumber());
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                    continue; // Skip this iteration if the connection fails
+                                }*/
+
+                            } else {
+                                System.out.println("No next order to process.");
+                            }
+                        }
+                        firstTime=false;
+       
+                        buf = new byte[65535];
+                    }catch (SQLException e) {
+                        e.printStackTrace();
                     }
-
-
-    
-                    buf = new byte[65535];
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -271,6 +365,16 @@ public class Threader {
             }
         }
 
+        private static void printOrderDbMatrix() {
+            System.out.println("Order Matrix Database:");
+            for (List<OrderDb> orderList : orderDbMatrix) {
+                for (OrderDb order : orderList) {
+                    System.out.println(order);
+                }
+                System.out.println("-----");
+            }
+        }
+
         private static void notifyListeners(List<Order> orders) {
             for (OrderListener listener : listeners) {
                 listener.onNewOrders(orders);
@@ -296,6 +400,11 @@ public class Threader {
         }
     
         private static JSONObject processOrderWithDataOrder(Order nextOrder) {
+            DataOrder.setOrderData(nextOrder.getWorkpiece(), nextOrder.getQuantity(), nextOrder.getDueDate());
+            return DataOrder.getOrderSummary();
+        }
+
+        private static JSONObject processOrderWithDataOrderDb(OrderDb nextOrder) {
             DataOrder.setOrderData(nextOrder.getWorkpiece(), nextOrder.getQuantity(), nextOrder.getDueDate());
             return DataOrder.getOrderSummary();
         }

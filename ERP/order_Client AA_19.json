@@ -1,9 +1,9 @@
 {
-    "Workpiece": "P7",
+    "Workpiece": "P6",
     "ClientName": "Client AA",
-    "FinalDate": 2772,
+    "FinalDate": 6,
     "ClientID": "Client AA_19",
-    "Quantity": 10,
+    "Quantity": 1,
     "OrderNumber": 19,
-    "DueDate": 2757
+    "DueDate": 4
 }

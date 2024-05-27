@@ -15,15 +15,15 @@ public class ProductionPlans {
 
     // Define the production hierarchy information
     static String[][] productionHierarchy = {
-            {"P1", "P3", "T1", "0"},   // P1 is transformed to P3 with process T1 taking 45 s
-            {"P3", "P4", "T2", "0"},   // P3 is transformed to P4 with process T2 taking 15 s
-            {"P3", "P4", "T3", "0"},   // P3 is transformed to P4 with process T3 taking 25 s
-            {"P4", "P5", "T4", "0"},   // P4 is transformed to P5 with process T4 taking 25 s
-            {"P4", "P6", "T2", "0"},   // P4 is transformed to P6 with process T2 taking 25 s
-            {"P4", "P7", "T3", "0"},   // P4 is transformed to P7 with process T3 taking 15 s
-            {"P2", "P8", "T1", "0"},   // P2 is transformed to P8 with process T1 taking 45 s
-            {"P8", "P7", "T6", "0"},   // P8 is transformed to P7 with process T6 taking 15 s
-            {"P8", "P9", "T5", "0"}    // P8 is transformed to P9 with process T5 taking 45 s
+            {"P1", "P3", "T1", "45"},   // P1 is transformed to P3 with process T1 taking 45 s
+            {"P3", "P4", "T2", "15"},   // P3 is transformed to P4 with process T2 taking 15 s
+            {"P3", "P4", "T3", "25"},   // P3 is transformed to P4 with process T3 taking 25 s
+            {"P4", "P5", "T4", "25"},   // P4 is transformed to P5 with process T4 taking 25 s
+            {"P4", "P6", "T2", "25"},   // P4 is transformed to P6 with process T2 taking 25 s
+            {"P4", "P7", "T3", "15"},   // P4 is transformed to P7 with process T3 taking 15 s
+            {"P2", "P8", "T1", "45"},   // P2 is transformed to P8 with process T1 taking 45 s
+            {"P8", "P7", "T6", "15"},   // P8 is transformed to P7 with process T6 taking 15 s
+            {"P8", "P9", "T5", "45"}    // P8 is transformed to P9 with process T5 taking 45 s
     };
 
     // Method to find the optimal supplier based on cost, penalties, and deadlines

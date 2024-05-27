@@ -1,6 +1,8 @@
 package Others;
 
-import Others.ConsolidatedOrderSystem.*;  
+import Others.ConsolidatedOrderSystem.*;
+import Others.OrderDatabase.OrderDb;
+
 import java.util.List;
 
 public class DecisionOrder {
@@ -10,6 +12,20 @@ public class DecisionOrder {
 
         for (List<Order> orderList : orderMatrix) {
             for (Order order : orderList) {
+                if (selectedOrder == null || order.getDueDate() < selectedOrder.getDueDate()) {
+                    selectedOrder = order;
+                }
+            }
+        }
+
+        return selectedOrder;
+    }
+
+    public static OrderDb decideOrderDb(List<List<OrderDb>> orderDbMatrix) {
+        OrderDb selectedOrder = null;
+
+        for (List<OrderDb> orderList : orderDbMatrix) {
+            for (OrderDb order : orderList) {
                 if (selectedOrder == null || order.getDueDate() < selectedOrder.getDueDate()) {
                     selectedOrder = order;
                 }
