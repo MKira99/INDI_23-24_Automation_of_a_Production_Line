@@ -39,6 +39,10 @@ public class DataOrder {
             this.orderId = clientName.replaceAll("\\s+", "") + "_" + number;
         }
 
+        public String getOrderId() {
+            return orderId;
+        }
+
         @Override
         public String toString() {
             return "Order{" +
@@ -76,6 +80,8 @@ public class DataOrder {
         int endDate;
         double cost;
 
+        static ArrayList<OrderResult> orders = new ArrayList<OrderResult>();
+
         public OrderResult(String orderId, String workPiece, int quantity, int startDate, int endDate, double cost) {
             this.orderId = orderId;
             this.workPiece = workPiece;
@@ -85,6 +91,28 @@ public class DataOrder {
             this.cost = cost;
         }
 
+        public static void addOrderFinal(ArrayList<OrderResult> processedOrders) {
+            orders=processedOrders;
+            System.out.println("ORDERSSSSSSSSSSSSSS" + orders);
+        }
+
+        // Método para retornar todas as ordens
+        public static List<OrderResult> getAllFinalOrders() {
+            return new ArrayList<>(orders); // Retorna uma cópia da lista para evitar modificações externas
+        }
+
+        public String getOrderId() {
+            return orderId;
+        }
+        
+        public int getEndDate() {
+            return endDate;
+        }
+
+        public double getCost(){
+            return cost;
+        }
+        
         public JSONObject toJSON() {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("orderId", orderId);
@@ -112,6 +140,32 @@ public class DataOrder {
             this.deliveryTime = deliveryTime;
         }
     }
+
+    public static class SupplierUsage {
+        String supplierName;
+        String piece;
+        int quantity;
+        double pricePerPiece;
+
+        public SupplierUsage(String supplierName, String piece, int quantity, double pricePerPiece) {
+            this.supplierName = supplierName;
+            this.piece = piece;
+            this.quantity = quantity;
+            this.pricePerPiece = pricePerPiece;
+        }
+
+        @Override
+        public String toString() {
+            return "SupplierUsage{" +
+                    "supplierName='" + supplierName + '\'' +
+                    ", piece='" + piece + '\'' +
+                    ", quantity=" + quantity +
+                    ", pricePerPiece=" + pricePerPiece +
+                    '}';
+        }
+    }
+
+
 
     // Definindo a tabela de transformações
     public static List<Transformation> transformations = new ArrayList<>();
@@ -257,7 +311,7 @@ public class DataOrder {
         if (orders.isEmpty()) {
             return null;
         }
-
+        Map<String, Boolean> visited = new HashMap<>();
         Order order = orders.remove(0);
         int quantity = Integer.parseInt(order.quantity);
         double processingDays = calculateProcessingTimeInDays(order.workPiece, quantity, true);
@@ -276,8 +330,7 @@ public class DataOrder {
         }
 
         int endDate = startDate + (int) Math.ceil(processingDays); // Calcula o dia de término da ordem
-
-        double rawMaterialCost = calculateRawMaterialCost(order.workPiece, quantity, rawMaterialCosts, new HashMap<>());
+        double rawMaterialCost = calculateRawMaterialCost(order.workPiece, quantity, rawMaterialCosts, visited , new HashMap<>());
         OrderResult orderResult = new OrderResult(order.orderId, order.workPiece, quantity, startDate, endDate, 0);
 
         // Calcula o custo unitário
@@ -288,6 +341,24 @@ public class DataOrder {
 
         return orderResult;
     }
+
+    public static Supplier getBestSupplier(String initialPiece, int quantity) {
+        List<Supplier> suppliers = loadSuppliers();
+        Supplier bestSupplier = null;
+        double bestPrice = Double.MAX_VALUE;
+
+        for (Supplier supplier : suppliers) {
+            if (supplier.piece.equals(initialPiece) && supplier.minimumOrder <= quantity) {
+                double totalPrice = supplier.pricePerPiece * quantity;
+                if (totalPrice < bestPrice) {
+                    bestPrice = totalPrice;
+                    bestSupplier = supplier;
+                }
+            }
+        }
+        return bestSupplier;
+    }
+
     public static void calculateUnitCost(OrderResult orderResult, double rawMaterialCost, int arrivalDate, int dispatchDate) {
         double rc = rawMaterialCost;
         double pt = (orderResult.endDate - orderResult.startDate) * 60; // Convertendo dias para segundos
@@ -301,7 +372,7 @@ public class DataOrder {
         System.out.println("Order ID: " + orderResult.orderId + ", Raw Material Cost (Rc): " + rc + ", Production Cost (Pc): " + pc + ", Depreciation Cost (Dc): " + dc + ", Total Cost (Tc): " + tc);
     }
 
-    public static double calculateRawMaterialCost(String workPiece, int quantity, Map<String, Double> rawMaterialCosts, Map<String, Boolean> visited) {
+    public static double calculateRawMaterialCost(String workPiece, int quantity, Map<String, Double> rawMaterialCosts, Map<String, Boolean> visited, Map<String, SupplierUsage> supplierUsageMap) {
         double totalRawMaterialCost = 0;
         if (visited.containsKey(workPiece)) {
             return 0; // Já visitado, não precisa acumular novamente
@@ -311,9 +382,15 @@ public class DataOrder {
         for (Transformation t : transformations) {
             if (t.producedPiece.equals(workPiece)) {
                 if (t.startingPiece.equals("P1") || t.startingPiece.equals("P2")) {
-                    totalRawMaterialCost += rawMaterialCosts.get(t.startingPiece) * quantity;
+                    double pieceCost = rawMaterialCosts.get(t.startingPiece) * quantity;
+                    totalRawMaterialCost += pieceCost;
+
+                    Supplier bestSupplier = getBestSupplier(t.startingPiece, quantity);
+                    if (bestSupplier != null) {
+                        supplierUsageMap.put(t.startingPiece, new SupplierUsage(bestSupplier.name, t.startingPiece, quantity, bestSupplier.pricePerPiece));
+                    }
                 } else {
-                    totalRawMaterialCost += calculateRawMaterialCost(t.startingPiece, quantity, rawMaterialCosts, visited);
+                    totalRawMaterialCost += calculateRawMaterialCost(t.startingPiece, quantity, rawMaterialCosts, visited, supplierUsageMap);
                 }
             }
         }
@@ -353,51 +430,11 @@ public class DataOrder {
         }
     }
 
+    public interface OrderListener {
+        void onNewOrders(List<Order> orders);
+    }
+    
     public static void main(String[] args) {
-        try {
-            int port = 24680;
-            List<Order> allOrders = new ArrayList<>(); // Lista para manter todas as ordens recebidas
-            List<OrderResult> processedOrders = new ArrayList<>(); // Lista para manter todas as ordens processadas
-            int[] currentDay = {5}; // Todas as ordens só podem começar a partir do dia 5
-
-            Map<String, Double> rawMaterialCosts = new HashMap<>();
-            rawMaterialCosts.put("P1", 30.0);
-            rawMaterialCosts.put("P2", 10.0);
-
-            while (true) {
-                DatagramSocket socket = new DatagramSocket(port);
-                byte[] receiveData = new byte[1024];
-                DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-
-                System.out.println("Waiting for the packet...");
-                socket.receive(receivePacket);
-                String xmlData = new String(receivePacket.getData(), 0, receivePacket.getLength());
-                socket.close();
-
-                List<Order> newOrders = parseOrders(xmlData);
-                allOrders.addAll(newOrders); // Adiciona novas ordens à lista de todas as ordens
-
-                // Calcular e imprimir a quantidade total de peças iniciais necessárias
-                calculateTotalInitialPieces(allOrders);
-
-                // Preparar estoque inicial para todas as ordens e calcular o custo total
-                prepareInitialStock(allOrders);
-
-                // Processa as ordens uma a uma
-                while (true) {
-                    printOrderStatus(allOrders, processedOrders);
-                    boolean hasMoreOrders = processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
-                    if (!hasMoreOrders) {
-                        break;
-                    }
-                }
-
-                // Imprime as ordens processadas e as que ainda não foram processadas
-                printOrderStatus(allOrders, processedOrders);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        
     }
 }
