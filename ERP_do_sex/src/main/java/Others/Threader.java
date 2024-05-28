@@ -8,28 +8,44 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import javax.swing.SwingUtilities;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import org.json.JSONObject;
 
 import Others.DataOrder.*;
+import Others.Threader.UDPServer;
 
 public class Threader {
 
     public static class UDPServer implements Runnable {
-        public static List<Order> allOrders = new ArrayList<>();
+        public static List<DataOrder.Order> allOrders = new ArrayList<>();
         public static List<OrderListener> listeners = new ArrayList<>();
-        public static List<List<Order>> orderMatrix = new ArrayList<>();
-        public static List<OrderResult> processedOrders = new ArrayList<>(); // Lista para manter todas as ordens processadas
+        public static List<List<DataOrder.Order>> orderMatrix = new ArrayList<>();
+        public static List<DataOrder.OrderResult> processedOrders = new ArrayList<>(); // Lista para manter todas as ordens processadas
         //public static List<List<OrderDb>> orderDbMatrix = new ArrayList<>();
-        public static List<Order> ordersended = new ArrayList<>();
+        public static List<DataOrder.Order> ordersended = new ArrayList<>();
+        public static List<DataOrder.Order> receivedOrders = new ArrayList<>();
         public static boolean firstTime=true; 
 
         @Override
         public void run() {
             try {
                 int port = 24680;
-                List<Order> allOrders = new ArrayList<>(); // Lista para manter todas as ordens recebidas
+                List<DataOrder.Order> allOrders = new ArrayList<>(); // Lista para manter todas as ordens recebidas
                 int[] currentDay = {5}; // Todas as ordens só podem começar a partir do dia 5
     
                 Map<String, Double> rawMaterialCosts = new HashMap<>();
@@ -46,7 +62,7 @@ public class Threader {
                     String xmlData = new String(receivePacket.getData(), 0, receivePacket.getLength());
                     socket.close();
     
-                    List<Order> newOrders = DataOrder.parseOrders(xmlData);
+                    List<DataOrder.Order> newOrders = DataOrder.parseOrders(xmlData);
                     allOrders.addAll(newOrders); // Adiciona novas ordens à lista de todas as ordens
 
                     for (Order order : newOrders){
@@ -58,18 +74,20 @@ public class Threader {
                             continue; // Skip this iteration if the connection fails
                         }
                     }
-    
+                    
+                    receivedOrders.addAll(newOrders);
+
                     // Calcular e imprimir a quantidade total de peças iniciais necessárias
                     DataOrder.calculateTotalInitialPieces(allOrders);
     
                     // Preparar estoque inicial para todas as ordens e calcular o custo total
                     DataOrder.prepareInitialStock(allOrders);
                     
-                    // Notify listeners about new orders
-                    notifyListeners(allOrders);
 
                     // Processa as ordens uma a uma
                     while (true) {
+                        // Notify listeners about new orders
+                        notifyListeners(allOrders);
                         DataOrder.printOrderStatus(allOrders, processedOrders);
                         boolean hasMoreOrders = DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
                         if (!hasMoreOrders) {
@@ -86,7 +104,7 @@ public class Threader {
             }
         }
     
-        public static void notifyListeners(List<Order> orders) {
+        private static void notifyListeners(List<DataOrder.Order> orders){
             for (OrderListener listener : listeners) {
                 listener.onNewOrders(orders);
             }
@@ -98,22 +116,126 @@ public class Threader {
 
     }
 
-    /*public static class GUI implements Runnable {
+
+    public static class GUI implements Runnable {
+        private static JFrame frame;
+        private static JTable processedOrdersTable;
+        private static JTable receivedOrdersTable;
+        private static DefaultTableModel processedOrdersModel;
+        private static DefaultTableModel receivedOrdersModel;
+        private static JTextArea initialStockTextArea;
+
+        @Override
         public void run() {
-            // Launch the GUI
-            SwingUtilities.invokeLater(() -> {
-                ProductionGUI gui = new ProductionGUI();
-                UDPServer.addOrderListener(gui);
-                gui.setVisible(true);
-                
-            });
+            frame = new JFrame("Order Processing System");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(800, 600);
+            frame.setLayout(new BorderLayout());
+
+            // Processed Orders Table
+            String[] processedColumns = {"Order ID", "Work Piece", "Quantity", "Start Date", "End Date", "Cost"};
+            processedOrdersModel = new DefaultTableModel(processedColumns, 0);
+            processedOrdersTable = new JTable(processedOrdersModel);
+            JScrollPane processedScrollPane = new JScrollPane(processedOrdersTable);
+
+            // Received Orders Table
+            String[] receivedColumns = {"Order ID", "Number", "Client Name", "Work Piece", "Quantity", "Due Date", "Late Penalty", "Early Penalty"};
+            receivedOrdersModel = new DefaultTableModel(receivedColumns, 0);
+            receivedOrdersTable = new JTable(receivedOrdersModel);
+            JScrollPane receivedScrollPane = new JScrollPane(receivedOrdersTable);
+
+            // Initial Stock Information
+            initialStockTextArea = new JTextArea(5, 20);
+            initialStockTextArea.setEditable(false);
+            JScrollPane initialStockScrollPane = new JScrollPane(initialStockTextArea);
+            initialStockScrollPane.setBorder(BorderFactory.createTitledBorder("Initial Stock"));
+
+            // Layout setup
+            JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, receivedScrollPane, processedScrollPane);
+            splitPane.setDividerLocation(300);
+
+            frame.add(splitPane, BorderLayout.CENTER);
+            frame.add(initialStockScrollPane, BorderLayout.SOUTH);
+            frame.setVisible(true);
+
+            // Register as a listener for new orders
+            UDPServer.addOrderListener(new OrderUpdateListener());
+
+            // Display initial unprocessed orders and initial stock
+            updateOrderDisplays();
+            updateInitialStockDisplays();
         }
-    }*/
+
+        public void setVisible(boolean visible) {
+            if (frame != null) {
+                frame.setVisible(visible);
+            }
+        }
+
+        private static class OrderUpdateListener implements OrderListener {
+            @Override
+            public void onNewOrders(List<DataOrder.Order> orders) {
+                SwingUtilities.invokeLater(() -> {
+                    updateOrderDisplays();
+                    updateInitialStockDisplays();
+                });
+            }
+        }
+
+        public static void updateOrderDisplays() {
+            List<DataOrder.Order> allOrders = UDPServer.allOrders;
+            List<DataOrder.OrderResult> processedOrders = UDPServer.processedOrders;
+            List<DataOrder.Order> receivedOrders = UDPServer.receivedOrders;
+
+            // Clear existing rows
+            processedOrdersModel.setRowCount(0);
+            receivedOrdersModel.setRowCount(0);
+
+            // Add processed orders to the table
+            for (DataOrder.OrderResult processedOrder : processedOrders) {
+                processedOrdersModel.addRow(new Object[]{
+                    processedOrder.orderId,
+                    processedOrder.workPiece,
+                    processedOrder.quantity,
+                    processedOrder.startDate,
+                    processedOrder.endDate,
+                    processedOrder.cost
+                });
+            }
+
+            // Add received orders to the table
+            for (DataOrder.Order order : receivedOrders) {
+                receivedOrdersModel.addRow(new Object[]{
+                    order.getOrderId(),
+                    order.number,
+                    order.clientName,
+                    order.workPiece,
+                    order.quantity,
+                    order.dueDate,
+                    order.latePen,
+                    order.earlyPen
+                });
+            }
+        }
+
+        public static void updateInitialStockDisplays() {
+            List<SupplierUsage> supplierUsages = DataOrder.getSupplierUsages();
+            StringBuilder stockInfo = new StringBuilder();
+
+            for (SupplierUsage usage : supplierUsages) {
+                stockInfo.append(String.format("Supplier: %s, Piece: %s, Quantity: %d, Price per Piece: %.2f%n",
+                        usage.supplierName, usage.piece, usage.quantity, usage.pricePerPiece));
+            }
+
+            initialStockTextArea.setText(stockInfo.toString());
+        }
+    }
+
 
     public static class TCPServer implements Runnable {
 
-        private static List<Order> allOrders = UDPServer.allOrders;
-        private static List<OrderResult> processedOrders = new ArrayList<>();
+        private static List<DataOrder.Order> allOrders = UDPServer.allOrders;
+        private static List<DataOrder.OrderResult> processedOrders = new ArrayList<>();
         private static int[] currentDay = {5};
         private static Map<String, Double> rawMaterialCosts = new HashMap<>();
 
@@ -154,7 +276,7 @@ public class Threader {
 
                     // Process the next order
                     boolean hasMoreOrders = DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
-                    OrderResult nextOrderResult = hasMoreOrders ? processedOrders.get(processedOrders.size() - 1) : null;
+                    DataOrder.OrderResult nextOrderResult = hasMoreOrders ? processedOrders.get(processedOrders.size() - 1) : null;
 
                     // Print the next order to be processed
                     System.out.println("Next order to be sent: " + (nextOrderResult != null ? nextOrderResult.toJSON() : "No orders to process"));
@@ -180,5 +302,8 @@ public class Threader {
                 e.printStackTrace();
             }
         }
+    }
+    public interface OrderListener {
+        void onNewOrders(List<DataOrder.Order> orders);
     }
 }

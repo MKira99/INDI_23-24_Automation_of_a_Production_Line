@@ -195,7 +195,10 @@ public class DataOrder {
         }
     }
 
-
+    private static List<SupplierUsage> supplierUsages = new ArrayList<>();
+    public static List<SupplierUsage> getSupplierUsages() {
+        return supplierUsages;
+    }
 
     // Definindo a tabela de transformações
     public static List<Transformation> transformations = new ArrayList<>();
@@ -299,6 +302,7 @@ public class DataOrder {
                     // Compra a quantidade necessária, garantindo que seja pelo menos o pedido mínimo
                     totalCost += requiredQuantity * supplier.pricePerPiece;
                     System.out.println("Bought " + requiredQuantity + " pieces of " + piece + " from " + supplier.name + " at cost " + (requiredQuantity * supplier.pricePerPiece));
+                    supplierUsages.add(new SupplierUsage(supplier.name, piece, requiredQuantity, supplier.pricePerPiece));
                     break;
                 }
             }
