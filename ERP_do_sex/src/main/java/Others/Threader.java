@@ -17,7 +17,7 @@ import Others.DataOrder.*;
 public class Threader {
 
     public static class UDPServer implements Runnable {
-        private static List<Order> allOrders = new ArrayList<>();
+        public static List<Order> allOrders = new ArrayList<>();
         public static List<OrderListener> listeners = new ArrayList<>();
         public static List<List<Order>> orderMatrix = new ArrayList<>();
         public static List<OrderResult> processedOrders = new ArrayList<>(); // Lista para manter todas as ordens processadas
@@ -48,6 +48,16 @@ public class Threader {
     
                     List<Order> newOrders = DataOrder.parseOrders(xmlData);
                     allOrders.addAll(newOrders); // Adiciona novas ordens à lista de todas as ordens
+
+                    for (Order order : newOrders){
+                        try {
+                            System.out.println("Inserting order into database: " + order);
+                            DatabaseERP.insertOrder(order.orderId, order.number, order.clientName, order.workPiece, order.quantity, order.dueDate, order.latePen, order.earlyPen);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            continue; // Skip this iteration if the connection fails
+                        }
+                    }
     
                     // Calcular e imprimir a quantidade total de peças iniciais necessárias
                     DataOrder.calculateTotalInitialPieces(allOrders);
@@ -66,7 +76,7 @@ public class Threader {
                             break;
                         }
                     }
-    
+
                     // Imprime as ordens processadas e as que ainda não foram processadas
                     DataOrder.printOrderStatus(allOrders, processedOrders);
                 }
@@ -76,7 +86,7 @@ public class Threader {
             }
         }
     
-        private static void notifyListeners(List<Order> orders) {
+        public static void notifyListeners(List<Order> orders) {
             for (OrderListener listener : listeners) {
                 listener.onNewOrders(orders);
             }
@@ -88,7 +98,7 @@ public class Threader {
 
     }
 
-    public static class GUI implements Runnable {
+    /*public static class GUI implements Runnable {
         public void run() {
             // Launch the GUI
             SwingUtilities.invokeLater(() -> {
@@ -98,7 +108,7 @@ public class Threader {
                 
             });
         }
-    }
+    }*/
 
     public static class TCPServer implements Runnable {
 

@@ -97,7 +97,7 @@ public class ProductionGUI extends JFrame implements OrderListener {
     @Override
     public void onNewOrders(List<Order> orders) {
 
-        List<OrderResult> ordersResult = Threader.UDPServer.processedOrders;
+        ArrayList<OrderResult> ordersResult = (ArrayList<OrderResult>) OrderResult.getAllFinalOrders();
         Map<String, Boolean> visited = new HashMap<>();
         Map<String, Double> rawMaterialCosts = new HashMap<>();
         rawMaterialCosts.put("P1", 30.0);

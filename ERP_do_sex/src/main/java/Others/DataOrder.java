@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +38,10 @@ public class DataOrder {
             this.latePen = latePen;
             this.earlyPen = earlyPen;
             this.orderId = clientName.replaceAll("\\s+", "") + "_" + number;
+        }
+
+        public String getClientName() {
+            return clientName;
         }
 
         public String getOrderId() {
@@ -121,6 +126,31 @@ public class DataOrder {
             jsonObject.put("startDate", startDate);
             jsonObject.put("endDate", endDate);
             jsonObject.put("cost", cost);
+
+            return jsonObject;
+        }
+
+        public JSONObject toJSONUpdate() {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("orderId", orderId);
+            jsonObject.put("workPiece", workPiece);
+            jsonObject.put("quantity", quantity);
+            jsonObject.put("startDate", startDate);
+            jsonObject.put("endDate", endDate);
+            jsonObject.put("cost", cost);
+
+            // Obter os valores do JSON
+            String orderId = jsonObject.getString("orderId");
+            String workPiece = jsonObject.getString("workPiece");
+            int quantity = jsonObject.getInt("quantity");
+            int startDate = jsonObject.getInt("startDate");
+            int endDate = jsonObject.getInt("endDate");
+            double cost = jsonObject.getDouble("cost");
+
+            // Criar um novo objeto OrderResult com os valores do JSON
+            OrderResult orderResult = new OrderResult(orderId, workPiece, quantity, startDate, endDate, cost);
+            orders.add(orderResult);
+            //System.out.println("ordersResult\n\n\n" + orders);
             return jsonObject;
         }
     }
@@ -410,6 +440,12 @@ public class DataOrder {
         if (orderResult != null) {
             currentDay[0] = orderResult.endDate; // Atualiza o dia atual para quando a ordem termina
             processedOrders.add(orderResult);
+            try {
+                System.out.println("Inserting order into database: " + orderResult);
+                DatabaseERP.insertChangedData(orderResult.cost, orderResult.startDate, orderResult.endDate, orderResult.orderId);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             System.out.println("Processed Order: " + orderResult.toJSON());
             return true;
         } else {
@@ -421,7 +457,7 @@ public class DataOrder {
     public static void printOrderStatus(List<Order> allOrders, List<OrderResult> processedOrders) {
         System.out.println("Processed Orders:");
         for (OrderResult processedOrder : processedOrders) {
-            System.out.println(processedOrder.toJSON());
+            System.out.println(processedOrder.toJSONUpdate());
         }
 
         System.out.println("Unprocessed Orders:");
