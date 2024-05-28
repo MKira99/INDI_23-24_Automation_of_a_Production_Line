@@ -126,8 +126,8 @@ public class DatabaseERP {
         return newEntry(SQLQuery, databaseUrl, user, password);
     }*/
 
-    public static int updateSendedMes(int orderNumber) throws SQLException {
-        String SQLQuery = "UPDATE ERP." + ordersactiveTable + " SET sendedmes = " + true + " WHERE ordernumber = " + orderNumber + ";";
+    public static int updateSendedMes(String orderId) throws SQLException {
+        String SQLQuery = "UPDATE ERP." + ordersactiveTable + " SET sendedmes = " + true + " WHERE orderid = '" + orderId + "';";
         return newEntry(SQLQuery, databaseUrl, user, password);
     }
 

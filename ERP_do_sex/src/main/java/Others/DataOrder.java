@@ -451,6 +451,17 @@ public class DataOrder {
                 e.printStackTrace();
             }
             System.out.println("Processed Order: " + orderResult.toJSON());
+            JSONObject response = orderResult.toJSON();
+            // Envia o JSON para o MES
+            TCPClient.main(response);
+
+            // Update sendedMes variable in database
+            try {
+                System.out.println("Setting sendedMes variable true for order: " + orderResult.orderId);
+                DatabaseERP.updateSendedMes(orderResult.orderId);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             return true;
         } else {
             System.out.println("No more orders to process.");
