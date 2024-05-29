@@ -1,14 +1,11 @@
 import java.net.InetAddress;
-import java.util.List;
 
 import Others.*;
-import Others.DataOrder.OrderResult;
 
 public class Main extends Thread {
 
     public static void main(String[] args) throws Exception {
 
-        List<OrderResult> ordersResult = Threader.UDPServer.processedOrders;
         InetAddress inetAddress = InetAddress.getLocalHost();
         String erpAddress = inetAddress.getHostAddress();
         int erpPort = 4999; // Porta do ERP
@@ -24,12 +21,6 @@ public class Main extends Thread {
         ERPGUI.start();
         XMLReceive.start();
         TCPReceive.start();
-        
-        
-        if(ordersResult!=null){
-            System.out.println("ordersResult\n\n\n" + ordersResult);
-            //
-        }
 
     }
 }

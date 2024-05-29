@@ -3,22 +3,25 @@ package Others;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 public class OrderDatabase {
         // Order class
     public static class OrderDb {
-        private String clientName;
-        private int orderNumber;
-        private String workpiece;
-        private int quantity;
-        private int dueDate;
-        private double latePen;
-        private double earlyPen;
-        private double orderCost;
-        private int startDate;
-        private int endDate;
-        private boolean sendedMes;
+        String clientName;
+        String orderNumber;
+        String workpiece;
+        String quantity;
+        String dueDate;
+        String latePen;
+        String earlyPen;
+        String orderCost;
+        String startDate;
+        String endDate;
+        Boolean sendedMes;
+        String orderId;
 
-        public OrderDb(String clientName, int orderNumber, String workpiece, int quantity, int dueDate, double latePen, double earlyPen, double orderCost, int startDate, int endDate, boolean sendedMes) {
+        public OrderDb(String clientName, String orderNumber, String workpiece, String quantity, String dueDate, String latePen, String earlyPen, String orderCost, String startDate, String endDate, Boolean sendedMes) {
             this.clientName = clientName;
             this.orderNumber = orderNumber;
             this.workpiece = workpiece;
@@ -30,13 +33,14 @@ public class OrderDatabase {
             this.startDate = startDate;
             this.endDate = endDate;
             this.sendedMes = sendedMes;
+            this.orderId = clientName.replaceAll("\\s+", "") + "_" + orderNumber;
         }
 
         public String getClientName() {
             return clientName;
         }
 
-        public int getOrderNumber() {
+        public String getOrderNumber() {
             return orderNumber;
         }
 
@@ -44,36 +48,48 @@ public class OrderDatabase {
             return workpiece;
         }
 
-        public int getQuantity() {
+        public String getQuantity() {
             return quantity;
         }
 
-        public int getDueDate() {
+        public String getDueDate() {
             return dueDate;
         }
 
-        public double getLatePen() {
+        public String getLatePen() {
             return latePen;
         }
 
-        public double getEarlyPen() {
+        public String getEarlyPen() {
             return earlyPen;
         }
 
-        public double getOrderCost() {
+        public String getOrderCost() {
             return orderCost;
         }
 
-        public int getStartDate() {
+        public String getStartDate() {
             return startDate;
         }
 
-        public int getEndDate() {
+        public String getEndDate() {
             return endDate;
         }
 
-        public boolean getSendedMes() {
+        public Boolean getSendedMes() {
             return sendedMes;
+        }
+
+        public JSONObject toJSONDb() {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("orderId", orderId);
+            jsonObject.put("workPiece", workpiece);
+            jsonObject.put("quantity", quantity);
+            jsonObject.put("startDate", startDate);
+            jsonObject.put("endDate", endDate);
+            jsonObject.put("cost", orderCost);
+
+            return jsonObject;
         }
 
         @Override
@@ -90,6 +106,7 @@ public class OrderDatabase {
                     ", startDate='" + startDate + '\'' +
                     ", endDate='" + endDate + '\'' +
                     ", sendedMes='" + sendedMes + '\'' +
+                    ", orderId='" + orderId + '\'' +
                     '}';
         }
     }
@@ -107,14 +124,14 @@ public class OrderDatabase {
             return new ArrayList<>(orders); // Retorna uma cópia da lista para evitar modificações externas
         }
 
-        public static OrderDb getOrderDbByNumber(int number) {
+        /*public static OrderDb getOrderDbByNumber(int number) {
             for (OrderDb orderDb : orders) {
                 if (orderDb.getOrderNumber() == number) {
                     return orderDb;
                 }
             }
             return null;
-        }
+        }*/
     }
 
 }

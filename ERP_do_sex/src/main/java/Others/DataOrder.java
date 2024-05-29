@@ -9,8 +9,6 @@ import org.w3c.dom.NodeList;
 import java.io.ByteArrayInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -16,18 +16,12 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import javax.swing.SwingUtilities;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import org.json.JSONObject;
 
 import Others.DataOrder.*;
-import Others.Threader.UDPServer;
+import Others.OrderDatabase.OrderDb;
+import Others.OrderDatabase.OrderSystemDb;
 
 public class Threader {
 
@@ -40,65 +34,148 @@ public class Threader {
         public static List<DataOrder.Order> ordersended = new ArrayList<>();
         public static List<DataOrder.Order> receivedOrders = new ArrayList<>();
         public static boolean firstTime=true; 
+        public static boolean dbIncomplete=false;
+        public static boolean dbNotSended=false;
+
 
         @Override
         public void run() {
             try {
                 int port = 24680;
+                Order orderNormalDb;
+                List<DataOrder.Order> ordersDbList = new ArrayList<>();
                 List<DataOrder.Order> allOrders = new ArrayList<>(); // Lista para manter todas as ordens recebidas
                 int[] currentDay = {5}; // Todas as ordens só podem começar a partir do dia 5
-    
+                byte[] receiveData = new byte[1024];
                 Map<String, Double> rawMaterialCosts = new HashMap<>();
                 rawMaterialCosts.put("P1", 30.0);
                 rawMaterialCosts.put("P2", 10.0);
     
                 while (true) {
-                    if((DatabaseERP.isTableEmpty()) || (!DatabaseERP.isTableEmpty() && firstTime==false)){
-                        DatagramSocket socket = new DatagramSocket(port);
-                        byte[] receiveData = new byte[1024];
-                        DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-        
-                        System.out.println("Waiting for the packet...");
-                        socket.receive(receivePacket);
-                        String xmlData = new String(receivePacket.getData(), 0, receivePacket.getLength());
-                        socket.close();
-        
-                        List<DataOrder.Order> newOrders = DataOrder.parseOrders(xmlData);
-                        allOrders.addAll(newOrders); // Adiciona novas ordens à lista de todas as ordens
+                    try{
+                        if((DatabaseERP.isTableEmpty()) || (!DatabaseERP.isTableEmpty() && firstTime==false)){
+                            DatagramSocket socket = new DatagramSocket(port);
+                            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+            
+                            System.out.println("Waiting for the packet...");
+                            socket.receive(receivePacket);
+                            String xmlData = new String(receivePacket.getData(), 0, receivePacket.getLength());
+                            socket.close();
+            
+                            List<DataOrder.Order> newOrders = DataOrder.parseOrders(xmlData);
+                            allOrders.addAll(newOrders); // Adiciona novas ordens à lista de todas as ordens
 
-                        for (Order order : newOrders){
-                            try {
-                                System.out.println("Inserting order into database: " + order);
-                                DatabaseERP.insertOrder(order.orderId, order.number, order.clientName, order.workPiece, order.quantity, order.dueDate, order.latePen, order.earlyPen);
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                                continue; // Skip this iteration if the connection fails
+                            for (Order order : newOrders){
+                                try {
+                                    System.out.println("Inserting order into database: " + order);
+                                    DatabaseERP.insertOrder(order.orderId, order.number, order.clientName, order.workPiece, order.quantity, order.dueDate, order.latePen, order.earlyPen);
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                    continue; // Skip this iteration if the connection fails
+                                }
                             }
-                        }
-                        
-                        receivedOrders.addAll(newOrders);
+                            
+                            receivedOrders.addAll(newOrders);
 
-                        // Calcular e imprimir a quantidade total de peças iniciais necessárias
-                        DataOrder.calculateTotalInitialPieces(allOrders);
-        
-                        // Preparar estoque inicial para todas as ordens e calcular o custo total
-                        DataOrder.prepareInitialStock(allOrders);
-                        
+                            // Calcular e imprimir a quantidade total de peças iniciais necessárias
+                            DataOrder.calculateTotalInitialPieces(allOrders);
+            
+                            // Preparar estoque inicial para todas as ordens e calcular o custo total
+                            DataOrder.prepareInitialStock(allOrders);
+                            
 
-                        // Processa as ordens uma a uma
-                        while (true) {
-                            // Notify listeners about new orders
-                            notifyListeners(allOrders);
+                            // Processa as ordens uma a uma
+                            while (true) {
+                                // Notify listeners about new orders
+                                notifyListeners(allOrders);
+                                DataOrder.printOrderStatus(allOrders, processedOrders);
+                                boolean hasMoreOrders = DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
+                                if (!hasMoreOrders) {
+                                    break;
+                                }
+                            }
+
+                            // Imprime as ordens processadas e as que ainda não foram processadas
                             DataOrder.printOrderStatus(allOrders, processedOrders);
-                            boolean hasMoreOrders = DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
-                            if (!hasMoreOrders) {
-                                break;
-                            }
                         }
+                        else{
+                            System.out.println("INNNNN\n\n");
+                            ArrayList<OrderDb> orders = (ArrayList<OrderDb>) OrderSystemDb.getAllOrders();
+                            for (OrderDb order : orders) {
+                                System.out.println("ORDERSDB" + order);
+                                if(order.orderCost==null || order.startDate==null || order.endDate==null){
+                                    dbIncomplete=true;
+                                    orderNormalDb= new Order(order.orderNumber, order.clientName, order.workpiece, order.quantity, order.dueDate, order.latePen, order.earlyPen);
+                                    ordersDbList.add(orderNormalDb);
+                                }
+                            }
+                            // Se não chegou a atualizar os novos dados na base de dados
+                            if(dbIncomplete){
+                                allOrders.addAll(ordersDbList); // Adiciona novas ordens à lista de todas as ordens
 
-                        // Imprime as ordens processadas e as que ainda não foram processadas
-                        DataOrder.printOrderStatus(allOrders, processedOrders);
-                    }
+                                receivedOrders.addAll(ordersDbList);
+
+                                // Calcular e imprimir a quantidade total de peças iniciais necessárias
+                                DataOrder.calculateTotalInitialPieces(allOrders);
+
+                                // Preparar estoque inicial para todas as ordens e calcular o custo total
+                                DataOrder.prepareInitialStock(allOrders);
+                                
+                                // Processa as ordens uma a uma
+                                while (true) {
+                                    // Notify listeners about new orders
+                                    notifyListeners(allOrders);
+                                    DataOrder.printOrderStatus(allOrders, processedOrders);
+                                    boolean hasMoreOrders = DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
+                                    if (!hasMoreOrders) {
+                                        break;
+                                    }
+                                }
+                                System.out.println("Finishedddd\n\n");
+
+                                // Imprime as ordens processadas e as que ainda não foram processadas
+                                DataOrder.printOrderStatus(allOrders, processedOrders);
+                            }
+                            // Apenas falta enviar para o MES
+                            else{
+                                for (OrderDb order : orders) {
+                                    if(order.orderCost!=null && order.startDate!=null && order.endDate!=null && !order.sendedMes){
+                                        orderNormalDb= new Order(order.orderNumber, order.clientName, order.workpiece, order.quantity, order.dueDate, order.latePen, order.earlyPen);
+                                        ordersDbList.add(orderNormalDb);
+
+                                        JSONObject response = order.toJSONDb();
+                                        // Envia o JSON para o MES
+                                        TCPClient.main(response);
+
+                                        // Update sendedMes variable in database
+                                        try {
+                                            System.out.println("Setting sendedMes variable true for order: " + order.orderId);
+                                            DatabaseERP.updateSendedMes(order.orderId);
+                                        } catch (SQLException e) {
+                                            e.printStackTrace();
+                                        }
+                                        
+                                    }
+                                }
+                                allOrders.addAll(ordersDbList); // Adiciona novas ordens à lista de todas as ordens
+                                
+                                // Notify listeners about new orders
+                                notifyListeners(allOrders);
+                            }
+
+                        }
+                        /*if(!DatabaseERP.isTableEmpty() && (dbIncomplete || dbNotSended || firstTime)){
+                            firstTime=true;
+                        }
+                        else{
+                            firstTime=false;
+                            dbIncomplete=false;
+                        }*/
+                        firstTime=false;
+                        receiveData = new byte[65535];
+                    }catch (SQLException e) {
+                        e.printStackTrace();
+                    }    
                 }
     
             } catch (Exception e) {

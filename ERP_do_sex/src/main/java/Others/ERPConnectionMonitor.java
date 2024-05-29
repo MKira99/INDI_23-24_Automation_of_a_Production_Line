@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.sql.*;
-import java.util.ArrayList;
 
 import Others.OrderDatabase.*;
 
@@ -60,16 +59,16 @@ public class ERPConnectionMonitor implements Runnable {
             ResultSet rs = DatabaseERP.getAllOrders();
             while (rs.next()) {
                 String nameID = rs.getString("nameid");
-                int orderNumber = rs.getInt("ordernumber");
+                String orderNumber = rs.getString("ordernumber");
                 String workPiece = rs.getString("workpiece");
-                int quantity = rs.getInt("quantity");
-                int dueDate = rs.getInt("duedate");
-                double latePenalty = rs.getDouble("latepen");
-                double earlyPenalty = rs.getDouble("earlypen");
-                double orderCost = rs.getDouble("ordercost");
-                int startDate = rs.getInt("startdate");
-                int endDate = rs.getInt("enddate");
-                boolean sendedMes = rs.getBoolean("sendedmes");
+                String quantity = rs.getString("quantity");
+                String dueDate = rs.getString("duedate");
+                String latePenalty = rs.getString("latepen");
+                String earlyPenalty = rs.getString("earlypen");
+                String orderCost = rs.getString("ordercost");
+                String startDate = rs.getString("startdate");
+                String endDate = rs.getString("enddate");
+                Boolean sendedMes = rs.getBoolean("sendedmes");
 
                 // Processar a ordem (exemplo, adicionar ao sistema de ordens)
                 if(sendedMes==false){
