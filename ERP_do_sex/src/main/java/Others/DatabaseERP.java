@@ -81,7 +81,6 @@ public class DatabaseERP {
         }, 0, 5000); // Retry every 5 seconds
     }*/
 
-
     public static int newEntry(String SQLQuery, String databaseUrl, String user, String password) throws SQLException {
 
         databaseConnection(databaseUrl,user,password);
@@ -216,9 +215,11 @@ public class DatabaseERP {
     public static String getPassword() {
         return password;
     }
+    
     public static String getOrdersActiveTable() {
         return ordersactiveTable;
     }
+    
     public static String getOrdersFinishedTable() {
         return ordersfinishedTable;
     }

@@ -24,15 +24,17 @@ import Others.OrderDatabase.OrderDb;
 import Others.OrderDatabase.OrderSystemDb;
 
 public class Threader {
+    public static List<DataOrder.Order> allOrders = new ArrayList<>();
+    public static List<DataOrder.OrderResult> processedOrders = new ArrayList<>(); // Lista para manter todas as ordens processadas
+    public static int[] currentDay = {5}; // Todas as ordens só podem começar a partir do dia 5
+    public static List<DataOrder.Order> receivedOrders = new ArrayList<>();
+    public static Map<String, Double> rawMaterialCosts = new HashMap<>();
 
     public static class UDPServer implements Runnable {
-        public static List<DataOrder.Order> allOrders = new ArrayList<>();
+        
         public static List<OrderListener> listeners = new ArrayList<>();
         public static List<List<DataOrder.Order>> orderMatrix = new ArrayList<>();
-        public static List<DataOrder.OrderResult> processedOrders = new ArrayList<>(); // Lista para manter todas as ordens processadas
-        //public static List<List<OrderDb>> orderDbMatrix = new ArrayList<>();
         public static List<DataOrder.Order> ordersended = new ArrayList<>();
-        public static List<DataOrder.Order> receivedOrders = new ArrayList<>();
         public static boolean firstTime=true; 
         public static boolean dbIncomplete=false;
         public static boolean dbNotSended=false;
@@ -44,12 +46,11 @@ public class Threader {
                 int port = 24680;
                 Order orderNormalDb;
                 List<DataOrder.Order> ordersDbList = new ArrayList<>();
-                List<DataOrder.Order> allOrders = new ArrayList<>(); // Lista para manter todas as ordens recebidas
-                int[] currentDay = {5}; // Todas as ordens só podem começar a partir do dia 5
-                byte[] receiveData = new byte[1024];
-                Map<String, Double> rawMaterialCosts = new HashMap<>();
                 rawMaterialCosts.put("P1", 30.0);
                 rawMaterialCosts.put("P2", 10.0);
+                
+                byte[] receiveData = new byte[1024];
+                
     
                 while (true) {
                     try{
@@ -90,7 +91,7 @@ public class Threader {
                             // Processa as ordens uma a uma
                             // Notify listeners about new orders
                             if(send2mes == true){
-                                boolean hasMoreOrders = DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);                       
+                                DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);                       
                             }
                             // Imprime as ordens processadas e as que ainda não foram processadas
                             DataOrder.printOrderStatus(allOrders, processedOrders);
@@ -127,7 +128,7 @@ public class Threader {
                                 DataOrder.printOrderStatus(allOrders, processedOrders);
 
                                 if (send2mes) {
-                                    boolean hasMoreOrders = DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
+                                    DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
                                 }
                                 
                                 System.out.println("Finishedddd\n\n");
@@ -135,16 +136,15 @@ public class Threader {
                                 // Imprime as ordens processadas e as que ainda não foram processadas
                                 DataOrder.printOrderStatus(allOrders, processedOrders);
                             }
-                            // Apenas falta enviar para o MES
-                            else{
+                            else{ //FALTA ATUALIZAR
                                 for (OrderDb order : orders) {
                                     if(order.orderCost!=null && order.startDate!=null && order.endDate!=null && !order.sendedMes){
                                         orderNormalDb= new Order(order.orderNumber, order.clientName, order.workpiece, order.quantity, order.dueDate, order.latePen, order.earlyPen);
                                         ordersDbList.add(orderNormalDb);
 
-                                        JSONObject response = order.toJSONDb();
+                                        //JSONObject response = order.toJSONDb();
                                         // Envia o JSON para o MES
-                                        TCPClient.main(response);
+                                        // TCPClient.main(response);
 
                                         // Update sendedMes variable in database
                                         try {
@@ -261,9 +261,6 @@ public class Threader {
         }
 
         public static void updateOrderDisplays() {
-            List<DataOrder.Order> allOrders = UDPServer.allOrders;
-            List<DataOrder.OrderResult> processedOrders = UDPServer.processedOrders;
-            List<DataOrder.Order> receivedOrders = UDPServer.receivedOrders;
 
             // Clear existing rows
             processedOrdersModel.setRowCount(0);
@@ -311,28 +308,21 @@ public class Threader {
 
 
     public static class TCPServer implements Runnable {
-
-        private static List<DataOrder.Order> allOrders = UDPServer.allOrders;
-        private static List<DataOrder.OrderResult> processedOrders = new ArrayList<>();
-        private static int[] currentDay = {5};
-        private static Map<String, Double> rawMaterialCosts = new HashMap<>();
-
         @Override
         public void run() {
             try {
-                rawMaterialCosts.put("P1", 30.0);
-                rawMaterialCosts.put("P2", 10.0);
-
-                // Create a server socket that listens on port 4999
-                ServerSocket serverSocket = new ServerSocket(4999);
-                System.out.println("Server started. Listening on port 4999...");
-
-                InetAddress inetAddress = InetAddress.getLocalHost();
-                String ipAddress = inetAddress.getHostAddress();
-                System.out.println("Your IP address is: " + ipAddress);
-
                 // Listen for incoming connections and handle them
                 while (true) {
+                    ServerSocket serverSocket = null;
+                    try {
+                        serverSocket = new ServerSocket(4999);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    
+                    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
                     Socket clientSocket = serverSocket.accept();
                     System.out.println("Client connected: " + clientSocket.getInetAddress().getHostAddress());
 
@@ -349,32 +339,35 @@ public class Threader {
                     // Parse the JSON string as a JSON object
                     JSONObject requestJson = new JSONObject(requestString);
 
-                    // Print the request JSON object
-                    System.out.println("Received request: " + requestJson);
+                    String orderJson = requestJson.getString("Status");
 
-                    // Process the next order
-                    boolean hasMoreOrders = DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
-                    DataOrder.OrderResult nextOrderResult = hasMoreOrders ? processedOrders.get(processedOrders.size() - 1) : null;
-
-                    // Print the next order to be processed
-                    System.out.println("Next order to be sent: " + (nextOrderResult != null ? nextOrderResult.toJSON() : "No orders to process"));
-
-                    // Create a JSON object to store the response data
-                    JSONObject responseJson = new JSONObject();
-                    responseJson.put("status", hasMoreOrders ? "OK" : "No more orders");
-                    responseJson.put("orderResult", nextOrderResult != null ? nextOrderResult.toJSON() : new JSONObject());
-
-                    // Convert the response JSON object to a JSON string
-                    String responseString = responseJson.toString();
-
-                    // Create an output stream to send data to the client
                     OutputStream outputStream = clientSocket.getOutputStream();
 
-                    // Send the response string to the client
-                    outputStream.write(responseString.getBytes());
+                    JSONObject response = new JSONObject();
+                    response.put("Status", "Received");
+
+                    // Send a response to the client
+                    outputStream.write(response.toString().getBytes());
+
+                    // Print the request JSON object
+                    System.out.println("Received request: " + requestJson);
+                    if(orderJson.equals("Finished")){
+                        System.out.println("Order processed successfully!");
+                        DataOrder.printOrderStatus(allOrders, processedOrders);
+
+                        // Process the next order
+                        currentDay[0] = requestJson.getInt("Time");
+                        DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
+
+
+                        // Imprime as ordens processadas e as que ainda não foram processadas
+                        DataOrder.printOrderStatus(allOrders, processedOrders);
+                    }
 
                     // Close the streams and the client socket
+                    inputStream.close();
                     clientSocket.close();
+                    serverSocket.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -382,6 +375,6 @@ public class Threader {
         }
     }
     public interface OrderListener {
-        void onNewOrders(List<DataOrder.Order> orders);
+        public void onNewOrders(List<DataOrder.Order> orders);
     }
 }

@@ -31,6 +31,7 @@ public class TCPClient {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("OrderID", args[0]);
             jsonObject.put("Status", args[1]);
+            jsonObject.put("Time", args[2]);
 
             // Convert the JSON object to a JSON string
             String jsonString = jsonObject.toString();

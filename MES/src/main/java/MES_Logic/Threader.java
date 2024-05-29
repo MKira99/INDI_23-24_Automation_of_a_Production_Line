@@ -276,11 +276,14 @@ public class Threader {
                 if(commands[10].tool1 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c6_top_des_tool", new Variant(commands[10].tool1));}
                 if(commands[10].tool2 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c6_bot_des_tool", new Variant(commands[10].tool2));}
 
-
+                int count=0;
                 while(ReceivedOrder.getStartDay() > DayTimer.getDay()){
                     synchronized (this) {
-                        System.out.println("Waiting for the right day to start ...\nCurrent Day: " + DayTimer.getDay() + "\nDay to Start: " + ReceivedOrder.getStartDay() + "\n");
-                        this.wait(5000);
+                        count++;
+                        if (count > 1000) {
+                            System.out.println("Waiting for the right day to start ...\nCurrent Day: " + DayTimer.getDay() + "\nDay to Start: " + ReceivedOrder.getStartDay() + "\n");
+                        }
+                        this.wait(500);
                     }
                 }
                 

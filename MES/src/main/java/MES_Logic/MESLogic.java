@@ -621,44 +621,44 @@ public class MESLogic {
                     cell6_1.quantity = temp_quantity;
                 }
                 else if(Quantity%6 == 1){
-                    cell1_1.quantity = (short) (temp_quantity + 1);
+                    cell1_1.quantity = temp_quantity;
                     cell2_1.quantity = temp_quantity;
                     cell3_1.quantity = temp_quantity;
                     cell4_1.quantity = temp_quantity;
                     cell5_1.quantity = temp_quantity;
-                    cell6_1.quantity = temp_quantity;
+                    cell6_1.quantity = (short) (temp_quantity + 1);
                 }
                 else if(Quantity%6 == 2){
-                    cell1_1.quantity = (short) (temp_quantity + 1);
-                    cell2_1.quantity = (short) (temp_quantity + 1);
+                    cell1_1.quantity = temp_quantity;
+                    cell2_1.quantity = temp_quantity;
                     cell3_1.quantity = temp_quantity;
                     cell4_1.quantity = temp_quantity;
-                    cell5_1.quantity = temp_quantity;
-                    cell6_1.quantity = temp_quantity;
+                    cell5_1.quantity = (short) (temp_quantity + 1);
+                    cell6_1.quantity = (short) (temp_quantity + 1);
                 }
                 else if(Quantity%6 == 3){
-                    cell1_1.quantity = (short) (temp_quantity + 1);
-                    cell2_1.quantity = (short) (temp_quantity + 1);
-                    cell3_1.quantity = (short) (temp_quantity + 1);
-                    cell4_1.quantity = temp_quantity;
-                    cell5_1.quantity = temp_quantity;
-                    cell6_1.quantity = temp_quantity;
+                    cell1_1.quantity = temp_quantity;
+                    cell2_1.quantity = temp_quantity;
+                    cell3_1.quantity = temp_quantity;
+                    cell4_1.quantity = (short) (temp_quantity + 1);
+                    cell5_1.quantity = (short) (temp_quantity + 1);
+                    cell6_1.quantity = (short) (temp_quantity + 1);
                 }
                 else if(Quantity%6 == 4){
-                    cell1_1.quantity = (short) (temp_quantity + 1);
-                    cell2_1.quantity = (short) (temp_quantity + 1);
+                    cell1_1.quantity = temp_quantity;
+                    cell2_1.quantity = temp_quantity;
                     cell3_1.quantity = (short) (temp_quantity + 1);
                     cell4_1.quantity = (short) (temp_quantity + 1);
-                    cell5_1.quantity = temp_quantity;
-                    cell6_1.quantity = temp_quantity;
+                    cell5_1.quantity = (short) (temp_quantity + 1);
+                    cell6_1.quantity = (short) (temp_quantity + 1);
                 }
                 else if(Quantity%6 == 5){
-                    cell1_1.quantity = (short) (temp_quantity + 1);
+                    cell1_1.quantity = temp_quantity;
                     cell2_1.quantity = (short) (temp_quantity + 1);
                     cell3_1.quantity = (short) (temp_quantity + 1);
                     cell4_1.quantity = (short) (temp_quantity + 1);
                     cell5_1.quantity = (short) (temp_quantity + 1);
-                    cell6_1.quantity = temp_quantity;
+                    cell6_1.quantity = (short) (temp_quantity + 1);
                 }
 
                 cell1_1.type = 2;
