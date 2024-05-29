@@ -94,11 +94,6 @@ public class MESLogic {
         System.out.println("load3 : " + load3.id);
         System.out.println("load4 : " + load4.id);
 
-        load1.type = 1;
-        load2.type = 1;
-        load3.type = 1;
-        load4.type = 1;
-
         load1.tool1 = 0;
         load2.tool1 = 0;
         load3.tool1 = 0;
@@ -109,12 +104,8 @@ public class MESLogic {
         load3.tool2 = 0;
         load4.tool2 = 0;
 
-        if (TreatOrder.getPieceType() == "P7") {
-            load1.type = 2;
-            load2.type = 2;
-            load3.type = 2;
-            load4.type = 2;
-        } else if (TreatOrder.getPieceType() == "P8" || TreatOrder.getPieceType() == "P9"){
+
+        if (inttype(TreatOrder.getPieceType()) == (short) 7 || inttype(TreatOrder.getPieceType()) == (short) 8 || inttype(TreatOrder.getPieceType()) == (short) 9) {
             load1.type = 2;
             load2.type = 2;
             load3.type = 2;
