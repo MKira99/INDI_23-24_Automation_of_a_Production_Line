@@ -245,4 +245,20 @@ public class DatabaseERP {
             if (connection != null) connection.close();
         }
     }
+
+    public static void truncateTableHistory() throws SQLException {
+        String SQLQuery = "TRUNCATE TABLE ERP." + ordersfinishedTable + " RESTART IDENTITY CASCADE;";
+        try {
+            databaseConnection(databaseUrl, user, password);
+            stmt = connection.createStatement();
+            stmt.executeUpdate(SQLQuery);
+            System.out.println("Table " + ordersfinishedTable + " has been truncated.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (stmt != null) stmt.close();
+            if (connection != null) connection.close();
+        }
+    }
 }

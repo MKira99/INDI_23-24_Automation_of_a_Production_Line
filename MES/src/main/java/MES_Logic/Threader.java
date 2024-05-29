@@ -170,8 +170,9 @@ public class Threader {
                         
                         System.out.println("Order Accepted.\nStarting Logic Calculation ...\n\n\n");
 
-
-
+                        OrderList orderList = new OrderList();
+                        orderList.addOrder(newOrder);
+                        Screen.updateActiveOrder(orderList);
                         MESLogic logic = new MESLogic(newOrder);
                         logic.main();
 
@@ -339,7 +340,7 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_load4", new Variant(commands[3].tool2));
 
                 synchronized (this) {
-                    this.wait(1000);
+                    this.wait(3000);
                 }
 
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load1", new Variant(true));
@@ -389,7 +390,7 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell6", new Variant(commands[10].tool2));
 
                 synchronized (this) {
-                    this.wait(1000);
+                    this.wait(3000);
                 }
 
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell0", new Variant(true));
@@ -408,6 +409,9 @@ public class Threader {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                synchronized (this) {
+                    this.wait(1000);
+                }
 
                 while(getCell0_finished().equals(new Variant(false)) ||
                         getCell1_finished().equals(new Variant(false)) ||
@@ -421,6 +425,7 @@ public class Threader {
                         this.wait(5000);
                         System.out.println("Waiting for the Cells_1 to finish ...\n");
                     }
+                    
                 }
 
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_load1", new Variant("NULL"));
@@ -555,7 +560,7 @@ public class Threader {
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell6", new Variant(commands[17].tool2));
 
                     synchronized (this) {
-                        this.wait(1000);
+                        this.wait(3000);
                     }
 
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell0", new Variant(true));
@@ -572,6 +577,9 @@ public class Threader {
                         DatabaseMES.insertFlag_3(processed_3);
                     } catch (SQLException e) {
                         e.printStackTrace();
+                    }
+                    synchronized (this) {
+                        this.wait(1000);
                     }
 
                     while(getCell0_finished().equals(new Variant(false)) ||
@@ -666,13 +674,17 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_unload4", new Variant(commands[21].tool2));
 
                 synchronized (this) {
-                    this.wait(1000);
+                    this.wait(3000);
                 }
 
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload1", new Variant(true));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload2", new Variant(true));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload3", new Variant(true));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload4", new Variant(true));
+
+                synchronized (this) {
+                    this.wait(1000);
+                }
 
                 processed_4=true;
                 try {
@@ -758,6 +770,10 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload2_clear", new Variant(false));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload3_clear", new Variant(false));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload4_clear", new Variant(false));
+
+                synchronized (this) {
+                    this.wait(1000);
+                }
 
 
                 System.out.println("Finished");

@@ -21,10 +21,10 @@ public class UDPOrderSender {
                          "]>\n" +
                          "<DOCUMENT>\n" +
                          "  <Client NameId=\"Client AA\"/>\n" +
-                         "  <Order Number=\"14\" WorkPiece=\"P8\" Quantity=\"1\" DueDate=\"5\" LatePen=\"20\" EarlyPen=\"5\"/>\n" +
-                         "  <Order Number=\"15\" WorkPiece=\"P8\" Quantity=\"1\" DueDate=\"7\" LatePen=\"20\" EarlyPen=\"5\"/>\n" +
-                         "  <Order Number=\"16\" WorkPiece=\"P8\" Quantity=\"1\" DueDate=\"5\" LatePen=\"20\" EarlyPen=\"5\"/>\n" +
-                         "  <Order Number=\"17\" WorkPiece=\"P8\" Quantity=\"1\" DueDate=\"5\" LatePen=\"20\" EarlyPen=\"5\"/>\n" +
+                         "  <Order Number=\"14\" WorkPiece=\"P3\" Quantity=\"5\" DueDate=\"5\" LatePen=\"20\" EarlyPen=\"5\"/>\n" +
+                         "  <Order Number=\"15\" WorkPiece=\"P4\" Quantity=\"4\" DueDate=\"7\" LatePen=\"20\" EarlyPen=\"5\"/>\n" +
+                         "  <Order Number=\"16\" WorkPiece=\"P7\" Quantity=\"6\" DueDate=\"5\" LatePen=\"20\" EarlyPen=\"5\"/>\n" +
+                         "  <Order Number=\"17\" WorkPiece=\"P8\" Quantity=\"20\" DueDate=\"5\" LatePen=\"20\" EarlyPen=\"5\"/>\n" +
                         
                          "</DOCUMENT>";
                          

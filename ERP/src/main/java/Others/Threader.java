@@ -344,6 +344,15 @@ public class Threader {
                     if(orderJson.equals("Finished")){
                         System.out.println("Order processed successfully!");
                         DataOrder.printOrderStatus(allOrders, processedOrders);
+                        DatabaseERP.truncateTable();
+                        for (Order order : allOrders){
+                            try {
+                                DatabaseERP.insertOrder(order.orderId, order.number, order.clientName, order.workPiece, order.quantity, order.dueDate, order.latePen, order.earlyPen);
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                                continue; // Skip this iteration if the connection fails
+                            }
+                        }
 
                         OrderResult orderResult = processedOrders.getFirst();
                         try {

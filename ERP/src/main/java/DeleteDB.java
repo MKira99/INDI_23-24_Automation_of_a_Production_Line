@@ -7,6 +7,7 @@ public class DeleteDB extends Thread {
     public static void main(String[] args) throws Exception {
 
         DatabaseERP.truncateTable();
+        DatabaseERP.truncateTableHistory();
 
     }
 }
