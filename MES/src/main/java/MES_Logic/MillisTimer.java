@@ -2,7 +2,7 @@ package MES_Logic;
 
 public class MillisTimer {
     private static long startTime = 0;
-    private static long currentTime = 0;
+    private static long currentTime = 1000000000*60*5;
     private static long nanotime = 0;
 
     private boolean isRunning = false;
@@ -21,7 +21,7 @@ public class MillisTimer {
     }
     public int getDay() {
         if (isRunning) {
-            return (int) ((float)(System.nanoTime() - this.currentTime)/60/1000000000);
+            return (int) ((float)(System.nanoTime() - this.currentTime)/60/1000000000); // 60 is the number of seconds in a day
         } else {
             return 0;
         }

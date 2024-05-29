@@ -8,10 +8,12 @@ import org.json.*;
 
 
 public class TCPClient {
-    public static String args = new String();
+    public static String args[] = new String[3];
 
-    public TCPClient(String create) {
-        args = create;
+    public TCPClient(String orderid, String status, String time) {
+        args[0] = orderid;
+        args[1] = status;
+        args[2] = time;
     }
 
 
@@ -27,7 +29,8 @@ public class TCPClient {
 
             // Create a JSON object to store the data you want to send
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("OrderID", args);
+            jsonObject.put("OrderID", args[0]);
+            jsonObject.put("Status", args[1]);
 
             // Convert the JSON object to a JSON string
             String jsonString = jsonObject.toString();

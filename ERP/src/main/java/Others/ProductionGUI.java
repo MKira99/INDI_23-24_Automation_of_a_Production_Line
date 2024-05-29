@@ -5,10 +5,11 @@ import javax.swing.table.DefaultTableModel;
 
 import org.json.JSONObject;
 
+import com.bybutter.sisyphus.dsl.ordering.grammar.OrderListener;
+
 import java.awt.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import Others.ConsolidatedOrderSystem.*;
 import Others.DataOrder.*;
 
 public class ProductionGUI extends JFrame implements OrderListener {
@@ -78,7 +79,7 @@ public class ProductionGUI extends JFrame implements OrderListener {
     }
 
     @Override
-public void onNewOrders(List<Order> orders) {
+    public void onNewOrders(List<Order> orders) {
     SwingUtilities.invokeLater(() -> {
         for (Order order : orders) {
             // Define the order data

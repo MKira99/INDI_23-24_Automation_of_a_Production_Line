@@ -395,6 +395,7 @@ public class MESLogic {
 
             case "P5":
 
+                cell0_1.id = "cell0_1_" + TreatOrder.getOrderID();
                 cell1_1.id = "cell1_1_" + TreatOrder.getOrderID();
                 cell2_1.id = "cell2_1_" + TreatOrder.getOrderID();
                 cell3_1.id = "cell3_1_" + TreatOrder.getOrderID();
@@ -403,7 +404,7 @@ public class MESLogic {
                 cell6_1.id = "cell6_1_" + TreatOrder.getOrderID();
 
                 temp_quantity = (short) Math.round(Quantity/3);
-                cell0_1.quantity = temp_quantity;
+                cell0_1.quantity = Quantity;
                 if(Quantity%3 == 0){
                     cell1_1.quantity = temp_quantity;
                     cell2_1.quantity = temp_quantity;
@@ -437,23 +438,21 @@ public class MESLogic {
                 cell5_1.type = 4;
                 cell6_1.type = 4;
 
-                cell0_1.tool1 = 1;
+                cell0_1.tool1 = 0;
                 cell1_1.tool1 = 1;
                 cell2_1.tool1 = 1;
-                cell3_1.tool1 = 0;
+                cell3_1.tool1 = 1;
                 cell4_1.tool1 = 0;
                 cell5_1.tool1 = 0;
+                cell6_1.tool1 = 0;
 
-                cell0_1.tool2 = 2;
+                cell0_1.tool2 = 0;
                 cell1_1.tool2 = 2;
                 cell2_1.tool2 = 2;
-                cell3_1.tool2 = 4;
+                cell3_1.tool2 = 2;
                 cell4_1.tool2 = 4;
                 cell5_1.tool2 = 4;
-
-
-
-
+                cell6_1.tool2 = 4;
 
                 break;
 
@@ -467,7 +466,7 @@ public class MESLogic {
                 cell6_1.id = "cell6_1_" + TreatOrder.getOrderID();
 
                 temp_quantity = (short) Math.round(Quantity/6);
-                cell0_1.quantity = temp_quantity;
+                cell0_1.quantity = Quantity;
 
                 if(Quantity%6 == 0){
                     cell1_1.quantity = temp_quantity;
@@ -589,9 +588,9 @@ public class MESLogic {
                 cell1_2.tool1 = 2;
                 cell2_2.tool1 = 2;
                 cell3_2.tool1 = 2;
-                cell4_2.tool1 = 2;
-                cell5_2.tool1 = 2;
-                cell6_2.tool1 = 2;
+                cell4_2.tool1 = 0;
+                cell5_2.tool1 = 0;
+                cell6_2.tool1 = 0;
 
                 cell1_2.tool2 = 2;
                 cell2_2.tool2 = 2;
@@ -612,7 +611,6 @@ public class MESLogic {
                 cell6_1.id = "cell6_1_" + TreatOrder.getOrderID();
 
                 temp_quantity = (short) Math.round(Quantity/6);
-                cell0_1.quantity = temp_quantity;
 
                 if(Quantity%6 == 0){
                     cell1_1.quantity = temp_quantity;
@@ -662,7 +660,7 @@ public class MESLogic {
                     cell5_1.quantity = (short) (temp_quantity + 1);
                     cell6_1.quantity = temp_quantity;
                 }
-                    
+
                 cell1_1.type = 2;
                 cell2_1.type = 2;
                 cell3_1.type = 2;
@@ -817,9 +815,9 @@ public class MESLogic {
                 cell1_1.tool2 = 0;
                 cell2_1.tool2 = 0;
                 cell3_1.tool2 = 0;
-                cell4_1.tool2 = 6;
-                cell5_1.tool2 = 6;
-                cell6_1.tool2 = 6;
+                cell4_1.tool2 = 0;
+                cell5_1.tool2 = 0;
+                cell6_1.tool2 = 0;
 
 
 
@@ -838,7 +836,6 @@ public class MESLogic {
             cell6_1.id = "cell6_1_" + TreatOrder.getOrderID();
 
             temp_quantity = (short) Math.round(Quantity/6);
-            cell0_1.quantity = temp_quantity;
 
             if(Quantity%6 == 0){
                 cell1_1.quantity = temp_quantity;
@@ -849,44 +846,44 @@ public class MESLogic {
                 cell6_1.quantity = temp_quantity;
             }
             else if(Quantity%6 == 1){
-                cell1_1.quantity = (short) (temp_quantity + 1);
+                cell1_1.quantity = temp_quantity;
                 cell2_1.quantity = temp_quantity;
                 cell3_1.quantity = temp_quantity;
                 cell4_1.quantity = temp_quantity;
                 cell5_1.quantity = temp_quantity;
-                cell6_1.quantity = temp_quantity;
+                cell6_1.quantity = (short) (temp_quantity + 1);
             }
             else if(Quantity%6 == 2){
-                cell1_1.quantity = (short) (temp_quantity + 1);
-                cell2_1.quantity = (short) (temp_quantity + 1);
+                cell1_1.quantity = temp_quantity;
+                cell2_1.quantity = temp_quantity;
                 cell3_1.quantity = temp_quantity;
                 cell4_1.quantity = temp_quantity;
-                cell5_1.quantity = temp_quantity;
-                cell6_1.quantity = temp_quantity;
+                cell5_1.quantity = (short) (temp_quantity + 1);
+                cell6_1.quantity = (short) (temp_quantity + 1);
             }
             else if(Quantity%6 == 3){
-                cell1_1.quantity = (short) (temp_quantity + 1);
-                cell2_1.quantity = (short) (temp_quantity + 1);
-                cell3_1.quantity = (short) (temp_quantity + 1);
-                cell4_1.quantity = temp_quantity;
-                cell5_1.quantity = temp_quantity;
-                cell6_1.quantity = temp_quantity;
+                cell1_1.quantity = temp_quantity;
+                cell2_1.quantity = temp_quantity;
+                cell3_1.quantity = temp_quantity;
+                cell4_1.quantity = (short) (temp_quantity + 1);
+                cell5_1.quantity = (short) (temp_quantity + 1);
+                cell6_1.quantity = (short) (temp_quantity + 1);
             }
             else if(Quantity%6 == 4){
-                cell1_1.quantity = (short) (temp_quantity + 1);
-                cell2_1.quantity = (short) (temp_quantity + 1);
+                cell1_1.quantity = temp_quantity;
+                cell2_1.quantity = temp_quantity;
                 cell3_1.quantity = (short) (temp_quantity + 1);
                 cell4_1.quantity = (short) (temp_quantity + 1);
-                cell5_1.quantity = temp_quantity;
-                cell6_1.quantity = temp_quantity;
+                cell5_1.quantity = (short) (temp_quantity + 1);
+                cell6_1.quantity = (short) (temp_quantity + 1);
             }
             else if(Quantity%6 == 5){
-                cell1_1.quantity = (short) (temp_quantity + 1);
+                cell1_1.quantity = temp_quantity;
                 cell2_1.quantity = (short) (temp_quantity + 1);
                 cell3_1.quantity = (short) (temp_quantity + 1);
                 cell4_1.quantity = (short) (temp_quantity + 1);
                 cell5_1.quantity = (short) (temp_quantity + 1);
-                cell6_1.quantity = temp_quantity;
+                cell6_1.quantity = (short) (temp_quantity + 1);
             }
                 
             cell1_1.type = 2;
@@ -906,12 +903,11 @@ public class MESLogic {
             cell1_1.tool2 = 0;
             cell2_1.tool2 = 0;
             cell3_1.tool2 = 0;
-            cell4_1.tool2 = 6;
-            cell5_1.tool2 = 6;
-            cell6_1.tool2 = 6;
+            cell4_1.tool2 = 0;
+            cell5_1.tool2 = 0;
+            cell6_1.tool2 = 0;
 
             cell0_1.id = "cell0_1_" + TreatOrder.getOrderID();
-            Quantity = (short) (cell1_1.quantity + cell2_1.quantity + cell3_1.quantity);
             cell0_1.quantity = Quantity;
             cell0_1.type = 8;
             cell0_1.tool1 = 0;
@@ -949,13 +945,13 @@ public class MESLogic {
             cell5_2.type = 8;
             cell6_2.type = 8;
 
-            cell4_2.tool1 = 0;
-            cell5_2.tool1 = 0;
-            cell6_2.tool1 = 0;
+            cell4_2.tool1 = 5;
+            cell5_2.tool1 = 5;
+            cell6_2.tool1 = 5;
 
-            cell4_2.tool2 = 5;
-            cell5_2.tool2 = 5;
-            cell6_2.tool2 = 5;
+            cell4_2.tool2 = 0;
+            cell5_2.tool2 = 0;
+            cell6_2.tool2 = 0;
 
             break;
 

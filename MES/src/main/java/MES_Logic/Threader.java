@@ -50,9 +50,6 @@ public class Threader {
     public static MillisTimer DayTimer;
     public static MillisTimer SecondsTimer;
 
-    private static OrderList ActiveOrders = new OrderList();
-    private static String[] DaysOccupied = new String[100];
-
 
     public static class DayUpdateRunnable implements Runnable {
        @Override
@@ -67,7 +64,7 @@ public class Threader {
            while (true)
            {
                try {
-                   if (SecondsTimer.getSeconds() > 10.0) { //MUDAR
+                   if (SecondsTimer.getSeconds() > 30.0) {
                        System.out.println("Server Day: "+DayTimer.getDay());
                        SecondsTimer.reset();
                        SecondsTimer.start_nano_seconds();
@@ -86,15 +83,12 @@ public class Threader {
            
             while (true) {
                 try {
+                    
                     ServerSocket serverSocket = null;
                     try {
                         serverSocket = new ServerSocket(9999);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
-                    }
-                    System.out.println("Server started. Listening on port 9999...");
-                    for (int i = 0; i < 100; i++) {
-                        DaysOccupied[i] = "Not Occupied";
                     }
 
                     
@@ -117,7 +111,7 @@ public class Threader {
                     
 
                     // Print the request JSON object
-                    System.out.println("OrderID: " + requestJson.get("OrderID") + "\nPieceType / Quantity :  " + requestJson.get("PieceType") + " / " + requestJson.get("Quantity") + "\nDay to Start / Finish: " + requestJson.get("DateStart") + " / " + requestJson.get("DateEnd") + "\n");
+                    System.out.println("OrderID: " + requestJson.get("orderId") + "\nPieceType / Quantity :  " + requestJson.get("workPiece") + " / " + requestJson.get("quantity") + "\nDay to Start / Finish: " + requestJson.get("startDate") + " / " + requestJson.get("endDate") + "\n");
 
                     // Create a JSON object to store the response data
                     JSONObject responseJson = new JSONObject();
@@ -138,6 +132,7 @@ public class Threader {
                     inputStream.close();
                     outputStream.close();
                     clientSocket.close();
+                    serverSocket.close();
 
                     System.out.println("Criou\n\n\n\n\n");
 
@@ -148,30 +143,21 @@ public class Threader {
                     short DateStart;
                     short DateEnd;
 
-                    OrderID = requestJson.getString("OrderID");
-                    PieceType = requestJson.getString("PieceType");
-                    Quantity = (short) requestJson.getInt("Quantity");
-                    DateStart = (short) requestJson.getInt("DateStart");
-                    DateEnd = (short) requestJson.getInt("DateEnd");
+                    OrderID = requestJson.getString("orderId");
+                    PieceType = requestJson.getString("workPiece");
+                    Quantity = (short) requestJson.getInt("quantity");
+                    DateStart = (short) requestJson.getInt("startDate");
+                    DateEnd = (short) requestJson.getInt("endDate");
 
                     System.out.println("Criou\n\n\n\n\n");
 
                     System.out.println("Starting the Following Order : OrderID: " + OrderID + "\nPieceType: " + PieceType + "\nQuantity: " + Quantity + "\nDateStart: " + DateStart + "\nDateEnd: " + DateEnd);
 
                     Order newOrder = new Order(OrderID, PieceType, Quantity, DateStart, DateEnd);
-
-                    ActiveOrders.addOrder(newOrder);
-                    ActiveOrders.sortlist();
                     
                     System.out.println("Order Accepted.\nStarting Logic Calculation ...\n\n\n");
 
-                    for (int i = DateStart; i <= DateEnd; i++) {
-                        DaysOccupied[i] = OrderID;
-                    }
-                    
-                    for (int i = 0; i < 99; i++) {
-                        System.out.println("Day " + i + " : " + DaysOccupied[i]);
-                    }
+
 
                     MESLogic logic = new MESLogic(newOrder);
                     logic.main();
@@ -180,17 +166,35 @@ public class Threader {
                     plc.start();
 
                     
-
-                    
-
-
-
-
-                    
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
+                
+            /*
+                String OrderID;
+                String PieceType;
+                short Quantity;
+                short DateStart;
+                short DateEnd;
+                OrderID = "TEST1";
+                PieceType = "P9";
+                Quantity = 5;
+                DateStart = 1;
+                DateEnd = 6;
+
+                Order newOrder = new Order(OrderID, PieceType, Quantity, DateStart, DateEnd);
+
+                MESLogic logic = new MESLogic(newOrder);
+                logic.main();
+
+                Thread plc = new Thread(new PLCHandler(newOrder, logic.getCommand(), logic.getUsageOfCell_2()));
+                plc.start();
+            */
+
+
+                
+            
         }  
     }
 
@@ -276,9 +280,10 @@ public class Threader {
                 while(ReceivedOrder.getStartDay() > DayTimer.getDay()){
                     synchronized (this) {
                         System.out.println("Waiting for the right day to start ...\nCurrent Day: " + DayTimer.getDay() + "\nDay to Start: " + ReceivedOrder.getStartDay() + "\n");
-                        this.wait(1000);
+                        this.wait(5000);
                     }
                 }
+                
 
 
                 //Load
@@ -371,7 +376,7 @@ public class Threader {
                         getCell6_finished().equals(new Variant(false)))
                 {
                     synchronized (this) {
-                        this.wait(1000);
+                        this.wait(5000);
                         System.out.println("Waiting for the Cells_1 to finish ...\n");
                     }
                 }
@@ -454,6 +459,20 @@ public class Threader {
 
                 if(usageOfCell_2 == true)
                 {
+                    if(commands[12].tool1 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c1_top_des_tool", new Variant(commands[12].tool1));}
+                    if(commands[12].tool2 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c1_bot_des_tool", new Variant(commands[12].tool2));}
+                    if(commands[13].tool1 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c2_top_des_tool", new Variant(commands[13].tool1));}
+                    if(commands[13].tool2 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c2_bot_des_tool", new Variant(commands[13].tool2));}
+                    if(commands[14].tool1 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c3_top_des_tool", new Variant(commands[14].tool1));}
+                    if(commands[14].tool2 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c3_bot_des_tool", new Variant(commands[14].tool2));}
+                    if(commands[15].tool1 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c4_top_des_tool", new Variant(commands[15].tool1));}
+                    if(commands[15].tool2 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c4_bot_des_tool", new Variant(commands[15].tool2));}
+                    if(commands[16].tool1 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c5_top_des_tool", new Variant(commands[16].tool1));}
+                    if(commands[16].tool2 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c5_bot_des_tool", new Variant(commands[16].tool2));}
+                    if(commands[17].tool1 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c6_top_des_tool", new Variant(commands[17].tool1));}
+                    if(commands[17].tool2 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c6_bot_des_tool", new Variant(commands[17].tool2));}
+                    
+
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell0", new Variant(commands[11].id));
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell1", new Variant(commands[12].id));
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.id_cell2", new Variant(commands[13].id));
@@ -511,7 +530,7 @@ public class Threader {
                             getCell6_finished().equals(new Variant(false)))
                     {
                         synchronized (this) {
-                            this.wait(1000);
+                            this.wait(5000);
                             System.out.println("Waiting for the Cells_2 to finish ...\n");
                         }
                     }
@@ -604,7 +623,7 @@ public class Threader {
                         getUnload4_finished().equals(new Variant(false)))
                 {
                     synchronized (this) {
-                        this.wait(1000);
+                        this.wait(5000);
                         System.out.println("Waiting for the Unloading to finish ...\n");
                     }
                 }
@@ -640,12 +659,15 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload3", new Variant(false));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload4", new Variant(false));
 
-
-
+                //if(DayTimer.getDay() > ReceivedOrder.getEndDay()){
+                //TCPClient finished = new TCPClient(ReceivedOrder.getOrderID(), "Waiting", Integer.toString(DayTimer.getDay()));
+                //finished.main();
+                //}
+                
                 while(DayTimer.getDay() < ReceivedOrder.getEndDay())
                 {
                     synchronized (this) {
-                        this.wait(1000);
+                        this.wait(5000);
                         System.out.println("Waiting for the right day to finish ...\n");
                     }
                 }
@@ -666,11 +688,9 @@ public class Threader {
 
 
                 System.out.println("Finished");
-                ActiveOrders.printList();
-                ActiveOrders.removeOrder(ReceivedOrder);
-                ActiveOrders.printList();
 
-                TCPClient finished = new TCPClient(ReceivedOrder.getOrderID());
+                TCPClient finished2 = new TCPClient(ReceivedOrder.getOrderID(), "Finished", Integer.toString(DayTimer.getDay()));
+                finished2.main();
 
             }
             catch (Exception e) {

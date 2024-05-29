@@ -2,10 +2,10 @@ package MES_Logic;
 
 public class Command 
 {
-    public Boolean comm;
-    public String id;
-    public short quantity;
-    public short type;
-    public short tool1;
-    public short tool2;
+    public Boolean comm = false;
+    public String id = "NULL";
+    public short quantity = 0;;
+    public short type = 0;;
+    public short tool1 = 0;;
+    public short tool2 = 0;
 }
