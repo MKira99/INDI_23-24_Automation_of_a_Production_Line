@@ -1,11 +1,11 @@
-package Others;
+package DataBase;
 
-// Para compilar: javac -cp "postgresql-42.7.3.jar." src/main/java/Others/DatabaseERP.java
+// Para compilar: javac -cp "postgresql-42.7.3.jar." src/main/java/Others/DatabaseMES.java
 
 import java.sql.*;
 
 
-public class DatabaseERP {
+public class DatabaseMES {
 
     static Statement stmt;
     static ResultSet rs;
@@ -16,7 +16,7 @@ public class DatabaseERP {
     static String user = "infind202415";
     //static String password = "DedGdpdjej";
     static String password = "fi3Qo0ilr8";
-    static String ordersactiveTable = "ordersactive";
+    static String orderActiveTable = "orderactive";
     static String ordersfinishedTable = "ordersfinished";
     static String piecesTable = "pieces";
 
@@ -81,6 +81,7 @@ public class DatabaseERP {
         }, 0, 5000); // Retry every 5 seconds
     }*/
 
+
     public static int newEntry(String SQLQuery, String databaseUrl, String user, String password) throws SQLException {
 
         databaseConnection(databaseUrl,user,password);
@@ -100,49 +101,49 @@ public class DatabaseERP {
     }
 
     // Create method insertOrder
-    public static int insertOrder(String orderId, String orderNumber, String nameID, String workPiece, String quantity, String dueDate, String latePenalty, String earlyPenalty) throws SQLException {
-        String SQLQuery = "INSERT INTO ERP." + ordersactiveTable + " (orderid, nameid, ordernumber, workpiece, quantity, duedate, latepen, earlypen, sendedmes) VALUES ('" + orderId + "','" + nameID + "', " + orderNumber + ", '" + workPiece + "', " + quantity + ", " + dueDate + ", " + latePenalty + ", " + earlyPenalty + ", " + false + ");";
+    public static int insertOrder(String orderId, String pieceType, short quantity, short startDay, short endDay) throws SQLException {
+        String SQLQuery = "INSERT INTO MES." + orderActiveTable + " (orderid, piecetype, quantity, startday, endday, processed_1, processed_2, processed_3, processed_4, processed_5) VALUES ('" + orderId + "','" + pieceType + "', " + quantity + ", '" + startDay + "', " + endDay + ", " + false + ", " + false + ", " + false + ", " + false + ", " + false + ");";
         System.out.println(SQLQuery);
         return newEntry(SQLQuery, databaseUrl, user, password);
     }
 
-    public static int insertOrderHistroy(String orderId, String workPiece, int quantity, double ordercost, int startdate, int enddate, int enddatereal) throws SQLException {
-        String SQLQuery = "INSERT INTO ERP." + ordersfinishedTable + " (orderid, workpiece, quantity, ordercost, startdate, enddate, enddatereal) VALUES ('" + orderId + "','" + workPiece + "', " + quantity + ", " + ordercost+ ", " + startdate+ ", " + enddate+ ", " + enddatereal + ");";
-        System.out.println(SQLQuery);
+    public static int insertFlag_1(boolean processed_1) throws SQLException {
+        String SQLQuery = "UPDATE MES." + orderActiveTable + " SET processed_1 = " + processed_1 + ";";
         return newEntry(SQLQuery, databaseUrl, user, password);
     }
 
-    public static int insertChangedData(double orderCost, int startDate, int endDate, String orderId) throws SQLException {
-        String SQLQuery = "UPDATE ERP." + ordersactiveTable + " SET ordercost = " + orderCost + ", startdate = " + startDate + ", enddate = " + endDate + " WHERE orderid = '" + orderId +"';";
-        return newEntry(SQLQuery, databaseUrl, user, password);
-    }
-
-    /*public static int insertOrderCost(double orderCost, int orderNumber) throws SQLException {
-        String SQLQuery = "UPDATE ERP." + ordersactiveTable + " SET ordercost = " + orderCost + " WHERE ordernumber = " + orderNumber + ";";
-        return newEntry(SQLQuery, databaseUrl, user, password);
-    }
-
-    public static int insertFinaltDate(String endDate, int orderNumber) throws SQLException {
-        String SQLQuery = "UPDATE ERP." + ordersactiveTable + " SET enddate = " + endDate + " WHERE ordernumber = " + orderNumber + ";";
+    /*public static int insertFlag_2(boolean processed_2, String orderId) throws SQLException {
+        String SQLQuery = "UPDATE MES." + orderActiveTable + " SET processed_2 = " + processed_2 + " WHERE orderid = '" + orderId +"';";
         return newEntry(SQLQuery, databaseUrl, user, password);
     }*/
 
-    public static int updateSendedMes(String orderId) throws SQLException {
-        String SQLQuery = "UPDATE ERP." + ordersactiveTable + " SET sendedmes = " + true + " WHERE orderid = '" + orderId + "';";
+    public static int insertFlag_2(boolean processed_2) throws SQLException {
+        String SQLQuery = "UPDATE MES." + orderActiveTable + " SET processed_2 = " + processed_2 + ";";
         return newEntry(SQLQuery, databaseUrl, user, password);
     }
 
-    /*public static int insertPiece(String pieceName, String rawPiece, int orderNumber, double rawCost) throws SQLException {
-        String SQLQuery = "INSERT INTO ERP." + piecesTable + " (piecetype, rawpiece, orderid, currenttype, rawcost) VALUES ('" + pieceName + "', '" + rawPiece + "', " + orderNumber + ", '" + rawPiece + "', " + rawCost + ");";
+    public static int insertFlag_3(boolean processed_3) throws SQLException {
+        String SQLQuery = "UPDATE MES." + orderActiveTable + " SET processed_3 = " + processed_3 + ";";
         return newEntry(SQLQuery, databaseUrl, user, password);
-    }*/
+    }
+
+    public static int insertFlag_4(boolean processed_4) throws SQLException {
+        String SQLQuery = "UPDATE MES." + orderActiveTable + " SET processed_4 = " + processed_4 + ";";
+        return newEntry(SQLQuery, databaseUrl, user, password);
+    }
+
+    public static int insertFlag_5(boolean processed_5) throws SQLException {
+        String SQLQuery = "UPDATE MES." + orderActiveTable + " SET processed_5 = " + processed_5 + ";";
+        return newEntry(SQLQuery, databaseUrl, user, password);
+    }
+
 
     public static ResultSet getPieceByOrderNumber(String orderNumber) {
         ResultSet resultSet = null;
         try {
             Connection connection = DriverManager.getConnection(databaseUrl, user, password);
             Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String SQLQuery = "SELECT * FROM ERP.pieces WHERE orderid = '" + orderNumber + "' AND dispatchdate IS NOT NULL;";
+            String SQLQuery = "SELECT * FROM MES.pieces WHERE orderid = '" + orderNumber + "' AND dispatchdate IS NOT NULL;";
             resultSet = statement.executeQuery(SQLQuery);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -157,7 +158,7 @@ public class DatabaseERP {
         try {
             connection = DriverManager.getConnection(databaseUrl, user, password);
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String SQLQuery = "SELECT * FROM ERP.ordersactive;";
+            String SQLQuery = "SELECT * FROM MES.orderactive;";
             resultSet = statement.executeQuery(SQLQuery);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -166,6 +167,22 @@ public class DatabaseERP {
             // Note: Do not close connection and statement here because we need the ResultSet
         }
         return resultSet;
+    }
+
+    public static void truncateTable() throws SQLException {
+        String SQLQuery = "TRUNCATE TABLE MES." + orderActiveTable + " RESTART IDENTITY CASCADE;";
+        try {
+            databaseConnection(databaseUrl, user, password);
+            stmt = connection.createStatement();
+            stmt.executeUpdate(SQLQuery);
+            System.out.println("Table " + orderActiveTable + " has been truncated.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (stmt != null) stmt.close();
+            if (connection != null) connection.close();
+        }
     }
 
     public static int getResultSetSize(ResultSet resultSet) {
@@ -182,7 +199,7 @@ public class DatabaseERP {
 
     public static boolean isTableEmpty() throws SQLException {
         boolean isEmpty = false;
-        String SQLQuery = "SELECT COUNT(*) AS rowcount FROM ERP.ordersactive;";
+        String SQLQuery = "SELECT COUNT(*) AS rowcount FROM MES.orderactive;";
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -221,28 +238,10 @@ public class DatabaseERP {
     public static String getPassword() {
         return password;
     }
-    
-    public static String getOrdersActiveTable() {
-        return ordersactiveTable;
+    public static String getorderActiveTable() {
+        return orderActiveTable;
     }
-    
     public static String getOrdersFinishedTable() {
         return ordersfinishedTable;
-    }
-
-    public static void truncateTable() throws SQLException {
-        String SQLQuery = "TRUNCATE TABLE ERP." + ordersactiveTable + " RESTART IDENTITY CASCADE;";
-        try {
-            databaseConnection(databaseUrl, user, password);
-            stmt = connection.createStatement();
-            stmt.executeUpdate(SQLQuery);
-            System.out.println("Table " + ordersactiveTable + " has been truncated.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
-        } finally {
-            if (stmt != null) stmt.close();
-            if (connection != null) connection.close();
-        }
     }
 }

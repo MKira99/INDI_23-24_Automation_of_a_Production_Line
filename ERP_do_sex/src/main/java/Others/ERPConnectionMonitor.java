@@ -54,7 +54,7 @@ public class ERPConnectionMonitor implements Runnable {
         }
     }
 
-    private void processOrdersAfterReconnection() {
+    public static void processOrdersAfterReconnection() {
         try {
             ResultSet rs = DatabaseERP.getAllOrders();
             while (rs.next()) {

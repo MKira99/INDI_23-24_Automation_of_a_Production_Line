@@ -5,14 +5,19 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 
 import javax.swing.SwingUtilities;
 
 import org.eclipse.milo.opcua.stack.core.types.builtin.Variant;
 import org.json.JSONObject;
 
+import DataBase.DatabaseMES;
+import DataBase.OrderDatabase;
+import DataBase.OrderDatabase.OrderDb;
 import MES_GUI.Screen;
 import OPC.opcua;
+import DataBase.*;
 
 
 public class Threader {
@@ -49,6 +54,7 @@ public class Threader {
 
     public static MillisTimer DayTimer;
     public static MillisTimer SecondsTimer;
+    public static boolean firstTime = true;
 
 
     public static class DayUpdateRunnable implements Runnable {
@@ -83,89 +89,96 @@ public class Threader {
            
             while (true) {
                 try {
-                    
-                    ServerSocket serverSocket = null;
-                    try {
-                        serverSocket = new ServerSocket(9999);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                        ServerSocket serverSocket = null;
+                        try {
+                            serverSocket = new ServerSocket(9999);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
 
-                    
-                    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                        
+                        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
-                    Socket clientSocket = serverSocket.accept();
-                    System.out.println("Client connected: " + clientSocket.getInetAddress().getHostAddress());
+                        Socket clientSocket = serverSocket.accept();
+                        System.out.println("Client connected: " + clientSocket.getInetAddress().getHostAddress());
 
-                    // Create an input stream to receive data from the client
-                    InputStream inputStream = clientSocket.getInputStream();
+                        // Create an input stream to receive data from the client
+                        InputStream inputStream = clientSocket.getInputStream();
 
-                    // Read the request from the client as a byte array
-                    byte[] requestBytes = new byte[1024];
-                    inputStream.read(requestBytes);
+                        // Read the request from the client as a byte array
+                        byte[] requestBytes = new byte[1024];
+                        inputStream.read(requestBytes);
 
-                    // Convert the byte array to a JSON string
-                    String requestString = new String(requestBytes);
-                    // Parse the JSON string as a JSON object
-                    JSONObject requestJson = new JSONObject(requestString);
-                    
+                        // Convert the byte array to a JSON string
+                        String requestString = new String(requestBytes);
+                        // Parse the JSON string as a JSON object
+                        JSONObject requestJson = new JSONObject(requestString);
+                        
 
-                    // Print the request JSON object
-                    System.out.println("OrderID: " + requestJson.get("orderId") + "\nPieceType / Quantity :  " + requestJson.get("workPiece") + " / " + requestJson.get("quantity") + "\nDay to Start / Finish: " + requestJson.get("startDate") + " / " + requestJson.get("endDate") + "\n");
+                        // Print the request JSON object
+                        System.out.println("OrderID: " + requestJson.get("orderId") + "\nPieceType / Quantity :  " + requestJson.get("workPiece") + " / " + requestJson.get("quantity") + "\nDay to Start / Finish: " + requestJson.get("startDate") + " / " + requestJson.get("endDate") + "\n");
 
-                    // Create a JSON object to store the response data
-                    JSONObject responseJson = new JSONObject();
-                    responseJson.put("status", "OK");
-
-
-
-                    // Convert the response JSON object to a JSON string
-                    String responseString = responseJson.toString();
-
-                    // Create an output stream to send data to the client
-                    OutputStream outputStream = clientSocket.getOutputStream();
-
-                    // Send the response string to the client
-                    outputStream.write(responseString.getBytes());
-
-                    // Close the streams and the socket
-                    inputStream.close();
-                    outputStream.close();
-                    clientSocket.close();
-                    serverSocket.close();
-
-                    System.out.println("Criou\n\n\n\n\n");
-
-                    // Parse the request JSON object
-                    String OrderID;
-                    String PieceType;
-                    short Quantity;
-                    short DateStart;
-                    short DateEnd;
-
-                    OrderID = requestJson.getString("orderId");
-                    PieceType = requestJson.getString("workPiece");
-                    Quantity = (short) requestJson.getInt("quantity");
-                    DateStart = (short) requestJson.getInt("startDate");
-                    DateEnd = (short) requestJson.getInt("endDate");
-
-                    System.out.println("Criou\n\n\n\n\n");
-
-                    System.out.println("Starting the Following Order : OrderID: " + OrderID + "\nPieceType: " + PieceType + "\nQuantity: " + Quantity + "\nDateStart: " + DateStart + "\nDateEnd: " + DateEnd);
-
-                    Order newOrder = new Order(OrderID, PieceType, Quantity, DateStart, DateEnd);
-                    
-                    System.out.println("Order Accepted.\nStarting Logic Calculation ...\n\n\n");
+                        // Create a JSON object to store the response data
+                        JSONObject responseJson = new JSONObject();
+                        responseJson.put("status", "OK");
 
 
 
-                    MESLogic logic = new MESLogic(newOrder);
-                    logic.main();
+                        // Convert the response JSON object to a JSON string
+                        String responseString = responseJson.toString();
 
-                    Thread plc = new Thread(new PLCHandler(newOrder, logic.getCommand(), logic.getUsageOfCell_2()));
-                    plc.start();
+                        // Create an output stream to send data to the client
+                        OutputStream outputStream = clientSocket.getOutputStream();
 
-                    
+                        // Send the response string to the client
+                        outputStream.write(responseString.getBytes());
+
+                        // Close the streams and the socket
+                        inputStream.close();
+                        outputStream.close();
+                        clientSocket.close();
+                        serverSocket.close();
+
+                        System.out.println("Criou\n\n\n\n\n");
+
+                        // Parse the request JSON object
+                        String OrderID;
+                        String PieceType;
+                        short Quantity;
+                        short DateStart;
+                        short DateEnd;
+
+                        OrderID = requestJson.getString("orderId");
+                        PieceType = requestJson.getString("workPiece");
+                        Quantity = (short) requestJson.getInt("quantity");
+                        DateStart = (short) requestJson.getInt("startDate");
+                        DateEnd = (short) requestJson.getInt("endDate");
+
+                        System.out.println("Criou\n\n\n\n\n");
+
+                        System.out.println("Starting the Following Order : OrderID: " + OrderID + "\nPieceType: " + PieceType + "\nQuantity: " + Quantity + "\nDateStart: " + DateStart + "\nDateEnd: " + DateEnd);
+
+                        Order newOrder = new Order(OrderID, PieceType, Quantity, DateStart, DateEnd);
+
+                        try {
+                            System.out.println("Inserting order into database: " + newOrder);
+                            DatabaseMES.insertOrder(newOrder.getOrderID(), newOrder.getPieceType(), newOrder.getQuantity(), newOrder.getStartDay(), newOrder.getEndDay());
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            continue; // Skip this iteration if the connection fails
+                        }
+                        
+                        System.out.println("Order Accepted.\nStarting Logic Calculation ...\n\n\n");
+
+
+
+                        MESLogic logic = new MESLogic(newOrder);
+                        logic.main();
+
+                        MESConnectionMonitor.processOrdersAfterReconnection();
+
+                        Thread plc = new Thread(new PLCHandler(newOrder, logic.getCommand(), logic.getUsageOfCell_2()));
+                        plc.start();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -246,6 +259,7 @@ public class Threader {
         private Order ReceivedOrder;
         private Command[] commands;
         boolean usageOfCell_2 = false;
+        boolean processed_1 = false, processed_2 = false, processed_3 = false, processed_4 = false, processed_5 = false;
     
         // Constructor to initialize the Order
         
@@ -277,6 +291,15 @@ public class Threader {
                 if(commands[10].tool2 != 0){opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.mach_c6_bot_des_tool", new Variant(commands[10].tool2));}
 
                 int count=0;
+
+                processed_1=true;
+                try {
+                    System.out.println("Inserting flag of PLC changing tools");
+                    DatabaseMES.insertFlag_1(processed_1);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
                 while(ReceivedOrder.getStartDay() > DayTimer.getDay()){
                     synchronized (this) {
                         count++;
@@ -314,6 +337,10 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_load2", new Variant(commands[1].tool2));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_load3", new Variant(commands[2].tool2));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_load4", new Variant(commands[3].tool2));
+
+                synchronized (this) {
+                    this.wait(1000);
+                }
 
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load1", new Variant(true));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load2", new Variant(true));
@@ -361,6 +388,10 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell5", new Variant(commands[9].tool2));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell6", new Variant(commands[10].tool2));
 
+                synchronized (this) {
+                    this.wait(1000);
+                }
+
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell0", new Variant(true));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell1", new Variant(true));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell2", new Variant(true));
@@ -369,6 +400,14 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell5", new Variant(true));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell6", new Variant(true));
 
+
+                processed_2=true;
+                try {
+                    System.out.println("Inserting flag concerning the load and the cells");
+                    DatabaseMES.insertFlag_2(processed_2);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
 
                 while(getCell0_finished().equals(new Variant(false)) ||
                         getCell1_finished().equals(new Variant(false)) ||
@@ -444,7 +483,6 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell5", new Variant(0));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell6", new Variant(0));
                 
-
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load1", new Variant(false));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load2", new Variant(false));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_load3", new Variant(false));
@@ -516,6 +554,10 @@ public class Threader {
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell5", new Variant(commands[16].tool2));
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_cell6", new Variant(commands[17].tool2));
 
+                    synchronized (this) {
+                        this.wait(1000);
+                    }
+
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell0", new Variant(true));
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell1", new Variant(true));
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell2", new Variant(true));
@@ -523,6 +565,14 @@ public class Threader {
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell4", new Variant(true));
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell5", new Variant(true));
                     opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_cell6", new Variant(true));
+
+                    processed_3=true;
+                    try {
+                        System.out.println("Inserting flag concerning the general working of the PLC");
+                        DatabaseMES.insertFlag_3(processed_3);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
 
                     while(getCell0_finished().equals(new Variant(false)) ||
                             getCell1_finished().equals(new Variant(false)) ||
@@ -615,10 +665,22 @@ public class Threader {
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_unload3", new Variant(commands[20].tool2));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.tool2_unload4", new Variant(commands[21].tool2));
 
+                synchronized (this) {
+                    this.wait(1000);
+                }
+
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload1", new Variant(true));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload2", new Variant(true));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload3", new Variant(true));
                 opcua.write("|var|CODESYS Control Win V3 x64.Application.MAIN_SM.comm_unload4", new Variant(true));
+
+                processed_4=true;
+                try {
+                    System.out.println("Inserting flag concerning the unload");
+                    DatabaseMES.insertFlag_4(processed_4);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
 
                 while(getUnload1_finished().equals(new Variant(false)) ||
                         getUnload2_finished().equals(new Variant(false)) ||
@@ -666,6 +728,14 @@ public class Threader {
                 //TCPClient finished = new TCPClient(ReceivedOrder.getOrderID(), "Waiting", Integer.toString(DayTimer.getDay()));
                 //finished.main();
                 //}
+
+                processed_5=true;
+                try {
+                    System.out.println("Inserting flag concerning the end of the order");
+                    DatabaseMES.insertFlag_5(processed_5);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 
                 while(DayTimer.getDay() < ReceivedOrder.getEndDay())
                 {
@@ -691,6 +761,13 @@ public class Threader {
 
 
                 System.out.println("Finished");
+
+                try{
+                    System.out.println("Clearing the database");
+                    DatabaseMES.truncateTable();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
 
                 TCPClient finished2 = new TCPClient(ReceivedOrder.getOrderID(), "Finished", Integer.toString(DayTimer.getDay()));
                 finished2.main();

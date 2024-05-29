@@ -24,6 +24,7 @@ import Others.OrderDatabase.OrderDb;
 import Others.OrderDatabase.OrderSystemDb;
 
 public class Threader {
+
     public static List<DataOrder.Order> allOrders = new ArrayList<>();
     public static List<DataOrder.OrderResult> processedOrders = new ArrayList<>(); // Lista para manter todas as ordens processadas
     public static int[] currentDay = {5}; // Todas as ordens só podem começar a partir do dia 5
@@ -54,7 +55,7 @@ public class Threader {
     
                 while (true) {
                     try{
-                        if((DatabaseERP.isTableEmpty()) || (!DatabaseERP.isTableEmpty() && firstTime==false)){
+                        if((DatabaseERP.isTableEmpty()) || (!DatabaseERP.isTableEmpty() && firstTime==false)){ //WORKS
                             DatagramSocket socket = new DatagramSocket(port);
                             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                             boolean send2mes = allOrders.isEmpty();
@@ -91,13 +92,14 @@ public class Threader {
                             // Processa as ordens uma a uma
                             // Notify listeners about new orders
                             if(send2mes == true){
-                                DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);                       
+                                DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
                             }
                             // Imprime as ordens processadas e as que ainda não foram processadas
                             DataOrder.printOrderStatus(allOrders, processedOrders);
                         }
                         else{
                             System.out.println("INNNNN\n\n");
+                            ERPConnectionMonitor.processOrdersAfterReconnection();
                             ArrayList<OrderDb> orders = (ArrayList<OrderDb>) OrderSystemDb.getAllOrders();
                             for (OrderDb order : orders) {
                                 System.out.println("ORDERSDB" + order);
@@ -109,6 +111,7 @@ public class Threader {
                             }
                             // Se não chegou a atualizar os novos dados na base de dados
                             if(dbIncomplete){
+                                
                                 boolean send2mes = allOrders.isEmpty();
 
 
@@ -141,35 +144,22 @@ public class Threader {
                                     if(order.orderCost!=null && order.startDate!=null && order.endDate!=null && !order.sendedMes){
                                         orderNormalDb= new Order(order.orderNumber, order.clientName, order.workpiece, order.quantity, order.dueDate, order.latePen, order.earlyPen);
                                         ordersDbList.add(orderNormalDb);
-
-                                        //JSONObject response = order.toJSONDb();
-                                        // Envia o JSON para o MES
-                                        // TCPClient.main(response);
-
-                                        // Update sendedMes variable in database
-                                        try {
-                                            System.out.println("Setting sendedMes variable true for order: " + order.orderId);
-                                            DatabaseERP.updateSendedMes(order.orderId);
-                                        } catch (SQLException e) {
-                                            e.printStackTrace();
-                                        }
-                                        
                                     }
                                 }
-                                allOrders.addAll(ordersDbList); // Adiciona novas ordens à lista de todas as ordens
-                                
-                                // Notify listeners about new orders
+                                allOrders.addAll(ordersDbList); // Adiciona novas ordens à lista de todas as ordens.
+                                boolean send2mes = allOrders.isEmpty();
+
                                 notifyListeners(allOrders);
+                                DataOrder.printOrderStatus(allOrders, processedOrders);
+                                
+                                
+                                if (send2mes) {
+                                    DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
+                                }
+                                
                             }
 
                         }
-                        /*if(!DatabaseERP.isTableEmpty() && (dbIncomplete || dbNotSended || firstTime)){
-                            firstTime=true;
-                        }
-                        else{
-                            firstTime=false;
-                            dbIncomplete=false;
-                        }*/
                         firstTime=false;
                         receiveData = new byte[65535];
                     }catch (SQLException e) {
@@ -355,6 +345,15 @@ public class Threader {
                         System.out.println("Order processed successfully!");
                         DataOrder.printOrderStatus(allOrders, processedOrders);
 
+                        OrderResult orderResult = processedOrders.getFirst();
+                        try {
+                            DatabaseERP.insertOrderHistroy(orderResult.orderId, orderResult.workPiece, orderResult.quantity, orderResult.cost, orderResult.startDate, orderResult.endDate, requestJson.getInt("Time"));
+                            processedOrders.removeFirst();
+                            System.out.println("Order processed successfully!");
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
                         // Process the next order
                         currentDay[0] = requestJson.getInt("Time");
                         DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
@@ -362,6 +361,8 @@ public class Threader {
 
                         // Imprime as ordens processadas e as que ainda não foram processadas
                         DataOrder.printOrderStatus(allOrders, processedOrders);
+                        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                        UDPServer.notifyListeners(allOrders);
                     }
 
                     // Close the streams and the client socket

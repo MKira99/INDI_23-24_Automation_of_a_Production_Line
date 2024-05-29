@@ -1,8 +1,8 @@
 {
-    "quantity": 2,
-    "cost": 123,
+    "quantity": 5,
+    "cost": 112.5,
     "orderId": "ClientAA_14",
     "endDate": 6,
-    "workPiece": "P4",
+    "workPiece": "P8",
     "startDate": 5
 }
