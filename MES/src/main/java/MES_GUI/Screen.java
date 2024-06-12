@@ -101,7 +101,7 @@ public class Screen extends JFrame {
             }
         });
         
-        JButton button3 = new JButton("Machines Statistics");
+        /*JButton button3 = new JButton("Machines Statistics");
         button3.setFont(new Font("Arial", Font.PLAIN, 24));  // Increased font size
         button3.setMaximumSize(new Dimension(300, 80));  // Set a larger size
         button3.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -127,7 +127,7 @@ public class Screen extends JFrame {
                 // Action to perform when button 4 is clicked
                 unloadedWorkPieces();
             }
-        });
+        });*/
         
         // Add spacing around the buttons
         panel.add(Box.createRigidArea(new Dimension(0, 40))); // space above title
@@ -136,10 +136,10 @@ public class Screen extends JFrame {
         panel.add(button1);
         panel.add(Box.createRigidArea(new Dimension(0, 20))); // space between buttons
         panel.add(button2);
-        panel.add(Box.createRigidArea(new Dimension(0, 20))); // space between buttons
+        /*panel.add(Box.createRigidArea(new Dimension(0, 20))); // space between buttons
         panel.add(button3);
         panel.add(Box.createRigidArea(new Dimension(0, 20))); // space between buttons
-        panel.add(button4);
+        panel.add(button4);*/
         
         // Add panel to frame
         frame.add(panel, BorderLayout.CENTER);
@@ -150,7 +150,7 @@ public class Screen extends JFrame {
     }
     
     // Method to show the frame for "Current Orders"
-    private static void showOrdersFrame() {
+    private void showOrdersFrame() {
         JFrame ordersFrame = new JFrame("Current Orders");
         ordersFrame.setSize(600, 400);
         ordersFrame.setLocationRelativeTo(null); // Center the new frame
@@ -203,11 +203,10 @@ public class Screen extends JFrame {
     }
     
     // Method to show the frame for "Orders Status"
-    private static void showOrdersStatusFrame() {
+    private void showOrdersStatusFrame() {
         JFrame statusFrame = new JFrame("Orders Status");
         statusFrame.setSize(600, 400);
         statusFrame.setLocationRelativeTo(null); // Center the new frame
-        statusFrame.setVisible(true);
         // Define the data with time required
         HistoryOrders.sortlist();
         OldOrder = HistoryOrders.getListOrder();
@@ -256,7 +255,7 @@ public class Screen extends JFrame {
     }
 
     // Method to create a new frame
-    private static void machinesStatistics() {
+    /*private static void machinesStatistics() {
         JFrame statusFrame = new JFrame("Machine Statistics");
         statusFrame.setSize(400, 300);
         statusFrame.setLocationRelativeTo(null); // Center the new frame
@@ -350,7 +349,8 @@ public class Screen extends JFrame {
         // Make the frame visible
         statusFrame.setVisible(true);
     }
-
+    */
+    
     public static void updateActiveOrder(OrderList arg){
         showOrders = arg;
     }

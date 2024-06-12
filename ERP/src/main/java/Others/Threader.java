@@ -46,7 +46,9 @@ public class Threader {
             try {
                 int port = 24680;
                 Order orderNormalDb;
+                OrderResult orderResultDb;
                 List<DataOrder.Order> ordersDbList = new ArrayList<>();
+                List<DataOrder.OrderResult> otherorderDbList = new ArrayList<>();
                 rawMaterialCosts.put("P1", 30.0);
                 rawMaterialCosts.put("P2", 10.0);
                 
@@ -58,7 +60,6 @@ public class Threader {
                         if((DatabaseERP.isTableEmpty()) || (!DatabaseERP.isTableEmpty() && firstTime==false)){ //WORKS
                             DatagramSocket socket = new DatagramSocket(port);
                             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-                            boolean send2mes = allOrders.isEmpty();
             
                             System.out.println("Waiting for the packet...");
                             socket.receive(receivePacket);
@@ -91,9 +92,7 @@ public class Threader {
 
                             // Processa as ordens uma a uma
                             // Notify listeners about new orders
-                            if(send2mes == true){
-                                DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
-                            }
+                            DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
                             // Imprime as ordens processadas e as que ainda não foram processadas
                             DataOrder.printOrderStatus(allOrders, processedOrders);
                         }
@@ -101,6 +100,7 @@ public class Threader {
                             System.out.println("INNNNN\n\n");
                             ERPConnectionMonitor.processOrdersAfterReconnection();
                             ArrayList<OrderDb> orders = (ArrayList<OrderDb>) OrderSystemDb.getAllOrders();
+                            
                             for (OrderDb order : orders) {
                                 System.out.println("ORDERSDB" + order);
                                 if(order.orderCost==null || order.startDate==null || order.endDate==null){
@@ -108,14 +108,19 @@ public class Threader {
                                     orderNormalDb= new Order(order.orderNumber, order.clientName, order.workpiece, order.quantity, order.dueDate, order.latePen, order.earlyPen);
                                     ordersDbList.add(orderNormalDb);
                                 }
+                                else
+                                {
+                                    orderResultDb= new OrderResult(order.orderId, order.workpiece, Integer.parseInt(order.quantity), Integer.parseInt(order.startDate), Integer.parseInt(order.endDate), Double.parseDouble(order.orderCost));
+                                    otherorderDbList.add(orderResultDb);
+                                    System.out.println("\n\n\n\n\n\n\nORDERRESULTDB : " + orderResultDb + "\n\n\n\n\n\n\n");
+                                }
                             }
                             // Se não chegou a atualizar os novos dados na base de dados
                             if(dbIncomplete){
-                                
-                                boolean send2mes = allOrders.isEmpty();
 
 
                                 allOrders.addAll(ordersDbList); // Adiciona novas ordens à lista de todas as ordens
+                                processedOrders.addAll(otherorderDbList); // Adiciona novas ordens à lista de todas as ordens    
 
                                 receivedOrders.addAll(ordersDbList);
 
@@ -129,10 +134,6 @@ public class Threader {
                                     // Notify listeners about new orders
                                 notifyListeners(allOrders);
                                 DataOrder.printOrderStatus(allOrders, processedOrders);
-
-                                if (send2mes) {
-                                    DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
-                                }
                                 
                                 System.out.println("Finishedddd\n\n");
 
@@ -153,9 +154,11 @@ public class Threader {
                                 DataOrder.printOrderStatus(allOrders, processedOrders);
                                 
                                 
+                                /*
                                 if (send2mes) {
                                     DataOrder.processNextOrder(allOrders, processedOrders, currentDay, rawMaterialCosts);
                                 }
+                                */
                                 
                             }
 

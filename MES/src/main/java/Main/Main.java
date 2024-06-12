@@ -6,6 +6,9 @@ import OPC.opcua;
 public class Main extends Thread {
 
     public static void main(String[] args) throws Exception {
+
+        DeleteDB.main(args);
+        
         opcua.connect("opc.tcp://LAPTOP-2VCQGOJI:4840");
 
         Thread VarPLC = new Thread(new Threader.VariablesReadRunnable());
@@ -17,5 +20,6 @@ public class Main extends Thread {
         DayUpdate.start();
         AcceptOrderERP.start();
         GUIMES.start();
+        
     }
 }

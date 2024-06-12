@@ -4,45 +4,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public  class OrderList {
+public class OrderList {
 
-    private static List<Order> listOrder = new ArrayList<>();
-    private static int size=0;
+    private List<Order> listOrder = new ArrayList<>();
+    private int size=0;
 
-    public static List<Order> getListOrder()
+    public List<Order> getListOrder()
     {
 
         return listOrder;
 
     }
-    public static void addOrder(Order ordem)
+    public void addOrder(Order ordem)
     {
 
         listOrder.add(ordem);
         size=size+1;
 
     }
-    public static void removeOrder(Order ordem)
+    public void removeOrder(Order ordem)
     {
 
         listOrder.remove(ordem);
         size=size-1;
 
     }
-    public static void sortlist()
+    public void sortlist()
     {
 
         listOrder.sort((o1, o2) -> Integer.compare(o1.getStartDay(), o2.getStartDay()));
 
     }
-    public static void clearList()
+    public void clearList()
     {
 
         listOrder.clear();
         size=0;
 
     }
-    public static void printList()
+    public void printList()
     {
 
         for (Order order : listOrder) {
@@ -50,7 +50,7 @@ public  class OrderList {
         }
 
     }
-    public static int size()
+    public int size()
     {
         return size;
     }

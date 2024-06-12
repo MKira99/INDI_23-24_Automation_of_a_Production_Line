@@ -4,49 +4,49 @@ import java.lang.Math;
 
 public class MESLogic {
 
-    public static int mach_c1_top_des_tool;
-    public static int mach_c1_bot_des_tool;
-    public static int mach_c2_top_des_tool;
-    public static int mach_c2_bot_des_tool;
-    public static int mach_c3_top_des_tool;
-    public static int mach_c3_bot_des_tool;
+    public int mach_c1_top_des_tool;
+    public int mach_c1_bot_des_tool;
+    public int mach_c2_top_des_tool;
+    public int mach_c2_bot_des_tool;
+    public int mach_c3_top_des_tool;
+    public int mach_c3_bot_des_tool;
 
-    public static Command load1 = new Command();
-    public static Command load2 = new Command();
-    public static Command load3 = new Command();
-    public static Command load4 = new Command();
+    public Command load1 = new Command();
+    public Command load2 = new Command();
+    public Command load3 = new Command();
+    public Command load4 = new Command();
 
 
-    public static Command cell0_1 = new Command();
-    public static Command cell1_1 = new Command();
-    public static Command cell2_1 = new Command();
-    public static Command cell3_1 = new Command();
-    public static Command cell4_1 = new Command();
-    public static Command cell5_1 = new Command();
-    public static Command cell6_1 = new Command();
+    public Command cell0_1 = new Command();
+    public Command cell1_1 = new Command();
+    public Command cell2_1 = new Command();
+    public Command cell3_1 = new Command();
+    public Command cell4_1 = new Command();
+    public Command cell5_1 = new Command();
+    public Command cell6_1 = new Command();
 
-    public static Command cell0_2 = new Command();
-    public static Command cell1_2 = new Command();
-    public static Command cell2_2 = new Command();
-    public static Command cell3_2 = new Command();
-    public static Command cell4_2 = new Command();
-    public static Command cell5_2 = new Command();
-    public static Command cell6_2 = new Command();
+    public Command cell0_2 = new Command();
+    public Command cell1_2 = new Command();
+    public Command cell2_2 = new Command();
+    public Command cell3_2 = new Command();
+    public Command cell4_2 = new Command();
+    public Command cell5_2 = new Command();
+    public Command cell6_2 = new Command();
 
-    public static Command unload1 = new Command();
-    public static Command unload2 = new Command();
-    public static Command unload3 = new Command();
-    public static Command unload4 = new Command();
+    public Command unload1 = new Command();
+    public Command unload2 = new Command();
+    public Command unload3 = new Command();
+    public Command unload4 = new Command();
 
-    public static boolean usageOfCell_2 = false;
+    public boolean usageOfCell_2 = false;
 
-    public static Order TreatOrder;
+    public Order TreatOrder;
 
     public MESLogic(Order newOrder) {
         TreatOrder = newOrder;
     }
 
-    public static void main() {
+    public void main() {
 
         String PieceType = TreatOrder.getPieceType();
         short Quantity = TreatOrder.getQuantity();
@@ -953,7 +953,7 @@ public class MESLogic {
         
     }
 
-    public static Command[] getCommand() {
+    public Command[] getCommand() {
         
         Command[] commands = new Command[22];
         commands[0] = load1;
@@ -982,7 +982,7 @@ public class MESLogic {
         return commands;
     }
 
-    public static int[] getMachDesTool() {
+    public int[] getMachDesTool() {
         int[] machDesTool = new int[6];
         machDesTool[0] = mach_c1_top_des_tool;
         machDesTool[1] = mach_c1_bot_des_tool;
@@ -994,7 +994,7 @@ public class MESLogic {
         return machDesTool;
     }
 
-    public static short inttype(String input) {
+    public short inttype(String input) {
         // Remove non-numeric characters
         String numericPart = input.replaceAll("[^0-9]", "");
     
@@ -1004,7 +1004,7 @@ public class MESLogic {
         return number;
     }    
 
-    public static boolean getUsageOfCell_2() {
+    public boolean getUsageOfCell_2() {
         return usageOfCell_2;
     }
 }

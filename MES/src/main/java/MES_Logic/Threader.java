@@ -54,6 +54,9 @@ public class Threader {
     public static MillisTimer SecondsTimer;
     public static boolean firstTime = true;
 
+    public static OrderList orderList;
+    public static OrderList orderHistory;
+
 
     public static class DayUpdateRunnable implements Runnable {
        @Override
@@ -170,9 +173,16 @@ public class Threader {
                         
                         System.out.println("Order Accepted.\nStarting Logic Calculation ...\n\n\n");
 
-                        OrderList orderList = new OrderList();
+
+
+
+
+                        orderList = new OrderList();
+                        orderHistory = new OrderList();
                         orderList.addOrder(newOrder);
                         Screen.updateActiveOrder(orderList);
+                        orderHistory.addOrder(newOrder);
+                        Screen.updateOldOrder(orderHistory);
                         MESLogic logic = new MESLogic(newOrder);
                         logic.main();
 
@@ -187,9 +197,12 @@ public class Threader {
                         Order newOrder = new Order(order.getOrderId(), order.getPieceType(), Short.parseShort(order.getQuantity()), Short.parseShort(order.getStartDay()), Short.parseShort(order.getEndDay()));
                         System.out.println("Order From DataBase Accepted.\nStarting Logic Calculation ...\n\n\n");
 
-                        OrderList orderList = new OrderList();
+                        orderList = new OrderList();
+                        orderHistory = new OrderList();
                         orderList.addOrder(newOrder);
                         Screen.updateActiveOrder(orderList);
+                        orderHistory.addOrder(newOrder);
+                        Screen.updateOldOrder(orderHistory);
                         MESLogic logic = new MESLogic(newOrder);
                         logic.main();
                         Thread plc = new Thread(new PLCHandler(newOrder, logic.getCommand(), logic.getUsageOfCell_2()));
@@ -809,6 +822,8 @@ public class Threader {
 
 
                 System.out.println("Finished");
+                orderList.removeOrder(ReceivedOrder);
+                Screen.updateActiveOrder(orderList);
 
                 try{
                     System.out.println("Clearing the database");

@@ -71,7 +71,7 @@ public class ERPConnectionMonitor implements Runnable {
                 Boolean sendedMes = rs.getBoolean("sendedmes");
 
                 // Processar a ordem (exemplo, adicionar ao sistema de ordens)
-                if(sendedMes==false){
+                if(sendedMes==false || sendedMes==true){
                     OrderDb order = new OrderDb(nameID, orderNumber, workPiece, quantity, dueDate, latePenalty, earlyPenalty, orderCost, startDate, endDate, sendedMes);
                     OrderSystemDb.addOrderDb(order);
                 }
