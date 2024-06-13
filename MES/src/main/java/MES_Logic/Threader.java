@@ -183,6 +183,8 @@ public class Threader {
                         Screen.updateActiveOrder(orderList);
                         orderHistory.addOrder(newOrder);
                         Screen.updateOldOrder(orderHistory);
+                        orderHistory.addOrder(newOrder);
+                        Screen.updateOldOrder(orderHistory);
                         MESLogic logic = new MESLogic(newOrder);
                         logic.main();
 
@@ -199,8 +201,12 @@ public class Threader {
 
                         orderList = new OrderList();
                         orderHistory = new OrderList();
+                        orderList = new OrderList();
+                        orderHistory = new OrderList();
                         orderList.addOrder(newOrder);
                         Screen.updateActiveOrder(orderList);
+                        orderHistory.addOrder(newOrder);
+                        Screen.updateOldOrder(orderHistory);
                         orderHistory.addOrder(newOrder);
                         Screen.updateOldOrder(orderHistory);
                         MESLogic logic = new MESLogic(newOrder);
